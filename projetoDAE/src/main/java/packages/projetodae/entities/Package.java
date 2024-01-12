@@ -1,3 +1,7 @@
+package packages.projetodae.entities;
+
+import jakarta.persistence.Id;
+
 public class Package {
     @Id
     private int id;
