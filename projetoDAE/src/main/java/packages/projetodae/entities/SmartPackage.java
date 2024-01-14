@@ -2,7 +2,7 @@ package packages.projetodae.entities;
 
 import jakarta.persistence.Id;
 
-public class Package {
+public class SmartPackage {
     @Id
     private int id;
     private String type;
@@ -11,7 +11,7 @@ public class Package {
     private String function;
 
     // Construtor vazio
-    public Package() {
+    public SmartPackage() {
         // Inicializa todos os campos como vazios
         this.id = 0;
         this.type = "";
@@ -20,7 +20,7 @@ public class Package {
         this.function = "";
     }
 
-    public Package(int id, String type, String material, String product, String function) {
+    public SmartPackage(int id, String type, String material, String product, String function) {
         this.id = id;
         this.type = type;
         this.material = material;

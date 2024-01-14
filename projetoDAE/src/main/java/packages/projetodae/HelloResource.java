@@ -1,4 +1,4 @@
-package embalagens.projetodae;
+package packages.projetodae;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

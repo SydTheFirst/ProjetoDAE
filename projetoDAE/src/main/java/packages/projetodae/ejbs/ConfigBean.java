@@ -7,10 +7,10 @@ import jakarta.ejb.Startup;
 @Singleton
 public class ConfigBean {
     @EJB
-    private PackageBean packageBean;
+    private SmartPackageBean smartPackageBean;
     @PostConstruct
     public void populateDB() {
         // . . .
-        packageBean.create();
+        smartPackageBean.create();
     }
 }
