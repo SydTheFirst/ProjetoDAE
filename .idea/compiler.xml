@@ -9,8 +9,5 @@
         <module name="projetoDAE" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="projetoDAE" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>
