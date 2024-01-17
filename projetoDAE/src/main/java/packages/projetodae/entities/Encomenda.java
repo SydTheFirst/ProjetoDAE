@@ -1,8 +1,12 @@
 package packages.projetodae.entities;
 
+import jakarta.persistence.Id;
+
 import java.util.LinkedList;
 
 public class Encomenda {
+    @Id
+    private int id;
     private ConsumidorFinal consumidorFinal;
     private String morada;
     private OperadorDeLogistica operadorDeLogistica;
