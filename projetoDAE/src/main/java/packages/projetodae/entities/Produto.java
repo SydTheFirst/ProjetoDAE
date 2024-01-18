@@ -2,45 +2,52 @@ package packages.projetodae.entities;
 
 import jakarta.persistence.Id;
 
-import java.util.LinkedList;
-
 public class Produto {
     @Id
     private int id;
     private String nome;
-    private String fabricante;
-    private LinkedList<Sensores> infoDoProduto;
+    private int fabricanteId;
+    private int SensorId;
 
     // Construtor
-    public Produto(String nome, String fabricante, LinkedList<Sensores> infoDoProduto) {
+    public Produto(int id, String nome, int fabricanteId, int infoDoProdutoId) {
+        this.id = id;
         this.nome = nome;
-        this.fabricante = fabricante;
-        this.infoDoProduto = infoDoProduto;
+        this.fabricanteId = fabricanteId;
+        this.SensorId = infoDoProdutoId;
     }
 
-    // Getters
+    // Getters e Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
 
-    public String getFabricante() {
-        return fabricante;
-    }
-
-    public LinkedList<Sensores> getInfoDoProduto() {
-        return infoDoProduto;
-    }
-
-    // Setters
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
+    public int getFabricanteId() {
+        return fabricanteId;
     }
 
-    public void setInfoDoProduto(LinkedList<Sensores> infoDoProduto) {
-        this.infoDoProduto = infoDoProduto;
+    public void setFabricanteId(int fabricanteId) {
+        this.fabricanteId = fabricanteId;
+    }
+
+    public int getSensorId() {
+        return SensorId;
+    }
+
+    public void setSensorId(int sensorId) {
+        this.SensorId = sensorId;
     }
 }

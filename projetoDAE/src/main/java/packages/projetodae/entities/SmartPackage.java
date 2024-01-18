@@ -5,30 +5,25 @@ import jakarta.persistence.Id;
 public class SmartPackage {
     @Id
     private int id;
-    private String type;
-    private String material;
-    private String product;
-    private String function;
+    private int embalagemPaiId;
+    private int encomendaId;
+    private int nivel;
+    private int produtoId;
 
     // Construtor vazio
     public SmartPackage() {
-        // Inicializa todos os campos como vazios
-        this.id = 0;
-        this.type = "";
-        this.material = "";
-        this.product = "";
-        this.function = "";
     }
 
-    public SmartPackage(int id, String type, String material, String product, String function) {
+    public SmartPackage(int id, int embalagemPaiId, int encomendaId, int nivel, int produtoId) {
         this.id = id;
-        this.type = type;
-        this.material = material;
-        this.product = product;
-        this.function = function;
+        this.embalagemPaiId = embalagemPaiId;
+        this.encomendaId = encomendaId;
+        this.nivel = nivel;
+        this.produtoId = produtoId;
     }
 
-    // Getters e Setters para o campo 'id'
+    // Getters e Setters
+
     public int getId() {
         return id;
     }
@@ -37,39 +32,35 @@ public class SmartPackage {
         this.id = id;
     }
 
-    // Getters e Setters para o campo 'type'
-    public String getType() {
-        return type;
+    public int getEmbalagemPaiId() {
+        return embalagemPaiId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setEmbalagemPaiId(int embalagemPaiId) {
+        this.embalagemPaiId = embalagemPaiId;
     }
 
-    // Getters e Setters para o campo 'material'
-    public String getMaterial() {
-        return material;
+    public int getEncomendaId() {
+        return encomendaId;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
+    public void setEncomendaId(int encomendaId) {
+        this.encomendaId = encomendaId;
     }
 
-    // Getters e Setters para o campo 'product'
-    public String getProduct() {
-        return product;
+    public int getNivel() {
+        return nivel;
     }
 
-    public void setProduct(String product) {
-        this.product = product;
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 
-    // Getters e Setters para o campo 'function'
-    public String getFunction() {
-        return function;
+    public int getProdutoId() {
+        return produtoId;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public void setProdutoId(int produtoId) {
+        this.produtoId = produtoId;
     }
 }

@@ -7,57 +7,64 @@ import java.util.LinkedList;
 public class Encomenda {
     @Id
     private int id;
-    private ConsumidorFinal consumidorFinal;
+    private int consumidorFinalId;
     private String morada;
-    private OperadorDeLogistica operadorDeLogistica;
-    private LinkedList<Produto> produtos;
+    private int operadorDeLogisticaId;
+    private LinkedList<Integer> embalagens;
 
     // Construtor
-    public Encomenda(ConsumidorFinal consumidorFinal, String morada, OperadorDeLogistica operadorDeLogistica, LinkedList<Produto> produtos) {
-        this.consumidorFinal = consumidorFinal;
+
+
+    public Encomenda(int id, int consumidorFinalId, String morada, int operadorDeLogisticaId) {
+        this.id = id;
+        this.consumidorFinalId = consumidorFinalId;
         this.morada = morada;
-        this.operadorDeLogistica = operadorDeLogistica;
-        this.produtos = produtos;
+        this.operadorDeLogisticaId = operadorDeLogisticaId;
+        this.embalagens = new LinkedList<>();
     }
 
     // Outros métodos
-    public void addProduto(Produto produto) {
-        this.produtos.add(produto);
+    public void addEmbalagem(Integer embalagemId) {
+        this.embalagens.add(embalagemId);
     }
 
     //Getters e Setter
 
     // Getters
-    public ConsumidorFinal getConsumidorFinal() {
-        return consumidorFinal;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getConsumidorFinalId() {
+        return consumidorFinalId;
+    }
+
+    public void setConsumidorFinalId(int consumidorFinalId) {
+        this.consumidorFinalId = consumidorFinalId;
     }
 
     public String getMorada() {
         return morada;
     }
 
-    public OperadorDeLogistica getOperadorDeLogistica() {
-        return operadorDeLogistica;
-    }
-
-    public LinkedList<Produto> getProdutos() {
-        return produtos;
-    }
-
-    // Setters
-    public void setConsumidorFinal(ConsumidorFinal consumidorFinal) {
-        this.consumidorFinal = consumidorFinal;
-    }
-
     public void setMorada(String morada) {
         this.morada = morada;
     }
 
-    public void setOperadorDeLogistica(OperadorDeLogistica operadorDeLogistica) {
-        this.operadorDeLogistica = operadorDeLogistica;
+    public int getOperadorDeLogisticaId() {
+        return operadorDeLogisticaId;
     }
 
-    public void setProdutos(LinkedList<Produto> produtos) {
-        this.produtos = produtos;
+    public void setOperadorDeLogisticaId(int operadorDeLogisticaId) {
+        this.operadorDeLogisticaId = operadorDeLogisticaId;
+    }
+
+    public LinkedList<Integer> getEmbalagens() {
+        return embalagens;
     }
 }
