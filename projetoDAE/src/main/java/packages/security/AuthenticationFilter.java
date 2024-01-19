@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.SecurityContext;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Provider;
+import packages.projetodae.ejbs.UserBean;
 import pt.ipleiria.estg.dei.ei.dae.academics.ejbs.UserBean;
 
 import javax.crypto.spec.SecretKeySpec;
