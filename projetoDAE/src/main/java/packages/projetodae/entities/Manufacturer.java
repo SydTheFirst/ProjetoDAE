@@ -1,9 +1,6 @@
 package packages.projetodae.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +11,10 @@ public class Manufacturer {
     private String username;
     private String password;
     private String name;
+    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE)
     private List<Order> orders;
-
+    @ManyToMany(mappedBy = "manufacturers")
     private List<LogisticsOperator> logisticsOperators;
-
-    private List<EndCustomer> endCustomers;
-
-    private List<Warehouse> warehouses;
 
     // Construtores
     public Manufacturer(int id, String username, String password, String name) {
@@ -29,13 +23,11 @@ public class Manufacturer {
         this.name = name;
         this.orders = new ArrayList<>();
         this.logisticsOperators = new ArrayList<>();
-        this.endCustomers = new ArrayList<>();
     }
 
     public Manufacturer() {
         this.orders = new ArrayList<>();
         this.logisticsOperators = new ArrayList<>();
-        this.endCustomers = new ArrayList<>();
     }
 
     // Getters e Setters
@@ -47,14 +39,6 @@ public class Manufacturer {
 
     public List<LogisticsOperator> getLogisticsOperators() {
         return logisticsOperators;
-    }
-
-    public List<EndCustomer> getEndCustomers() {
-        return endCustomers;
-    }
-
-    public List<Warehouse> getWarehouses() {
-        return warehouses;
     }
 
     public String getUsername() {
@@ -88,13 +72,5 @@ public class Manufacturer {
 
     public void addLogisticsOperator(LogisticsOperator logisticsOperator) {
         this.logisticsOperators.add(logisticsOperator);
-    }
-
-    public void addEndCustomer(EndCustomer endCustomer) {
-        this.endCustomers.add(endCustomer);
-    }
-
-    public void addWarehouse(Warehouse warehouse) {
-        this.warehouses.add(warehouse);
     }
 }

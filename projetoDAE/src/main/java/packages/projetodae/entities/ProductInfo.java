@@ -2,6 +2,7 @@ package packages.projetodae.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Table(name = "product_info")
@@ -14,21 +15,28 @@ public class ProductInfo {
     private boolean openedPackage;
     private String location;
     private float pressure;
+    @OneToOne(mappedBy = "product")
+    private Product product;
 
     // Construtor
-    public ProductInfo(int id, float temperature, int humidity, boolean OpenedPackage, String location, float pressure) {
+    public ProductInfo(int id, float temperature, int humidity, boolean OpenedPackage, String location, float pressure, Product product) {
         this.id = id;
         this.temperature = temperature;
         this.humidity = humidity;
         this.openedPackage = OpenedPackage;
         this.location = location;
         this.pressure = pressure;
+        this.product = product;
     }
 
     public ProductInfo() {
     }
 
     // Getters
+
+    public Product getProduct() {
+        return product;
+    }
     public int getId() {
         return id;
     }
@@ -53,6 +61,10 @@ public class ProductInfo {
     }
 
     // Setters
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public void setId(int id) {
         this.id = id;
