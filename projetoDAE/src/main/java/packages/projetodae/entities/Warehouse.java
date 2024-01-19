@@ -1,8 +1,6 @@
 package packages.projetodae.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +12,9 @@ public class Warehouse {
     private int id;
     private String name;
     private String location;
-
+    @ManyToMany(mappedBy = "warehouses")
     private List<Order> orders;
+    @OneToOne(mappedBy = "logisticsOperator")
     private LogisticsOperator logisticsOperator;
 
 

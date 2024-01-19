@@ -1,8 +1,9 @@
 package packages.projetodae.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "product")
 @Entity
@@ -10,18 +11,25 @@ public class Product {
     @Id
     private int id;
     private String name;
-    private Manufacturer manufacturer;
+    @OneToOne(mappedBy = "product", cascade = CascadeType.REMOVE)
     private ProductInfo productInfo;
+    @ManyToMany
+    @JoinTable(
+            name = "product_order",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"))
+    private List<Order> orders;
 
     // Construtor
-    public Product(int id, String name, Manufacturer manufacturer, ProductInfo infoDoProduto) {
+    public Product(int id, String name, ProductInfo infoDoProduto) {
         this.id = id;
         this.name = name;
-        this.manufacturer = manufacturer;
         this.productInfo = infoDoProduto;
+        this.orders = new ArrayList<>();
     }
 
     public Product() {
+        this.orders = new ArrayList<>();
     }
     // Getters e Setters
 
@@ -41,19 +49,19 @@ public class Product {
         this.name = nome;
     }
 
-    public Manufacturer getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(Manufacturer manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
     public ProductInfo getProductInfo() {
         return productInfo;
     }
 
     public void setProductInfo(ProductInfo productInfo) {
         this.productInfo = productInfo;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void addOrder(Order order) {
+        this.orders.add(order);
     }
 }

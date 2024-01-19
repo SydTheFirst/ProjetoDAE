@@ -14,10 +14,22 @@ public class Order {
     @JoinColumn(name = "end_customer_id")
     @NotNull
     private EndCustomer endCustomer;
+    @ManyToOne
+    @JoinColumn(name = "logistics_operator_id")
     private LogisticsOperator logisticsOperator;
     @OneToOne(mappedBy = "order", cascade = CascadeType.REMOVE)
     private SmartPackage smartPackage;
+    @ManyToMany(mappedBy = "orders", cascade = CascadeType.DETACH)
     private List<Product> products;
+    @ManyToOne
+    @JoinColumn(name = "manufacturer_id")
+    private Manufacturer manufacturer;
+    @ManyToMany
+    @JoinTable(
+            name = "order_warehouse",
+            joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "warehouse_id", referencedColumnName = "id"))
+    private List<Warehouse> warehouses;
     private String state;
 
     // Construtores
@@ -29,12 +41,34 @@ public class Order {
         this.state = state;
         this.smartPackage = smartPackage;
         this.products = new ArrayList<>();
+        this.warehouses = new ArrayList<>();
     }
 
     public Order() {
         this.products = new ArrayList<>();
+        this.warehouses = new ArrayList<>();
     }
     //Getters e Setter
+
+    public void addProduct(Product product) {
+        this.products.add(product);
+    }
+
+    public void addWarehouse(Warehouse warehouse) {
+        this.warehouses.add(warehouse);
+    }
+
+    public List<Warehouse> getWarehouses() {
+        return warehouses;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
+    }
 
     // Getters
 
