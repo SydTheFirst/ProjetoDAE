@@ -17,7 +17,7 @@ public class Manufacturer {
     private List<LogisticsOperator> logisticsOperators;
 
     // Construtores
-    public Manufacturer(int id, String username, String password, String name) {
+    public Manufacturer(String username, String password, String name) {
         this.username = username;
         this.password = password;
         this.name = name;

@@ -11,6 +11,6 @@ public class ConfigBean {
     @PostConstruct
     public void populateDB() {
         // . . .
-        smartPackageBean.create();
+
     }
 }
