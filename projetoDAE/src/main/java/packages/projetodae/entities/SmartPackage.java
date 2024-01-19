@@ -1,25 +1,29 @@
 package packages.projetodae.entities;
 
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
+@Table(name = "smart_package")
+@Entity
 public class SmartPackage {
     @Id
     private int id;
-    private int embalagemPaiId;
-    private int encomendaId;
-    private int nivel;
-    private int produtoId;
+    private int parentPackageId;
+    @OneToOne(mappedBy = "order", cascade = CascadeType.REMOVE)
+    private Order order;
+    private int level;
+    private int productId;
 
     // Construtor vazio
     public SmartPackage() {
     }
 
-    public SmartPackage(int id, int embalagemPaiId, int encomendaId, int nivel, int produtoId) {
+    public SmartPackage(int id, int parentPackageId, Order order, int level, int produtoId) {
         this.id = id;
-        this.embalagemPaiId = embalagemPaiId;
-        this.encomendaId = encomendaId;
-        this.nivel = nivel;
-        this.produtoId = produtoId;
+        this.parentPackageId = parentPackageId;
+        this.order = order;
+        this.level = level;
+        this.productId = produtoId;
     }
 
     // Getters e Setters
@@ -32,35 +36,35 @@ public class SmartPackage {
         this.id = id;
     }
 
-    public int getEmbalagemPaiId() {
-        return embalagemPaiId;
+    public int getParentPackageId() {
+        return parentPackageId;
     }
 
-    public void setEmbalagemPaiId(int embalagemPaiId) {
-        this.embalagemPaiId = embalagemPaiId;
+    public void setParentPackageId(int embalagemPaiId) {
+        this.parentPackageId = embalagemPaiId;
     }
 
-    public int getEncomendaId() {
-        return encomendaId;
+    public Order getOrderId() {
+        return order;
     }
 
-    public void setEncomendaId(int encomendaId) {
-        this.encomendaId = encomendaId;
+    public void setOrderId(Order order) {
+        this.order = order;
     }
 
-    public int getNivel() {
-        return nivel;
+    public int getLevel() {
+        return level;
     }
 
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
+    public void setLevel(int nivel) {
+        this.level = nivel;
     }
 
-    public int getProdutoId() {
-        return produtoId;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProdutoId(int produtoId) {
-        this.produtoId = produtoId;
+    public void setProductId(int produtoId) {
+        this.productId = produtoId;
     }
 }

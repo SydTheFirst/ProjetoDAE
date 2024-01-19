@@ -1,5 +1,4 @@
 package packages.projetodae.dtos;
 
-public class EncomendaDTO {
-
+public class ProductDTO {
 }

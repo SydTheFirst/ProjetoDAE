@@ -1,4 +1,4 @@
 package packages.projetodae.dtos;
 
-public class ArmazemDTO {
+public class LogisticsOperatorDTO {
 }
