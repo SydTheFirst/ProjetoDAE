@@ -4,6 +4,9 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import packages.projetodae.entities.EndCustomer;
+import packages.projetodae.entities.Order;
+import packages.projetodae.entities.Product;
+
 import java.util.List;
 
 import java.awt.*;
@@ -20,5 +23,16 @@ public class EndCustomerBean {
 
     public List<EndCustomer> getAll() {
         return entityManager.createNamedQuery("getAllEndCustomers", EndCustomer.class).getResultList();
+    }
+
+    public void makeOrder(EndCustomer endCustomer, List<Product> products) {
+        // Criar uma nova encomenda
+        var order = new Order(endCustomer, "Pedido Feito", products);
+
+        // Adicionar a encomenda à lista de encomendas do EndCustomer
+        endCustomer.addEncomenda(order);
+
+        // Persistir as mudanças no banco de dados
+        entityManager.persist(endCustomer);
     }
 }

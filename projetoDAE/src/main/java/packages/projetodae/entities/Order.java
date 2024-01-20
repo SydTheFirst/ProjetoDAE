@@ -51,6 +51,13 @@ public class Order implements Serializable {
         this.warehouses = new ArrayList<>();
     }
 
+    public Order(EndCustomer endCustomer, String state, List<Product> products) {
+        this.endCustomer = endCustomer;
+        this.state = state;
+        this.products = products;
+        this.warehouses = new ArrayList<>();
+    }
+
     public Order() {
         this.products = new ArrayList<>();
         this.warehouses = new ArrayList<>();
