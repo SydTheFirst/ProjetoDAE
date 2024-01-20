@@ -16,13 +16,7 @@ import java.util.List;
                 query = "SELECT ec FROM EndCustomer ec ORDER BY ec.name"
         )
 })
-public class EndCustomer implements Serializable {
-    @Id
-    private String username;
-    @NotBlank
-    private String password;
-    @NotBlank
-    private String name;
+public class EndCustomer extends User implements Serializable {
     @NotBlank
     private String address;
     @Email
