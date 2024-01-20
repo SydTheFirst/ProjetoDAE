@@ -14,11 +14,7 @@ import java.util.List;
                 query = "SELECT lo FROM LogisticsOperator lo ORDER BY lo.name"
         )
 })
-public class LogisticsOperator implements Serializable {
-    @Id
-    private String username;
-    private String password;
-    private String name;
+public class LogisticsOperator extends User implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "manufacturer_logisticsoperator",

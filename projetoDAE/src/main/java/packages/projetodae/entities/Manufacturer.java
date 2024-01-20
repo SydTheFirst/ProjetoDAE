@@ -13,11 +13,7 @@ import java.util.List;
                 query = "SELECT m FROM Manufacturer m ORDER BY m.name"
         )
 })
-public class Manufacturer implements Serializable {
-    @Id
-    private String username;
-    private String password;
-    private String name;
+public class Manufacturer extends User implements Serializable {
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE)
     private List<Order> orders;
     @ManyToMany(mappedBy = "manufacturers")

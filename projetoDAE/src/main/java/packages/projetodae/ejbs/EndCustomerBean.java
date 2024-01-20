@@ -20,7 +20,5 @@ public class EndCustomerBean {
 
     public List<EndCustomer> getAll() {
         return entityManager.createNamedQuery("getAllEndCustomers", EndCustomer.class).getResultList();
-    public EndCustomer find(String username) {
-        return entityManager.find(EndCustomer.class, username);
     }
 }
