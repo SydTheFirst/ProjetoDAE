@@ -14,4 +14,7 @@ public class EndCustomerBean {
         var endCustomer = new EndCustomer(username, password, name, email, address);
         entityManager.persist(endCustomer);
     }
+    public EndCustomer find(String username) {
+        return entityManager.find(EndCustomer.class, username);
+    }
 }

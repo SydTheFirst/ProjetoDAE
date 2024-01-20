@@ -1,6 +1,5 @@
 package packages.security;
 import jakarta.enterprise.context.ApplicationScoped;
-import pt.ipleiria.estg.dei.ei.dae.academics.entities.User;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
@@ -9,6 +8,7 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
+import packages.projetodae.entities.User;
 
 @ApplicationScoped
 public class Hasher {

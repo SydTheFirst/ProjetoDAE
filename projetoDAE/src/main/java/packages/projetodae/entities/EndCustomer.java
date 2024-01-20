@@ -9,13 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Table(name = "end_customer")
 @Entity
-public class EndCustomer {
-    @Id
-    private String username;
-    @NotBlank
-    private String password;
-    @NotBlank
-    private String name;
+public class EndCustomer extends User {
     @NotBlank
     private String address;
     @Email
@@ -26,9 +20,7 @@ public class EndCustomer {
 
     // Construtores
     public EndCustomer(String username, String password, String name, String address, String email) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
+        super(username, password, name);
         this.address = address;
         this.email = email;
         this.ordersId = new ArrayList<>();
@@ -38,29 +30,6 @@ public class EndCustomer {
         this.ordersId = new ArrayList<>();
     }
     // Getters e Setters
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getAddress() {
         return address;

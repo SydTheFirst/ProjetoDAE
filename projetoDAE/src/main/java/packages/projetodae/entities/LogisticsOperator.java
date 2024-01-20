@@ -7,11 +7,7 @@ import java.util.List;
 
 @Table(name = "logistics_operator")
 @Entity
-public class LogisticsOperator {
-    @Id
-    private String username;
-    private String password;
-    private String name;
+public class LogisticsOperator extends User {
     @ManyToMany
     @JoinTable(
             name = "manufacturer_logisticsoperator",
@@ -26,9 +22,7 @@ public class LogisticsOperator {
 
     // Construtor
     public LogisticsOperator(String username, String password, String name, Warehouse warehouse) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
+        super(username, password, name);
         this.warehouse = warehouse;
         this.manufacturer = new ArrayList<>();
         this.orders = new ArrayList<>();
@@ -55,30 +49,6 @@ public class LogisticsOperator {
 
     public void addOrder(Order order) {
         this.orders.add(order);
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String nome) {
-        this.name = nome;
     }
 
     public Warehouse getWarehouse() {
