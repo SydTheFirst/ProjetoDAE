@@ -25,9 +25,7 @@ public class Manufacturer implements Serializable {
 
     // Construtores
     public Manufacturer(String username, String password, String name) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
+        super(username, password, name);
         this.orders = new ArrayList<>();
         this.logisticsOperators = new ArrayList<>();
     }
@@ -46,30 +44,6 @@ public class Manufacturer implements Serializable {
 
     public List<LogisticsOperator> getLogisticsOperators() {
         return logisticsOperators;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String nome) {
-        this.name = nome;
     }
 
     // Outros métodos
