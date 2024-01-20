@@ -3,11 +3,18 @@ package packages.projetodae.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 @Table(name = "order")
 @Entity
-public class Order {
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllOrders",
+                query = "SELECT o FROM Order o ORDER BY o.id"
+        )
+})
+public class Order implements Serializable {
     @Id
     private int id;
     @ManyToOne

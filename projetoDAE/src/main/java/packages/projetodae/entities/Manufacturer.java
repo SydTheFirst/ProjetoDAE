@@ -2,11 +2,18 @@ package packages.projetodae.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 @Table(name = "manufacturer")
 @Entity
-public class Manufacturer {
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllManufacturers",
+                query = "SELECT m FROM Manufacturer m ORDER BY m.name"
+        )
+})
+public class Manufacturer implements Serializable {
     @Id
     private String username;
     private String password;

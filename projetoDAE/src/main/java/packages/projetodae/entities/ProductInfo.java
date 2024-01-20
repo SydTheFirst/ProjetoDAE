@@ -1,13 +1,17 @@
 package packages.projetodae.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 
 @Table(name = "product_info")
 @Entity
-public class ProductInfo {
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllProductInfos",
+                query = "SELECT p FROM ProductInfo p ORDER BY p.id")
+})
+public class ProductInfo implements Serializable {
     @Id
     private int id;
     private float temperature;

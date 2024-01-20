@@ -3,9 +3,17 @@ package packages.projetodae.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serializable;
+
 @Table(name = "smart_package")
 @Entity
-public class SmartPackage {
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllSmartPackages",
+                query = "SELECT sp FROM SmartPackage sp ORDER BY sp.id"
+        )
+})
+public class SmartPackage implements Serializable {
     @Id
     private int id;
     private int parentPackageId;
