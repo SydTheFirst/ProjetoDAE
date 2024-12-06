@@ -1,5 +1,9 @@
 package com.example.projetodae.dtos;
 
+import com.example.projetodae.entities.User;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.Hibernate;
+
 public class UserDTO {
     public enum TipoUser {
         Cliente,

@@ -1,32 +1,27 @@
 package com.example.projetodae.entities;
 
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
 public class User {
-    public enum TipoUser {
-        Cliente,
-        Logistica,
-        Admin // Add more as needed
-    }
-
 
     @Id
     @NotNull
     private int id;
 
     @NotNull
-    private string username;
+    private String username;
 
     @NotNull
-    private string password;
+    private String password;
 
     @NotNull
     private TipoUser tipouser;
 
     public User() {
-
     }
 
-    public User(int id, string username, string password, com.example.projetodae.entities.User.TipoUser tipouser) {
+    public User(int id, String username, String password, TipoUser tipouser) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -41,27 +36,27 @@ public class User {
         this.id = id;
     }
 
-    public string getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(string username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public string getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(string password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public com.example.projetodae.entities.User.TipoUser getTipouser() {
+    public TipoUser getTipouser() {
         return tipouser;
     }
 
-    public void setTipouser(com.example.projetodae.entities.User.TipoUser tipouser) {
+    public void setTipouser(TipoUser tipouser) {
         this.tipouser = tipouser;
     }
 }
