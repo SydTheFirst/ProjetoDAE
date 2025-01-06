@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ei.dae.academics.ws;
+/*package pt.ipleiria.estg.dei.ei.dae.academics.ws;
 
 @Path("api")
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
@@ -63,3 +63,4 @@ public class UserService {
     }
 
 }
+*/

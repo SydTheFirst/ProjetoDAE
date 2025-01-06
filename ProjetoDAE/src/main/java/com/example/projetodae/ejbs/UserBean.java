@@ -1,4 +1,4 @@
-package com.example.projetodae.ejbs;
+/*package com.example.projetodae.ejbs;
 
 
 import com.example.projetodae.entities.User;
@@ -87,8 +87,8 @@ public class UserBean {
             User.setPassword(password);
         }
     }
-
     public void deleteUser(String username) {
+
         User user = entityManager.find(User.class, username);
         entityManager.remove(User);
     }
@@ -98,3 +98,4 @@ public class UserBean {
 
 
 }
+*/
