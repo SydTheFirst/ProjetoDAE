@@ -1,43 +1,28 @@
 package com.example.projetodae.dtos;
 
-import com.example.projetodae.entities.User;
-import jakarta.validation.constraints.NotNull;
-import org.hibernate.Hibernate;
+import com.example.projetodae.entities.TipoUser;
+
 
 public class UserDTO {
-    public enum TipoUser {
-        Cliente,
-        Logistica,
-        Admin // Add more as needed
+
+    private int id;
+    private String username;
+    private String password;
+    private TipoUser tipouser;
+
+    // Construtor padrão
+    public UserDTO() {
     }
 
-    @NotNull
-    private int id;
-    @NotNull
-    private String username;
-    @NotNull
-    private String password;
-    @NotNull
-    private tipouser tipouser;
-
-
-    public UserDTO(int id, String username, String password,tipouser tipouser) {
+    // Construtor completo
+    public UserDTO(int id, String username, String password, TipoUser tipouser) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.tipouser = "Cliente";
+        this.tipouser = tipouser;
     }
 
-    public static UserDTO from(User user) {
-        return new UserDTO(
-                user.getUsername(),
-                user.getPassword(),
-                user.getTipouser(),
-                Hibernate.getClass(user).getSimpleUsername()
-        );
-    }
-
-
+    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -62,11 +47,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public tipouser getTipouser() {
+    public TipoUser getTipouser() {
         return tipouser;
     }
 
-    public void setTipouser(tipouser tipouser) {
+    public void setTipouser(TipoUser tipouser) {
         this.tipouser = tipouser;
     }
 }
