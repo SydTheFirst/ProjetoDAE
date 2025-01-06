@@ -1,12 +1,43 @@
 package com.example.projetodae.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
+@Table(
+        name = "produtos",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"id"})
+)
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllProdutos",
+                query = "SELECT p FROM Produto p ORDER BY p.id" // JPQL
+        )
+})
 public class Produto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotNull
+    @Column(nullable = false, length = 100)
     private String nome;
+
+    @NotNull
+    @Column(nullable = false)
     private float preco;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    @Column(nullable = false)
     private Categoria categoria;
 
-    // Construtor
+    // Construtor padrão
+    public Produto() {
+    }
+
+    // Construtor completo
     public Produto(int id, String nome, float preco, Categoria categoria) {
         this.id = id;
         this.nome = nome;

@@ -1,13 +1,25 @@
 package com.example.projetodae.entities;
 
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+@Table(
+        name = "encomendas",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"id"})
+)
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllEncomendas",
+                query = "SELECT e FROM Encomenda e ORDER BY e.dataPartida DESC" // JPQL
+        )
+})
+
+@Entity
 public class Encomenda {
 
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
@@ -19,9 +31,11 @@ public class Encomenda {
     @NotNull
     private Timestamp dataChegada;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private MetodoPagamento metodoPagamento;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private Status status;
 

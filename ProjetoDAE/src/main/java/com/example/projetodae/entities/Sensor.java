@@ -1,12 +1,43 @@
-import com.example.projetodae.entities.TipoSensor;
+package com.example.projetodae.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
+@Table(
+        name = "sensors",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"id"})
+)
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllSensors",
+                query = "SELECT s FROM Sensor s ORDER BY s.id" // JPQL
+        )
+})
 public class Sensor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotNull
+    @Column(nullable = false)
     private int idEmbalagem;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    @Column(nullable = false)
     private TipoSensor tipoSensor;
+
+    @NotNull
+    @Column(nullable = false)
     private boolean ativo;
 
-    // Construtor
+    // Construtor padrão
+    public Sensor() {
+    }
+
+    // Construtor completo
     public Sensor(int id, int idEmbalagem, TipoSensor tipoSensor, boolean ativo) {
         this.id = id;
         this.idEmbalagem = idEmbalagem;

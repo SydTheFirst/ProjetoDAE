@@ -1,26 +1,43 @@
 package com.example.projetodae.entities;
 
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+@Entity
+@Table(
+        name = "users",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"username"})
+)
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllUsers",
+                query = "SELECT u FROM User u ORDER BY u.id" // JPQL
+        )
+})
 public class User {
 
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
+    @Column(nullable = false, length = 50, unique = true)
     private String username;
 
     @NotNull
+    @Column(nullable = false, length = 100)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
+    @Column(nullable = false)
     private TipoUser tipouser;
 
+    // Construtor padrão
     public User() {
     }
 
+    // Construtor completo
     public User(int id, String username, String password, TipoUser tipouser) {
         this.id = id;
         this.username = username;
@@ -28,6 +45,7 @@ public class User {
         this.tipouser = tipouser;
     }
 
+    // Getters e Setters
     public int getId() {
         return id;
     }
