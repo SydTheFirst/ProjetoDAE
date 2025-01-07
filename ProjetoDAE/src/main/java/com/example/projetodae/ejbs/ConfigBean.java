@@ -35,10 +35,5 @@ public class ConfigBean {
         }catch (Exception e){
             logger.severe(e.getMessage());
         }
-
     }
-
-
-
-
 }
