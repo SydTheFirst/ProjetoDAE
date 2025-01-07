@@ -1,101 +1,57 @@
-/*package com.example.projetodae.ejbs;
+package com.example.projetodae.ejbs;
 
-
+import com.example.projetodae.entities.TipoUser;
 import com.example.projetodae.entities.User;
-import com.example.projetodae.exceptions.MyEntityExistsException;
 import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.validation.ConstraintViolationException;
-import org.hibernate.Hibernate;
+import jakarta.persistence.TypedQuery;
+import java.util.List;
 
 @Stateless
 public class UserBean {
-    public enum TipoUser {
-        Cliente,
-        Logistica,
-        Admin // Add more as needed
-    }
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public boolean exists(String username){
-
-    Query query = entityManager.createQuery(
-            "Select Count(u.username) From user u where u.username=:username",
-            long.class
-    );
-        query.setParameter("username",username);
-        return(Long)query.getSingleResult()>0L;
+    public void create(String username, String password, TipoUser tipouser) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password); // Consider hashing passwords before storing
+        user.setTipouser(tipouser);
+        entityManager.persist(user);
     }
 
-
-
-    @Inject
-    public User find(String username) {
-        return entityManager.find(User.class, username);
+    public User find(int id) {
+        return entityManager.find(User.class, id);
     }
 
-    public User findOrFail(String username) {
-        var user =entityManager.getReference(User.class, username);
-        Hibernate.initialize(user);
-        return user;
+    public User findByUsername(String username) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.username = :username", User.class);
+        query.setParameter("username", username);
+        List<User> users = query.getResultList();
+        return users.isEmpty() ? null : users.get(0);
     }
 
-    public boolean canLogin(String username, String password) {
-        var user=find(username);
-        return user !=null && user.getPassword().equals(password);
+    public List<User> getAllUsers() {
+        return entityManager.createNamedQuery("getAllUsers", User.class).getResultList();
     }
 
-    public boolean setPassword(String username, String password) {
-        User user=entityManager.find(User.class, username);
-        user.setPassword(password);
-        return true;
-    }
-
-    public void create(String username, String password, TipoUser tipoUser) {
-        if(exists(username)){
-            throw new MyEntityExistsException("User with username'" + username+ "'alreaedy Exists");
-        }
-
-        try {
-            User user = new user(username,password,tipoUser)
-        }catch(ConstraintViolationException e) {
-            throw new MyconstraintViolationException(e);
+    public void updateUser(int id, String username, String password, TipoUser tipouser) {
+        User user = find(id);
+        if (user != null) {
+            user.setUsername(username);
+            user.setPassword(password); // Consider hashing passwords
+            user.setTipouser(tipouser);
+            entityManager.merge(user);
         }
     }
 
-    public List<User>getAll() {
-        return entityManager.createNamedQUery("getAllUsers", User.class).getResultList();
-    }
-
-    public void updateUser(String username, String password)
-    {
-        User user =entityManager.find(User.class, username);
-
-        if(user==null) {
-            System.err.println("Error_User_NOT_FOUND: " + username);
-            return
-        }
-
-        entityManager.lock(student,LockModeType.OPTIMISTIC)
-        User.setUsername(username);
-        if(password!=null) {
-            User.setPassword(password);
+    public void deleteUser(int id) {
+        User user = find(id);
+        if (user != null) {
+            entityManager.remove(user);
         }
     }
-    public void deleteUser(String username) {
-
-        User user = entityManager.find(User.class, username);
-        entityManager.remove(User);
-    }
-
-
-
-
-
 }
-*/
