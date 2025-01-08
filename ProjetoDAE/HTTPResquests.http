@@ -33,11 +33,11 @@ PUT http://localhost:8080/academics/api/encomendas/1
 Content-Type: application/json
 
 {
-"IdCliente" : 3,
-"DataPartida": "2025-01-07 14:43:49.037748",
-"DataChegada": "2025-01-08 14:43:49.037748",
-"MetodoPagamento": "MBWAY",
-"Status": "EmEntrega"
+"idCliente" : "3",
+"dataPartida": "2025-01-07 14:43:49.037748",
+"dataChegada": "2025-01-08 14:43:49.037748",
+"metodoPagamento": "MBWay",
+"status": "EmEntrega"
 
 
 }
