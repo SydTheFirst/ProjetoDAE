@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 @Consumes("application/json")
 public class RegistoSensorService {
 
-    @PersistenceContext
-    private EntityManager em;
-
     @EJB
     private RegistoSensorBean registoSensorBean;
 
@@ -37,7 +34,7 @@ public class RegistoSensorService {
         if (registo == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(toDTO(registo)).build();
+        return Response.ok(DTOconverter.toDTO(registo)).build();
     }
 
     @POST
@@ -66,7 +63,7 @@ public class RegistoSensorService {
                 registoDTO.getValor()
         );
 
-        return Response.ok(toDTO(registo)).build();
+        return Response.ok(DTOconverter.toDTO(registo)).build();
     }
 
     @DELETE
@@ -80,7 +77,5 @@ public class RegistoSensorService {
         return Response.noContent().build();
     }
 
-    private RegistoSensorDTO toDTO(RegistoSensor registo) {
-        return new RegistoSensorDTO(registo.getIdSensor(), registo.getTimeStamp(), registo.getValor());
-    }
+
 }

@@ -39,7 +39,7 @@ public class EncomendaService {
         if (encomenda == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(toDTO(encomenda)).build();
+        return Response.ok(DTOconverter.toDTO(encomenda)).build();
     }
 
 
@@ -62,6 +62,12 @@ public class EncomendaService {
     @PUT
     @Path("{encomendaId}")
     public Response updateEncomenda(@PathParam("encomendaId") int id, EncomendaDTO encomendaDTO){
+
+        Encomenda encomenda = encomendaBean.find(id);
+        if (encomenda == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
         encomendaBean.updateEncomenda(
                 id,
                 encomendaDTO.getDataPartida(),
@@ -69,25 +75,20 @@ public class EncomendaService {
                 encomendaDTO.getMetodoPagamento(),
                 encomendaDTO.getStatus()
         );
-        return Response.status(Response.Status.OK).build();
+        return Response.ok(DTOconverter.toDTO(encomenda)).build();
     }
 
 
     @DELETE
     @Path("{encomendaId}")
     public Response deleteEncomenda(@PathParam("encomendaId") int id){
-        if (encomendaBean.deleteEncomenda(id)){
-            return Response.ok().build();
+        Encomenda encomenda = encomendaBean.find(id);
+        if (encomenda == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.status(Response.Status.CONFLICT)
-                .entity("CONFLICTING_DELETING")
-                .build();
-    }
 
-
-
-    private EncomendaDTO toDTO(Encomenda encomenda) {
-        return new EncomendaDTO(encomenda.getId(), encomenda.getIdCliente(), encomenda.getDataPartida(), encomenda.getDataChegada(), encomenda.getMetodoPagamento(), encomenda.getStatus());
+        encomendaBean.deleteEncomenda(id);
+        return Response.noContent().build();
     }
 
 }
