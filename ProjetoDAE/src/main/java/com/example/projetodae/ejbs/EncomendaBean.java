@@ -6,7 +6,6 @@ import com.example.projetodae.entities.Status;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -24,6 +23,7 @@ public class EncomendaBean {
         encomenda.setDataChegada(dataChegada);
         encomenda.setMetodoPagamento(metodoPagamento);
         encomenda.setStatus(status);
+
         entityManager.persist(encomenda);
     }
 
@@ -46,10 +46,11 @@ public class EncomendaBean {
         }
     }
 
-    public void deleteEncomenda(int id) {
+    public boolean deleteEncomenda(int id) {
         Encomenda encomenda = find(id);
         if (encomenda != null) {
             entityManager.remove(encomenda);
         }
+        return entityManager.find(Encomenda.class, id) == null;
     }
 }

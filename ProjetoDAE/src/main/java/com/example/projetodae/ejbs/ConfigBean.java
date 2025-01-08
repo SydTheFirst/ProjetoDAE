@@ -1,5 +1,7 @@
 package com.example.projetodae.ejbs;
 
+import com.example.projetodae.entities.MetodoPagamento;
+import com.example.projetodae.entities.Status;
 import com.example.projetodae.entities.TipoSensor;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
@@ -18,6 +20,10 @@ public class ConfigBean {
     private SensorBean sensorBean;
     @EJB
     private RegistoSensorBean registoSensorBean;
+
+    @EJB
+    private EncomendaBean encomendaBean;
+
     private static final Logger logger = Logger.getLogger("ejbs.ConfigBean");
 
     @PostConstruct
@@ -31,6 +37,9 @@ public class ConfigBean {
 
             registoSensorBean.create(1, Timestamp.from(Instant.now()), "20 Celsius");
             registoSensorBean.create(2, Timestamp.from(Instant.now()), "39ºN 8ºW");
+
+            encomendaBean.create(1, Timestamp.from(Instant.now()), Timestamp.from(Instant.now()), MetodoPagamento.MBWay, Status.EmEntrega );
+
 
         }catch (Exception e){
             logger.severe(e.getMessage());

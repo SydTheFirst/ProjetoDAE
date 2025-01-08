@@ -1,6 +1,8 @@
 package com.example.projetodae.utils;
 
+import com.example.projetodae.dtos.EncomendaDTO;
 import com.example.projetodae.dtos.UserDTO;
+import com.example.projetodae.entities.Encomenda;
 import com.example.projetodae.entities.User;
 
 import java.util.List;
@@ -22,6 +24,21 @@ public final class DTOconverter {
         return users.stream().map(DTOconverter::toDTO).collect(Collectors.toList());
     }
 
+
+    public static EncomendaDTO toDTO(Encomenda encomenda){
+        return new EncomendaDTO(
+                encomenda.getId(),
+                encomenda.getIdCliente(),
+                encomenda.getDataPartida(),
+                encomenda.getDataChegada(),
+                encomenda.getMetodoPagamento(),
+                encomenda.getStatus()
+        );
+    }
+
+    public static List<EncomendaDTO> encomendasToDTOs(List<Encomenda> encomendas){
+        return encomendas.stream().map(DTOconverter::toDTO).collect(Collectors.toList());
+    }
 
 
 
