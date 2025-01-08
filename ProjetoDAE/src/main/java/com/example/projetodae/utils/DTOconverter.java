@@ -78,5 +78,21 @@ public final class DTOconverter {
 
 
 
+    //EMBALAGENS
+
+    public static EmbalagemDTO toDTO(Embalagem embalagem){
+        return new EmbalagemDTO(
+                embalagem.getId(),
+                embalagem.getIdProduto(),
+                embalagem.getIdVolume(),
+                embalagem.getQuantidade()
+        );
+    }
+    public static List<EmbalagemDTO> embalagensDTOs(List<Embalagem> embalagens){
+        return embalagens.stream().map(DTOconverter::toDTO).collect(Collectors.toList());
+    }
+
+
+
 
 }
