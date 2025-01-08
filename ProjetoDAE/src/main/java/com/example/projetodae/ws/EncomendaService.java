@@ -36,6 +36,9 @@ public class EncomendaService {
     @Path("/{id}")
     public Response getEncomenda(@PathParam("id") int id){
         Encomenda encomenda = encomendaBean.find(id);
+        if (encomenda == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         return Response.ok(toDTO(encomenda)).build();
     }
 
