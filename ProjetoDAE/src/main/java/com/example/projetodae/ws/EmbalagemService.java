@@ -43,7 +43,7 @@ public class EmbalagemService {
 
         embalagemBean.create(
                 embalagemDTO.getId(),
-                embalagemDTO.getIdProduto(),
+                embalagemDTO.getIdVolume(),
                 embalagemDTO.getIdProduto(),
                 embalagemDTO.getQuantidade()
         );
