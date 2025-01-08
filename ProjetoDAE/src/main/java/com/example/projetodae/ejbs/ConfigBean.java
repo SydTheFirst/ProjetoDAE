@@ -24,6 +24,7 @@ public class ConfigBean {
     @EJB
     private EncomendaBean encomendaBean;
 
+    
     private static final Logger logger = Logger.getLogger("ejbs.ConfigBean");
 
     @PostConstruct
