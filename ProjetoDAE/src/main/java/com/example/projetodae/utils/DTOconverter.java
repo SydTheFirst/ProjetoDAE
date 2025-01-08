@@ -1,13 +1,7 @@
 package com.example.projetodae.utils;
 
-import com.example.projetodae.dtos.EncomendaDTO;
-import com.example.projetodae.dtos.RegistoSensorDTO;
-import com.example.projetodae.dtos.SensorDTO;
-import com.example.projetodae.dtos.UserDTO;
-import com.example.projetodae.entities.Encomenda;
-import com.example.projetodae.entities.RegistoSensor;
-import com.example.projetodae.entities.Sensor;
-import com.example.projetodae.entities.User;
+import com.example.projetodae.dtos.*;
+import com.example.projetodae.entities.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,5 +62,21 @@ public final class DTOconverter {
     public static List<SensorDTO> sensorsToDTOs(List<Sensor> sensors){
         return sensors.stream().map(DTOconverter::toDTO).collect(Collectors.toList());
     }
+
+
+    //VOLUMES
+    public static VolumeDTO toDTO(Volume volume){
+        return new VolumeDTO(
+                volume.getId(),
+                volume.getIdEncomenda()
+        );
+    }
+
+    public static List<VolumeDTO> volumesToDTOs(List<Volume> volumes){
+        return volumes.stream().map(DTOconverter::toDTO).collect(Collectors.toList());
+    }
+
+
+
 
 }
