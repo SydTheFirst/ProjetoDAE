@@ -1,66 +1,68 @@
-/*package pt.ipleiria.estg.dei.ei.dae.academics.ws;
+package com.example.projetodae.ws;
 
-@Path("api")
-@Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
-@Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
-@Authenticated
-@RolesAllowed({"Cliente", "Administrator", "Student"})
 
+import com.example.projetodae.dtos.UserDTO;
+import com.example.projetodae.ejbs.UserBean;
+import com.example.projetodae.entities.User;
+
+import com.example.projetodae.utils.DTOconverter;
+import jakarta.ejb.EJB;
+import jakarta.ejb.Stateless;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
+
+import java.util.List;
+
+
+@Stateless
+@Path("/users")
+@Produces("application/json")
+@Consumes("application/json")
 public class UserService {
-    public enum TipoUser {
-        Cliente,
-        Logistica,
-        Admin // Add more as needed
-    }
-
 
     @EJB
     private UserBean userBean;
 
-    //region GET
-    @GET // means: to call this endpoint, we need to use the HTTP GET method
-    @Path("/") // means: the relative url path is “/api/users/”
-    public List<UserDTO> getAllUsers() {
-        return DTOconverter.usersToDTOs(UserBean.getAll());
+    @GET
+    public List<UserDTO> getAllUsers(){
+        return DTOconverter.usersToDTOs(userBean.getAllUsers());
     }
 
     @GET
-    @Path("{username}")
-    public Response getUserDetails(@PathParam("username") String username) throws MyEntityNotFoundException {
-
-        User user = UserBean.find(username);
+    @Path("/{username}")
+    public Response getUser(@PathParam("username") String username){
+        User user = userBean.find(username);
+        if (user == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         return Response.ok(DTOconverter.toDTO(user)).build();
     }
 
-
     @POST
     @Path("/")
-    public Response createNewUser (UserDTO userDTO) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
-        UserBean.create(
-                userDTO.getId(),
-                userDTO.Username(),
-                userDTO.Password(),
-                userDTO.tipoUser(),
+    public Response createUser(UserDTO userDTO){
 
+        userBean.create(
+                userDTO.getUsername(),
+                userDTO.getPassword(),
+                userDTO.getTipouser()
         );
 
-        User newUser = UserBean.find(UserDTO.getUsername());
-        return Response.status(Response.Status.CREATED).entity(DTOconverter.toDTO(newUser)).build();
+        //Adicionar forma de confirmar que criou com sucesso
+        return Response.status(Response.Status.CREATED).build();
     }
 
-    @PUT
-    @Path("{username}")
-    public Response updateUser(@PathParam("username") String username, UserDTO userDTO) {
-        userBean.updateUser(username, userDTO.getId(), userDTO.getUsername(), userDTO.getPassword(), userDTO.getTipoUser());
-        return Response.status(Response.Status.OK).build();
-    }
 
     @DELETE
     @Path("{username}")
-    public Response deleteUser(@PathParam("username") String username) {
-        userBean.deleteUser(username);
-        return Response.status(Response.Status.OK).build();
-    }
+    public Response deleteUser(@PathParam("username") String username){
+        User user = userBean.find(username);
+        if (user == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
 
+        userBean.deleteUser(username);
+        return Response.noContent().build();
+    }
+    
 }
-*/
