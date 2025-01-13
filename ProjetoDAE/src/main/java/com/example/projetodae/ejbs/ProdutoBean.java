@@ -13,8 +13,9 @@ public class ProdutoBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(String nome, float preco, Categoria categoria) {
+    public void create(int id, String nome, float preco, Categoria categoria) {
         Produto produto = new Produto();
+        produto.setId(id);
         produto.setNome(nome);
         produto.setPreco(preco);
         produto.setCategoria(categoria);

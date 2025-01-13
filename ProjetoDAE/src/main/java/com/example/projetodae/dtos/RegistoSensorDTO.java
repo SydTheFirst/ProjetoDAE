@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class RegistoSensorDTO {
 
-    private int id;
+    private Integer id;
     private int idSensor;
     private Timestamp timeStamp;
     private String valor;

@@ -19,7 +19,6 @@ import java.sql.Timestamp;
 public class Encomenda {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull

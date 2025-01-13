@@ -16,8 +16,9 @@ public class EncomendaBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(int idCliente, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
+    public void create(int id, int idCliente, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
         Encomenda encomenda = new Encomenda();
+        encomenda.setId(id);
         encomenda.setIdCliente(idCliente);
         encomenda.setDataPartida(dataPartida);
         encomenda.setDataChegada(dataChegada);

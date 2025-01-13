@@ -1,10 +1,8 @@
 package com.example.projetodae.ws;
 
 import com.example.projetodae.dtos.EmbalagemDTO;
-import com.example.projetodae.dtos.VolumeDTO;
 import com.example.projetodae.ejbs.EmbalagemBean;
 import com.example.projetodae.entities.Embalagem;
-import com.example.projetodae.entities.Volume;
 import com.example.projetodae.utils.DTOconverter;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
@@ -29,7 +27,7 @@ public class EmbalagemService {
 
     @GET
     @Path("/{id}")
-    public Response getVolume(@PathParam("id") int id){
+    public Response getEmabalgem(@PathParam("id") int id){
         Embalagem embalagem = embalagemBean.find(id);
         if (embalagem == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -39,7 +37,7 @@ public class EmbalagemService {
 
     @POST
     @Path("/")
-    public Response createVolume(EmbalagemDTO embalagemDTO){
+    public Response createEmbalagem(EmbalagemDTO embalagemDTO){
 
         embalagemBean.create(
                 embalagemDTO.getId(),
@@ -55,7 +53,7 @@ public class EmbalagemService {
 
     @DELETE
     @Path("{volumeId}")
-    public Response deleteVolume(@PathParam("volumeId") int id){
+    public Response deleteEmabalgem(@PathParam("volumeId") int id){
         Embalagem embalagem = embalagemBean.find(id);
         if (embalagem == null){
             return Response.status(Response.Status.NOT_FOUND).build();

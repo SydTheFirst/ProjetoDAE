@@ -26,7 +26,6 @@ public class EncomendaService {
     private EncomendaBean encomendaBean;
 
 
-
     @GET
     public List<EncomendaDTO> getAllEncomendas(){
         return DTOconverter.encomendasToDTOs(encomendaBean.getAllEncomendas());
@@ -40,23 +39,6 @@ public class EncomendaService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         return Response.ok(DTOconverter.toDTO(encomenda)).build();
-    }
-
-
-    @POST
-    @Path("/")
-    public Response createEncomenda(EncomendaDTO encomendaDTO){
-
-        encomendaBean.create(
-                encomendaDTO.getIdCliente(),
-                encomendaDTO.getDataPartida(),
-                encomendaDTO.getDataChegada(),
-                encomendaDTO.getMetodoPagamento(),
-                encomendaDTO.getStatus()
-        );
-
-        //Adicionar forma de confirmar que criou com sucesso
-        return Response.status(Response.Status.CREATED).build();
     }
 
     @PUT
