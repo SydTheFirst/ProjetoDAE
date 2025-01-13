@@ -40,6 +40,7 @@ public final class DTOconverter {
     //REGISTOS
     public static RegistoSensorDTO toDTO(RegistoSensor registoSensor){
         return new RegistoSensorDTO(
+                registoSensor.getId(),
                 registoSensor.getIdSensor(),
                 registoSensor.getTimeStamp(),
                 registoSensor.getValor()

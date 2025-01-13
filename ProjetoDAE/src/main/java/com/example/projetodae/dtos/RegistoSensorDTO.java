@@ -14,7 +14,8 @@ public class RegistoSensorDTO {
     }
 
     // Construtor completo
-    public RegistoSensorDTO(int idSensor, Timestamp timeStamp, String valor) {
+    public RegistoSensorDTO(Integer id, int idSensor, Timestamp timeStamp, String valor) {
+        this.id = id;
         this.idSensor = idSensor;
         this.timeStamp = timeStamp;
         this.valor = valor;

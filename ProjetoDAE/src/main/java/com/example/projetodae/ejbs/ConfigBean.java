@@ -48,9 +48,9 @@ public class ConfigBean {
             userBean.create("user2", "password2", TipoUser.Cliente);
 
             // Populando Encomendas
-            encomendaBean.create(1, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(3600)), MetodoPagamento.Cartao, Status.EmEspera);
-            encomendaBean.create(2, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(7200)), MetodoPagamento.ReferenciaMB, Status.EmEntrega);
-            encomendaBean.create(3, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(10800)), MetodoPagamento.Paypal, Status.Entregue);
+            encomendaBean.create(10, 1, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(3600)), MetodoPagamento.Cartao, Status.EmEspera);
+            encomendaBean.create(20, 2, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(7200)), MetodoPagamento.ReferenciaMB, Status.EmEntrega);
+            encomendaBean.create(30,3, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(10800)), MetodoPagamento.Paypal, Status.Entregue);
 
             // Populando Volumes
             volumeBean.create(1, 1);
@@ -63,9 +63,9 @@ public class ConfigBean {
             embalagemBean.create(3, 3, 3, 15);
 
             // Populando Produtos
-            produtoBean.create("Pasta de dentes", 2.0f, Categoria.HIGIENE);
-            produtoBean.create("Sabão", 1.5f, Categoria.HIGIENE);
-            produtoBean.create("Maçã", 0.8f, Categoria.ALIMENTAR);
+            produtoBean.create(100,"Pasta de dentes", 2.0f, Categoria.HIGIENE);
+            produtoBean.create(200, "Sabão", 1.5f, Categoria.HIGIENE);
+            produtoBean.create(300, "Maçã", 0.8f, Categoria.ALIMENTAR);
 
             // Populando Sensores
             sensorBean.create(1, TipoSensor.TEMPERATURA, true);

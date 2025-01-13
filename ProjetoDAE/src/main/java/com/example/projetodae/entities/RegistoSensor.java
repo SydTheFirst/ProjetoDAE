@@ -1,5 +1,5 @@
 package com.example.projetodae.entities;
-
+import java.io.Serializable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -12,10 +12,10 @@ import java.sql.Timestamp;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllRegistosSensor",
-                query = "SELECT r FROM RegistoSensor r ORDER BY r.timeStamp DESC" // JPQL
+                query = "SELECT r FROM RegistoSensor r ORDER BY r.timeStamp ASC" // JPQL
         )
 })
-public class RegistoSensor {
+public class RegistoSensor{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
