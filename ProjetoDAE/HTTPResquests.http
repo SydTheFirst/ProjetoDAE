@@ -108,7 +108,17 @@ Content-Type: application/json
 DELETE http://localhost:8080/academics/api/embalagens/1
 Content-Type: application/json
 
+//
+// USERS
+//
 
+###
+POST http://localhost:8080/academics/api/users
+Content-Type: application/json
 
-
+{
+    "username": "user1",
+    "password": "pass1",
+    "tipouser": "admin"
+}
 

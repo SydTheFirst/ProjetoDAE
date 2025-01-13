@@ -17,10 +17,6 @@ import jakarta.validation.constraints.NotNull;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @NotNull
     @Column(nullable = false, length = 50, unique = true)
     private String username;
 
@@ -38,21 +34,13 @@ public class User {
     }
 
     // Construtor completo
-    public User(int id, String username, String password, TipoUser tipouser) {
-        this.id = id;
+    public User(String username, String password, TipoUser tipouser) {
         this.username = username;
         this.password = password;
         this.tipouser = tipouser;
     }
 
     // Getters e Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

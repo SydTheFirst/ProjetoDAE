@@ -22,11 +22,7 @@ public class UserBean {
         entityManager.persist(user);
     }
 
-    public User find(int id) {
-        return entityManager.find(User.class, id);
-    }
-
-    public User findByUsername(String username) {
+    public User find(String username) {
         TypedQuery<User> query = entityManager.createQuery(
                 "SELECT u FROM User u WHERE u.username = :username", User.class);
         query.setParameter("username", username);
@@ -38,8 +34,8 @@ public class UserBean {
         return entityManager.createNamedQuery("getAllUsers", User.class).getResultList();
     }
 
-    public void updateUser(int id, String username, String password, TipoUser tipouser) {
-        User user = find(id);
+    public void updateUser(String username, String password, TipoUser tipouser) {
+        User user = find(username);
         if (user != null) {
             user.setUsername(username);
             user.setPassword(password); // Consider hashing passwords
@@ -48,8 +44,8 @@ public class UserBean {
         }
     }
 
-    public void deleteUser(int id) {
-        User user = find(id);
+    public void deleteUser(String username) {
+        User user = find(username);
         if (user != null) {
             entityManager.remove(user);
         }
