@@ -1,3 +1,109 @@
 ####
 GET http://localhost:8080/academics/api/sensors
 Accept: application/json
+
+
+
+//
+//ENCOMENDAS
+//
+
+###
+GET http://localhost:8080/academics/api/encomendas
+Accept: application/json
+
+###
+GET http://localhost:8080/academics/api/encomendas/1
+Accept: application/json
+
+###
+POST http://localhost:8080/academics/api/encomendas
+Content-Type: application/json
+
+{
+  "idCliente" : "2",
+  "dataPartida": "2025-01-07T14:43:49.037Z",
+  "dataChegada": "2025-01-08T14:43:49.037Z",
+  "metodoPagamento": "Paypal",
+  "status": "Cancelada"
+}
+
+###
+PUT http://localhost:8080/academics/api/encomendas/1
+Content-Type: application/json
+
+{
+"idCliente" : "3",
+"dataPartida": "2025-01-07 14:43:49.037748",
+"dataChegada": "2025-01-08 14:43:49.037748",
+"metodoPagamento": "MBWay",
+"status": "EmEntrega"
+
+
+}
+
+
+###
+DELETE http://localhost:8080/academics/api/encomendas/1
+Content-Type: application/json
+
+
+
+//
+// VOLUMES
+//
+
+###
+GET http://localhost:8080/academics/api/volumes
+Accept: application/json
+
+###
+GET http://localhost:8080/academics/api/volumes/1
+Accept: application/json
+
+###
+POST http://localhost:8080/academics/api/volumes
+Content-Type: application/json
+
+{
+  "id": "1",
+  "idEncomenda": "10"
+}
+
+###
+DELETE http://localhost:8080/academics/api/volumes/1
+Content-Type: application/json
+
+
+
+//
+// EMBALAGENS
+//
+
+###
+GET http://localhost:8080/academics/api/embalagens
+Accept: application/json
+
+###
+GET http://localhost:8080/academics/api/embalagens/1
+Accept: application/json
+
+###
+POST http://localhost:8080/academics/api/embalagens
+Content-Type: application/json
+
+{
+  "id": "1",
+  "idVolume": "10",
+  "idProduto": "20",
+  "quantidade": "5"
+}
+
+###
+DELETE http://localhost:8080/academics/api/embalagens/1
+Content-Type: application/json
+
+
+
+
+

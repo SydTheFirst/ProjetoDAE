@@ -1,8 +1,11 @@
 package com.example.projetodae.ws;
 
 import com.example.projetodae.dtos.SensorDTO;
+import com.example.projetodae.ejbs.SensorBean;
 import com.example.projetodae.entities.Sensor;
 import com.example.projetodae.entities.TipoSensor;
+import com.example.projetodae.utils.DTOconverter;
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -17,58 +20,61 @@ import java.util.stream.Collectors;
 @Consumes("application/json")
 public class SensorService {
 
-    @PersistenceContext
-    private EntityManager em;
+    @EJB
+    private SensorBean sensorBean;
 
     @GET
     public List<SensorDTO> getAllSensors() {
-        List<Sensor> sensors = em.createNamedQuery("getAllSensors", Sensor.class).getResultList();
-        return sensors.stream().map(this::toDTO).collect(Collectors.toList());
+        return DTOconverter.sensorsToDTOs(sensorBean.getAllSensors());
     }
 
     @GET
     @Path("/{id}")
     public Response getSensor(@PathParam("id") int id) {
-        Sensor sensor = em.find(Sensor.class, id);
+        Sensor sensor = sensorBean.find(id);
         if (sensor == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(toDTO(sensor)).build();
+        return Response.ok(DTOconverter.toDTO(sensor)).build();
     }
 
     @POST
     public Response createSensor(SensorDTO sensorDTO) {
-        Sensor sensor = new Sensor(sensorDTO.getId(), sensorDTO.getIdEmbalagem(), sensorDTO.getTipoSensor(), sensorDTO.isAtivo());
-        em.persist(sensor);
-        return Response.status(Response.Status.CREATED).entity(toDTO(sensor)).build();
+        sensorBean.create(
+                sensorDTO.getIdEmbalagem(),
+                sensorDTO.getTipoSensor(),
+                sensorDTO.isAtivo()
+        );
+
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @PUT
     @Path("/{id}")
     public Response updateSensor(@PathParam("id") int id, SensorDTO sensorDTO) {
-        Sensor sensor = em.find(Sensor.class, id);
+        Sensor sensor = sensorBean.find(id);
         if (sensor == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        sensor.setIdEmbalagem(sensorDTO.getIdEmbalagem());
-        sensor.setTipoSensor(sensorDTO.getTipoSensor());
-        sensor.setAtivo(sensorDTO.isAtivo());
-        em.merge(sensor);
-        return Response.ok(toDTO(sensor)).build();
+        sensorBean.updateSensor(
+                id,
+                sensorDTO.getIdEmbalagem(),
+                sensorDTO.getTipoSensor(),
+                sensorDTO.isAtivo()
+        );
+
+        return Response.ok(DTOconverter.toDTO(sensor)).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteSensor(@PathParam("id") int id) {
-        Sensor sensor = em.find(Sensor.class, id);
+        Sensor sensor = sensorBean.find(id);
         if (sensor == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        em.remove(sensor);
+        sensorBean.deleteSensor(id);
         return Response.noContent().build();
     }
 
-    private SensorDTO toDTO(Sensor sensor) {
-        return new SensorDTO(sensor.getId(), sensor.getIdEmbalagem(), sensor.getTipoSensor(), sensor.isAtivo());
-    }
 }
