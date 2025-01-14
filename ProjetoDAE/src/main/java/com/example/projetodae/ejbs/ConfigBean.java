@@ -76,6 +76,8 @@ public class ConfigBean {
             registoSensorBean.create(1, Timestamp.from(Instant.now()), "20 Celsius");
             registoSensorBean.create(2, Timestamp.from(Instant.now()), "39ºN 8ºW");
             registoSensorBean.create(3, Timestamp.from(Instant.now()), "50% Humidity");
+            registoSensorBean.create(3, Timestamp.from(Instant.now()), "60% Humidity");
+            registoSensorBean.create(3, Timestamp.from(Instant.now()), "70% Humidity");
 
         } catch (Exception e) {
             logger.severe(e.getMessage());

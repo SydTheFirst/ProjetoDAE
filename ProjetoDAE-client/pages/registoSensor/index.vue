@@ -2,7 +2,7 @@
 
 <div>
 
-<h2>Registos</h2>
+<h2>All Registos</h2>
  <table>
     <thead>
         <tr>
@@ -19,6 +19,7 @@
         </tr>
     </tbody>
  </table>
+
 </div>
 
 </template>

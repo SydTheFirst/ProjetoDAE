@@ -13,6 +13,11 @@ import java.sql.Timestamp;
         @NamedQuery(
                 name = "getAllRegistosSensor",
                 query = "SELECT r FROM RegistoSensor r ORDER BY r.timeStamp ASC" // JPQL
+        ),
+        //select * from registos_sensor where idSensor = 1 order by timeStamp desc;
+        @NamedQuery(
+                name = "getRegistosSensorByIdSensor",
+                query = "SELECT r FROM RegistoSensor r WHERE r.id = :idSensor ORDER BY r.timeStamp DESC"
         )
 })
 public class RegistoSensor{

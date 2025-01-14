@@ -7,6 +7,10 @@ Accept: application/json
 GET http://localhost:8080/academics/api/registos
 Accept: application/json
 
+####
+GET http://localhost:8080/academics/api/registos/3
+Accept: application/json
+
 
 
 //
