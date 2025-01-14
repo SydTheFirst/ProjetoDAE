@@ -24,7 +24,7 @@ public final class DTOconverter {
     public static EncomendaDTO toDTO(Encomenda encomenda){
         return new EncomendaDTO(
                 encomenda.getId(),
-                encomenda.getIdCliente(),
+                encomenda.getCliente(),
                 encomenda.getDataPartida(),
                 encomenda.getDataChegada(),
                 encomenda.getMetodoPagamento(),
