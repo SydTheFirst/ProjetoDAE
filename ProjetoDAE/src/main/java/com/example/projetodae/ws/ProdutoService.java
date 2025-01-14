@@ -1,21 +1,15 @@
 package com.example.projetodae.ws;
 
 import com.example.projetodae.dtos.ProdutoDTO;
-import com.example.projetodae.dtos.RegistoSensorDTO;
-import com.example.projetodae.ejbs.ProdutoBean;
 import com.example.projetodae.ejbs.ProdutoBean;
 import com.example.projetodae.entities.Produto;
-import com.example.projetodae.entities.RegistoSensor;
 import com.example.projetodae.utils.DTOconverter;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Stateless
 @Path("/produtos")
