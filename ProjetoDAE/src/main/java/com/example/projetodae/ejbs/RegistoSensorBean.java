@@ -40,6 +40,19 @@ public class RegistoSensorBean {
         return entityManager.createNamedQuery("getAllRegistosSensor", RegistoSensor.class).getResultList();
     }
 
+    public List<RegistoSensor> getRegistosSensorByIdSensor(int id) {
+        Query query = entityManager.createQuery(
+                "SELECT r FROM RegistoSensor r WHERE r.idSensor = :idSensor ORDER BY r.timeStamp DESC",
+                RegistoSensor.class
+        );
+        query.setParameter("idSensor", id);
+        return query.getResultList();
+
+        //return entityManager.createNamedQuery("getAllRegistosSensor", RegistoSensor.class).getResultList();
+    }
+
+
+
     public void updateRegisto(int id, int idSensor, Timestamp timeStamp, String valor) {
         RegistoSensor registoSensor = find(id);
         if (registoSensor != null) {

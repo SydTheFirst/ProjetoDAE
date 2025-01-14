@@ -29,12 +29,8 @@ public class RegistoSensorService {
 
     @GET
     @Path("/{id}")
-    public Response getRegisto(@PathParam("id") int id) {
-        RegistoSensor registo = registoSensorBean.find(id);
-        if (registo == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.ok(DTOconverter.toDTO(registo)).build();
+    public List<RegistoSensorDTO> getRegistosBySensorId(@PathParam("id") int id) {
+        return DTOconverter.registoSensorsToDTOs(registoSensorBean.getRegistosSensorByIdSensor(id));
     }
 
     @POST
