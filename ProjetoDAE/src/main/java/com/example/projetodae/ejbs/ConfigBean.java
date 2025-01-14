@@ -42,37 +42,37 @@ public class ConfigBean {
         System.out.println("BEGIN populateDB");
         try {
 
-            // Populando Users
+            // Users
             userBean.create("admin", "admin123", TipoUser.Admin);
             userBean.create("user1", "password1", TipoUser.Cliente);
             userBean.create("user2", "password2", TipoUser.Cliente);
 
-            // Populando Encomendas
+            // Encomendas
             encomendaBean.create(10, 1, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(3600)), MetodoPagamento.Cartao, Status.EmEspera);
             encomendaBean.create(20, 2, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(7200)), MetodoPagamento.ReferenciaMB, Status.EmEntrega);
             encomendaBean.create(30,3, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(10800)), MetodoPagamento.Paypal, Status.Entregue);
 
-            // Populando Volumes
+            // Volumes
             volumeBean.create(1, 1);
             volumeBean.create(2, 2);
             volumeBean.create(3, 3);
 
-            // Populando Embalagens
+            // Embalagens
             embalagemBean.create(1, 1, 1, 10);
             embalagemBean.create(2, 2, 2, 5);
             embalagemBean.create(3, 3, 3, 15);
 
-            // Populando Produtos
+            // Produtos
             produtoBean.create(100,"Pasta de dentes", 2.0f, Categoria.HIGIENE);
             produtoBean.create(200, "Sabão", 1.5f, Categoria.HIGIENE);
             produtoBean.create(300, "Maçã", 0.8f, Categoria.ALIMENTAR);
 
-            // Populando Sensores
+            // Sensores
             sensorBean.create(1, TipoSensor.TEMPERATURA, true);
             sensorBean.create(2, TipoSensor.LOCALIZACAO, true);
             sensorBean.create(3, TipoSensor.PRESSAO_ATMOSFERICA, false);
 
-            // Populando Registos de Sensores
+            // Registos de Sensores
             registoSensorBean.create(1, Timestamp.from(Instant.now()), "20 Celsius");
             registoSensorBean.create(2, Timestamp.from(Instant.now()), "39ºN 8ºW");
             registoSensorBean.create(3, Timestamp.from(Instant.now()), "50% Humidity");
