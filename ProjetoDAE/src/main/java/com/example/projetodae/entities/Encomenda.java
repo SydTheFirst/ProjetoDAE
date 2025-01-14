@@ -22,7 +22,7 @@ public class Encomenda {
     private int id;
 
     @NotNull
-    private int idCliente;
+    private String cliente;
 
     @NotNull
     private Timestamp dataPartida;
@@ -41,9 +41,9 @@ public class Encomenda {
     public Encomenda() {
     }
 
-    public Encomenda(int id, int idCliente, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
+    public Encomenda(int id, String cliente, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
         this.id = id;
-        this.idCliente = idCliente;
+        this.cliente = cliente;
         this.dataPartida = dataPartida;
         this.dataChegada = dataChegada;
         this.metodoPagamento = metodoPagamento;
@@ -58,12 +58,12 @@ public class Encomenda {
         this.id = id;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
     public Timestamp getDataPartida() {

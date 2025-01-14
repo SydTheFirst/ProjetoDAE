@@ -112,7 +112,29 @@ Content-Type: application/json
 DELETE http://localhost:8080/academics/api/embalagens/1
 Content-Type: application/json
 
+//
+// USERS
+//
 
+###
+GET http://localhost:8080/academics/api/users
+Accept: application/json
 
+###
+GET http://localhost:8080/academics/api/users/
+Accept: application/json
 
+###
+POST http://localhost:8080/academics/api/users
+Content-Type: application/json
+
+{
+    "username": "eduardo",
+    "password": "pass1",
+    "tipouser": "LOGISTICA"
+}
+
+###
+DELETE http://localhost:8080/academics/api/users/1
+Content-Type: application/json
 

@@ -11,7 +11,6 @@ public final class DTOconverter {
     //USERS
     public static UserDTO toDTO(User user){
         return new UserDTO(
-                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 user.getTipouser()
@@ -25,7 +24,7 @@ public final class DTOconverter {
     public static EncomendaDTO toDTO(Encomenda encomenda){
         return new EncomendaDTO(
                 encomenda.getId(),
-                encomenda.getIdCliente(),
+                encomenda.getCliente(),
                 encomenda.getDataPartida(),
                 encomenda.getDataChegada(),
                 encomenda.getMetodoPagamento(),
@@ -54,7 +53,6 @@ public final class DTOconverter {
     //SENSORS
     public static SensorDTO toDTO(Sensor sensor){
         return new SensorDTO(
-                sensor.getId(),
                 sensor.getIdEmbalagem(),
                 sensor.getTipoSensor(),
                 sensor.isAtivo()
@@ -93,7 +91,16 @@ public final class DTOconverter {
         return embalagens.stream().map(DTOconverter::toDTO).collect(Collectors.toList());
     }
 
-
-
-
+    //PRODUTOS
+    public static ProdutoDTO toDTO(Produto produto){
+        return new ProdutoDTO(
+                produto.getId(),
+                produto.getNome(),
+                produto.getPreco(),
+                produto.getCategoria()
+        );
+    }
+    public static List<ProdutoDTO> produtosToDTOs(List<Produto> produtos){
+        return produtos.stream().map(DTOconverter::toDTO).collect(Collectors.toList());
+    }
 }

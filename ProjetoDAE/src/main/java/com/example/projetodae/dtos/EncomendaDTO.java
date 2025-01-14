@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 public class EncomendaDTO {
 
     private int id;
-    private int idCliente;
+    private String cliente;
     private Timestamp dataPartida;
     private Timestamp dataChegada;
     private MetodoPagamento metodoPagamento;
@@ -16,9 +16,9 @@ public class EncomendaDTO {
     public EncomendaDTO() {
     }
 
-    public EncomendaDTO(int id, int idCliente, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
+    public EncomendaDTO(int id, String idCliente, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
         this.id = id;
-        this.idCliente = idCliente;
+        this.cliente = cliente;
         this.dataPartida = dataPartida;
         this.dataChegada = dataChegada;
         this.metodoPagamento = metodoPagamento;
@@ -33,12 +33,12 @@ public class EncomendaDTO {
         this.id = id;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
     public Timestamp getDataPartida() {
