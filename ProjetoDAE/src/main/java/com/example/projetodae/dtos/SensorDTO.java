@@ -14,8 +14,7 @@ public class SensorDTO {
     }
 
     // Construtor completo
-    public SensorDTO(int id, int idEmbalagem, TipoSensor tipoSensor, boolean ativo) {
-        this.id = id;
+    public SensorDTO(int idEmbalagem, TipoSensor tipoSensor, boolean ativo) {
         this.idEmbalagem = idEmbalagem;
         this.tipoSensor = tipoSensor;
         this.ativo = ativo;

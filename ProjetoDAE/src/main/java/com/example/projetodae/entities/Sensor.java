@@ -38,8 +38,7 @@ public class Sensor {
     }
 
     // Construtor completo
-    public Sensor(int id, int idEmbalagem, TipoSensor tipoSensor, boolean ativo) {
-        this.id = id;
+    public Sensor(int idEmbalagem, TipoSensor tipoSensor, boolean ativo) {
         this.idEmbalagem = idEmbalagem;
         this.tipoSensor = tipoSensor;
         this.ativo = ativo;
