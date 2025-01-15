@@ -35,6 +35,12 @@ public class EmbalagemService {
         return Response.ok(DTOconverter.toDTO(embalagem)).build();
     }
 
+    @GET
+    @Path("/encomenda/{id}")
+    public List<EmbalagemDTO> getEmbalagensByEncomenda(@PathParam("id") int id){
+        return DTOconverter.embalagensDTOs(embalagemBean.getEmbalagensByEncomenda(id));
+    }
+
     @POST
     @Path("/")
     public Response createEmbalagem(EmbalagemDTO embalagemDTO){
@@ -42,6 +48,7 @@ public class EmbalagemService {
         embalagemBean.create(
                 embalagemDTO.getId(),
                 embalagemDTO.getIdVolume(),
+                embalagemDTO.getIdEncomenda(),
                 embalagemDTO.getIdProduto(),
                 embalagemDTO.getQuantidade()
         );
@@ -62,9 +69,4 @@ public class EmbalagemService {
         embalagemBean.deleteEmbalagem(id);
         return Response.noContent().build();
     }
-
-
-
-
-
 }

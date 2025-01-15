@@ -21,6 +21,10 @@ import java.util.Objects;
         @NamedQuery(
                 name = "getEmbalagensByProduto",
                 query = "SELECT e FROM Embalagem e WHERE e.idProduto = :idProduto ORDER BY e.quantidade DESC" // JPQL
+        ),
+        @NamedQuery(
+                name = "getEmbalagensByEncomenda",
+                query = "SELECT e FROM Embalagem e WHERE e.idEncomenda = :idEncomenda ORDER BY e.idProduto" // JPQL
         )
 })
 
@@ -35,6 +39,9 @@ public class Embalagem {
     private int idVolume;
 
     @NotNull
+    private int idEncomenda;
+
+    @NotNull
     private int idProduto;
 
     @NotNull
@@ -45,14 +52,16 @@ public class Embalagem {
     }
 
     // Construtor
-    public Embalagem(int id, int idEmbalagem, int idProduto, int quantidade) {
+    public Embalagem(int id, int idVolume, int idEncomenda, int idProduto, int quantidade) {
         this.id = id;
-        this.idVolume = idEmbalagem;
+        this.idVolume = idVolume;
+        this.idEncomenda = idEncomenda;
         this.idProduto = idProduto;
         this.quantidade = quantidade;
     }
 
     // Getters e Setters
+
 
     public int getId() {
         return id;
@@ -66,8 +75,16 @@ public class Embalagem {
         return idVolume;
     }
 
-    public void setIdVolume(int idEmbalagem) {
-        this.idVolume = idEmbalagem;
+    public void setIdVolume(int idVolume) {
+        this.idVolume = idVolume;
+    }
+
+    public int getIdEncomenda() {
+        return idEncomenda;
+    }
+
+    public void setIdEncomenda(int idEncomenda) {
+        this.idEncomenda = idEncomenda;
     }
 
     public int getIdProduto() {
