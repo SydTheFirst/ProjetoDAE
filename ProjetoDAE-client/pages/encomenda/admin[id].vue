@@ -3,44 +3,46 @@
     <h1>Detalhes da Encomenda</h1>
     <table>
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Data de Partida</th>
-          <th>Data de Chegada</th>
-          <th>Método de Pagamento</th>
-          <th>Status</th>
-        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Data de Partida</th>
+        <th>Data de Chegada</th>
+        <th>Método de Pagamento</th>
+        <th>Status</th>
+      </tr>
       </thead>
 
       <tbody>
-        <tr>
-          <td>{{ encomenda.id }}</td>
-          <td>{{ encomenda.dataPartida }}</td>
-          <td>{{ encomenda.dataChegada }}</td>
-          <td>{{ encomenda.metodoPagamento }}</td>
-          <td>{{ encomenda.status }}</td>
-        </tr>
+      <tr>
+        <td>{{ encomenda.id }}</td>
+        <td>{{ encomenda.cliente }}</td>
+        <td>{{ encomenda.dataPartida }}</td>
+        <td>{{ encomenda.dataChegada }}</td>
+        <td>{{ encomenda.metodoPagamento }}</td>
+        <td>{{ encomenda.status }}</td>
+      </tr>
       </tbody>
     </table>
 
-    <h2>Embalagens</h2>
+    <h2>Volumes</h2>
     <table>
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Produto</th>
-          <th>Quantidade</th>
-        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Produto</th>
+        <th>Quantidade</th>
+      </tr>
       </thead>
 
       <tbody>
-        <tr v-for="embalagem in embalagens" :key="embalagem.id">
-          <td><nuxt-link :to="`/embalagem/${embalagem.id}`">
-            {{ embalagem.id }}
-          </nuxt-link></td>
-          <td>{{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}</td>
-          <td>{{ embalagem.quantidade }}</td>
-        </tr>
+      <tr v-for="embalagem in embalagens" :key="embalagem.id">
+        <td><nuxt-link :to="`/embalagem/${embalagem.id}`">
+          {{ embalagem.id }}
+        </nuxt-link></td>
+        <td>{{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}</td>
+        <td>{{ embalagem.quantidade }}</td>
+      </tr>
       </tbody>
     </table>
   </div>

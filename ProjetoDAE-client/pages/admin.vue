@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Client</h1>
+    <h1>Admin</h1>
   </div>
 
   <h2>Encomendas</h2>
@@ -10,24 +10,24 @@
       <th>ID</th>
       <th>Cliente</th>
       <th>Status</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
     <tr v-for="encomenda in encomendas" :key="encomenda.id">
       <td>
-        <nuxt-link :to="`encomenda/${encomenda.id}`">
+        <nuxt-link :to="`encomenda/admin${encomenda.id}`">
           {{ encomenda.id }}
         </nuxt-link>
       </td>
       <td>
-        <nuxt-link :to="`encomenda/${encomenda.id}`">
           {{ encomenda.cliente }}
-        </nuxt-link>
       </td>
       <td>
-        <nuxt-link :to="`encomenda/${encomenda.id}`">
-          {{ encomenda.status }}
-        </nuxt-link>
+        {{ encomenda.status }}
+      </td>
+      <td>
+        CANCELAR
       </td>
     </tr>
     </tbody>

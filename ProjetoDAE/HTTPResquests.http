@@ -133,3 +133,43 @@ Content-Type: application/json
 DELETE http://localhost:8080/academics/api/users/1
 Content-Type: application/json
 
+
+//
+// PRODUTOS
+//
+
+###
+GET http://localhost:8080/academics/api/produtos
+Accept: application/json
+
+###
+GET http://localhost:8080/academics/api/produtos/100
+Accept: application/json
+
+###
+POST http://localhost:8080/academics/api/produtos
+Content-Type: application/json
+
+{
+    "id": "1",
+    "nome": "Produto1",
+    "descricao": "Descricao1",
+    "preco": "10"
+}
+
+###
+PUT http://localhost:8080/academics/api/produtos/1
+Content-Type: application/json
+
+{
+    "id": "1",
+    "nome": "Produto1",
+    "descricao": "Descricao1",
+    "preco": "20"
+}
+
+###
+DELETE http://localhost:8080/academics/api/produtos/1
+Content-Type: application/json
+
+

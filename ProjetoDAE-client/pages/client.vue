@@ -19,9 +19,7 @@
         </nuxt-link>
       </td>
       <td>
-        <nuxt-link :to="`encomenda/${encomenda.id}`">
-          {{ encomenda.status }}
-        </nuxt-link>
+        {{ encomenda.status }}
       </td>
     </tr>
     </tbody>
@@ -47,7 +45,7 @@ th {
 <script setup>
 const config = useRuntimeConfig()
 const api = config.public.API_URL
-const username = 'user2'; // Isto vai mudar conforme a sessão aberta
+const username = 'user1'; // Isto vai mudar conforme a sessão aberta
 const { data: encomendas } = await useFetch(`${api}/encomendas/cliente/${username}`)
 
 </script>

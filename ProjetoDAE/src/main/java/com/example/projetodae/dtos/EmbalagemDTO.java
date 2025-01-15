@@ -14,10 +14,10 @@ public class EmbalagemDTO {
     }
 
     // Construtor
-    public EmbalagemDTO(int id, int idEncomenda, int idVolume, int idProduto, int quantidade) {
+    public EmbalagemDTO(int id, int idVolume, int idEncomenda, int idProduto, int quantidade) {
         this.id = id;
-        this.idEncomenda = idEncomenda;
         this.idVolume = idVolume;
+        this.idEncomenda = idEncomenda;
         this.idProduto = idProduto;
         this.quantidade = quantidade;
     }
