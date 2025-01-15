@@ -5,7 +5,7 @@ public class EmbalagemDTO {
 
     private int id;
     private int idEncomenda;
-    private int idVolume;
+    private String idVolume;
     private int idProduto;
     private int quantidade;
 
@@ -14,7 +14,7 @@ public class EmbalagemDTO {
     }
 
     // Construtor
-    public EmbalagemDTO(int id, int idVolume, int idEncomenda, int idProduto, int quantidade) {
+    public EmbalagemDTO(int id, String idVolume, int idEncomenda, int idProduto, int quantidade) {
         this.id = id;
         this.idVolume = idVolume;
         this.idEncomenda = idEncomenda;
@@ -40,11 +40,11 @@ public class EmbalagemDTO {
         this.idEncomenda = idEncomenda;
     }
 
-    public int getIdVolume() {
+    public String getIdVolume() {
         return idVolume;
     }
 
-    public void setIdVolume(int idVolume) {
+    public void setIdVolume(String idVolume) {
         this.idVolume = idVolume;
     }
 

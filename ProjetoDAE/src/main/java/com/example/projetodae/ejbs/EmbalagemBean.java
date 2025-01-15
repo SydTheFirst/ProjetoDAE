@@ -14,7 +14,7 @@ public class EmbalagemBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(int id, int idVolume, int idEncomenda, int idProduto, int quantidade) {
+    public void create(int id, String idVolume, int idEncomenda, int idProduto, int quantidade) {
         Embalagem embalagem = new Embalagem(id, idVolume, idEncomenda, idProduto, quantidade);
         entityManager.persist(embalagem);
     }

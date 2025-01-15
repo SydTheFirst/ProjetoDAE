@@ -58,11 +58,11 @@ public class ConfigBean {
             volumeBean.create(3, 3);
 
             // Embalagens
-            embalagemBean.create(1, 1, 10, 100, 2);
-            embalagemBean.create(2, 1, 10, 200, 2);
-            embalagemBean.create(3, 1, 10, 300, 2);
-            embalagemBean.create(4, 2, 20, 200, 1);
-            embalagemBean.create(5, 3, 30, 300, 4);
+            embalagemBean.create(1, "10-1", 10, 100, 2);
+            embalagemBean.create(2, "10-2", 10, 200, 2);
+            embalagemBean.create(3, "10-3", 10, 300, 2);
+            embalagemBean.create(4, "20-1", 20, 200, 1);
+            embalagemBean.create(5, "30-1", 30, 300, 4);
 
 
             // Produtos

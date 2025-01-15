@@ -36,7 +36,7 @@ public class Embalagem {
     private int id;
 
     @NotNull
-    private int idVolume;
+    private String idVolume;
 
     @NotNull
     private int idEncomenda;
@@ -52,7 +52,7 @@ public class Embalagem {
     }
 
     // Construtor
-    public Embalagem(int id, int idVolume, int idEncomenda, int idProduto, int quantidade) {
+    public Embalagem(int id, String idVolume, int idEncomenda, int idProduto, int quantidade) {
         this.id = id;
         this.idVolume = idVolume;
         this.idEncomenda = idEncomenda;
@@ -71,11 +71,11 @@ public class Embalagem {
         this.id = id;
     }
 
-    public int getIdVolume() {
+    public String getIdVolume() {
         return idVolume;
     }
 
-    public void setIdVolume(int idVolume) {
+    public void setIdVolume(String idVolume) {
         this.idVolume = idVolume;
     }
 
