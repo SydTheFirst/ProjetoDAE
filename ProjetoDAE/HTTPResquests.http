@@ -22,27 +22,19 @@ GET http://localhost:8080/academics/api/encomendas
 Accept: application/json
 
 ###
-GET http://localhost:8080/academics/api/encomendas/1
+GET http://localhost:8080/academics/api/encomendas/10
 Accept: application/json
 
 ###
-POST http://localhost:8080/academics/api/encomendas
-Content-Type: application/json
-
-{
-  "idCliente" : "2",
-  "dataPartida": "2025-01-07T14:43:49.037Z",
-  "dataChegada": "2025-01-08T14:43:49.037Z",
-  "metodoPagamento": "Paypal",
-  "status": "Cancelada"
-}
+GET http://localhost:8080/academics/api/encomendas/cliente/user2
+Accept: application/json
 
 ###
-PUT http://localhost:8080/academics/api/encomendas/1
+PUT http://localhost:8080/academics/api/encomendas/10
 Content-Type: application/json
 
 {
-"idCliente" : "3",
+"cliente" : "user3",
 "dataPartida": "2025-01-07 14:43:49.037748",
 "dataChegada": "2025-01-08 14:43:49.037748",
 "metodoPagamento": "MBWay",
@@ -50,7 +42,6 @@ Content-Type: application/json
 
 
 }
-
 
 ###
 DELETE http://localhost:8080/academics/api/encomendas/1
@@ -95,6 +86,10 @@ Accept: application/json
 
 ###
 GET http://localhost:8080/academics/api/embalagens/1
+Accept: application/json
+
+###
+GET http://localhost:8080/academics/api/embalagens/encomenda/10
 Accept: application/json
 
 ###

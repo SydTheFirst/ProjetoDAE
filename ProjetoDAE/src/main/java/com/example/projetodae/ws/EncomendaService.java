@@ -41,6 +41,12 @@ public class EncomendaService {
         return Response.ok(DTOconverter.toDTO(encomenda)).build();
     }
 
+    @GET
+    @Path("cliente/{cliente}")
+    public List<EncomendaDTO> getEncomendasByCliente(@PathParam("cliente") String cliente){
+        return DTOconverter.encomendasToDTOs(encomendaBean.getEncomendasByCliente(cliente));
+    }
+
     @PUT
     @Path("{encomendaId}")
     public Response updateEncomenda(@PathParam("encomendaId") int id, EncomendaDTO encomendaDTO){
@@ -52,6 +58,7 @@ public class EncomendaService {
 
         encomendaBean.updateEncomenda(
                 id,
+                encomendaDTO.getCliente(),
                 encomendaDTO.getDataPartida(),
                 encomendaDTO.getDataChegada(),
                 encomendaDTO.getMetodoPagamento(),

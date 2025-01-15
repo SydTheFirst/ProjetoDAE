@@ -36,9 +36,15 @@ public class EncomendaBean {
         return entityManager.createNamedQuery("getAllEncomendas", Encomenda.class).getResultList();
     }
 
-    public void updateEncomenda(int id, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
+    //get encomendas by cliente
+    public List<Encomenda> getEncomendasByCliente(String cliente) {
+        return entityManager.createNamedQuery("getEncomendasByCliente", Encomenda.class).setParameter("cliente", cliente).getResultList();
+    }
+
+    public void updateEncomenda(int id,String cliente, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
         Encomenda encomenda = find(id);
         if (encomenda != null) {
+            encomenda.setCliente(cliente);
             encomenda.setDataPartida(dataPartida);
             encomenda.setDataChegada(dataChegada);
             encomenda.setMetodoPagamento(metodoPagamento);

@@ -14,8 +14,8 @@ public class EmbalagemBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(int id, int idVolume, int idProduto, int quantidade) {
-        Embalagem embalagem = new Embalagem(id, idVolume, idProduto, quantidade);
+    public void create(int id, int idVolume, int idEncomenda, int idProduto, int quantidade) {
+        Embalagem embalagem = new Embalagem(id, idVolume, idEncomenda, idProduto, quantidade);
         entityManager.persist(embalagem);
     }
 
@@ -27,9 +27,9 @@ public class EmbalagemBean {
         return entityManager.createNamedQuery("getAllEmbalagens", Embalagem.class).getResultList();
     }
 
-    public List<Embalagem> getEmbalagensByVolume(int idVolume) {
-        Query query = entityManager.createNamedQuery("getEmbalagensByVolume", Embalagem.class);
-        query.setParameter("idVolume", idVolume);
+    public List<Embalagem> getEmbalagensByEncomenda(int idEncomenda) {
+        Query query = entityManager.createNamedQuery("getEmbalagensByEncomenda", Embalagem.class);
+        query.setParameter("idEncomenda", idEncomenda);
         return query.getResultList();
     }
 

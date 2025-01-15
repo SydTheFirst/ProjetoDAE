@@ -82,8 +82,9 @@ public final class DTOconverter {
     public static EmbalagemDTO toDTO(Embalagem embalagem){
         return new EmbalagemDTO(
                 embalagem.getId(),
-                embalagem.getIdProduto(),
                 embalagem.getIdVolume(),
+                embalagem.getIdEncomenda(),
+                embalagem.getIdProduto(),
                 embalagem.getQuantidade()
         );
     }

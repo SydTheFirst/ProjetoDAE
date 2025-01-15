@@ -4,6 +4,7 @@ package com.example.projetodae.dtos;
 public class EmbalagemDTO {
 
     private int id;
+    private int idEncomenda;
     private int idVolume;
     private int idProduto;
     private int quantidade;
@@ -13,9 +14,10 @@ public class EmbalagemDTO {
     }
 
     // Construtor
-    public EmbalagemDTO(int id, int idEmbalagem, int idProduto, int quantidade) {
+    public EmbalagemDTO(int id, int idEncomenda, int idVolume, int idProduto, int quantidade) {
         this.id = id;
-        this.idVolume = idEmbalagem;
+        this.idEncomenda = idEncomenda;
+        this.idVolume = idVolume;
         this.idProduto = idProduto;
         this.quantidade = quantidade;
     }
@@ -30,12 +32,20 @@ public class EmbalagemDTO {
         this.id = id;
     }
 
+    public int getIdEncomenda() {
+        return idEncomenda;
+    }
+
+    public void setIdEncomenda(int idEncomenda) {
+        this.idEncomenda = idEncomenda;
+    }
+
     public int getIdVolume() {
         return idVolume;
     }
 
-    public void setIdVolume(int idEmbalagem) {
-        this.idVolume = idEmbalagem;
+    public void setIdVolume(int idVolume) {
+        this.idVolume = idVolume;
     }
 
     public int getIdProduto() {

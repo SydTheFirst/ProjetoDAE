@@ -16,7 +16,7 @@ public class EncomendaDTO {
     public EncomendaDTO() {
     }
 
-    public EncomendaDTO(int id, String idCliente, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
+    public EncomendaDTO(int id, String cliente, Timestamp dataPartida, Timestamp dataChegada, MetodoPagamento metodoPagamento, Status status) {
         this.id = id;
         this.cliente = cliente;
         this.dataPartida = dataPartida;

@@ -1,8 +1,8 @@
 package com.example.projetodae.entities;
 
 public enum Status {
-    EmEspera,
-    EmEntrega,
+    Pendente,
+    Enviada,
     Entregue,
     Cancelada
 }
