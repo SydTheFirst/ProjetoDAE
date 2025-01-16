@@ -12,13 +12,17 @@ import jakarta.validation.constraints.NotNull;
         @NamedQuery(
                 name = "getAllVolumes",
                 query = "SELECT v FROM Volume v ORDER BY v.id" // JPQL
+        ),
+        @NamedQuery(
+                name = "getVolumesByEncomenda",
+                query = "SELECT v FROM Volume v WHERE v.idEncomenda = :idEncomenda" // JPQL
         )
 })
 public class Volume {
 
     @Id
     @NotNull
-    private int id;
+    private String id;
 
     @NotNull
     private int idEncomenda;
@@ -26,16 +30,16 @@ public class Volume {
     public Volume() {
     }
 
-    public Volume(int id, int idEncomenda) {
+    public Volume(String id, int idEncomenda) {
         this.id = id;
         this.idEncomenda = idEncomenda;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

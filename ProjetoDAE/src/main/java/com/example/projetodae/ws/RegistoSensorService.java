@@ -29,7 +29,7 @@ public class RegistoSensorService {
 
     @GET
     @Path("/{id}")
-    public List<RegistoSensorDTO> getRegisto(@PathParam("id") int id) {
+    public List<RegistoSensorDTO> getRegistosBySensorId(@PathParam("id") int id) {
         return DTOconverter.registoSensorsToDTOs(registoSensorBean.getRegistosSensorByIdSensor(id));
     }
 

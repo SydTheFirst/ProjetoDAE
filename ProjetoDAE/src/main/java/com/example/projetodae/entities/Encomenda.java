@@ -11,7 +11,11 @@ import java.sql.Timestamp;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllEncomendas",
-                query = "SELECT e FROM Encomenda e ORDER BY e.dataPartida DESC" // JPQL
+                query = "SELECT e FROM Encomenda e ORDER BY e.id ASC" // JPQL
+        ),
+        @NamedQuery(
+                name = "getEncomendasByCliente",
+                query = "SELECT e FROM Encomenda e WHERE e.cliente = :cliente ORDER BY e.id ASC" // JPQL
         )
 })
 
@@ -21,7 +25,6 @@ public class Encomenda {
     @Id
     private int id;
 
-    @NotNull
     private String cliente;
 
     @NotNull

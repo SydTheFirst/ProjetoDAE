@@ -1,12 +1,19 @@
 <template>
-    <div>
-    <h1>Welcome to Academics Management</h1>
-    <nuxt-link to="/registoSensor">Registo Sensores</nuxt-link>
-    </div>
-  
-    <div>
-      <nuxt-link to="/courses">Courses</nuxt-link>
-    </div>
+  <div>
+    <h1>login</h1>
+    <p>
+      <nuxt-link to="admin">admin</nuxt-link>
+    </p>
+
+    <p>
+      <nuxt-link to="logistic">logistic</nuxt-link>
+    </p>
+
+    <p>
+      <nuxt-link to="client">client</nuxt-link>
+    </p>
+  </div>
+
 </template> 
 
 <script lang="ts" setup>

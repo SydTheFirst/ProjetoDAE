@@ -16,11 +16,11 @@ import java.util.Objects;
         ),
         @NamedQuery(
                 name = "getEmbalagensByVolume",
-                query = "SELECT e FROM Embalagem e WHERE e.idVolume = :idVolume ORDER BY e.idProduto" // JPQL
+                query = "SELECT e FROM Embalagem e WHERE e.idVolume = :idVolume" // JPQL
         ),
         @NamedQuery(
-                name = "getEmbalagensByProduto",
-                query = "SELECT e FROM Embalagem e WHERE e.idProduto = :idProduto ORDER BY e.quantidade DESC" // JPQL
+                name = "getEmbalagensByEncomenda",
+                query = "SELECT e FROM Embalagem e WHERE e.idEncomenda = :idEncomenda ORDER BY e.idProduto" // JPQL
         )
 })
 
@@ -32,7 +32,10 @@ public class Embalagem {
     private int id;
 
     @NotNull
-    private int idVolume;
+    private String idVolume;
+
+    @NotNull
+    private int idEncomenda;
 
     @NotNull
     private int idProduto;
@@ -45,14 +48,16 @@ public class Embalagem {
     }
 
     // Construtor
-    public Embalagem(int id, int idEmbalagem, int idProduto, int quantidade) {
+    public Embalagem(int id, String idVolume, int idEncomenda, int idProduto, int quantidade) {
         this.id = id;
-        this.idVolume = idEmbalagem;
+        this.idVolume = idVolume;
+        this.idEncomenda = idEncomenda;
         this.idProduto = idProduto;
         this.quantidade = quantidade;
     }
 
     // Getters e Setters
+
 
     public int getId() {
         return id;
@@ -62,12 +67,20 @@ public class Embalagem {
         this.id = id;
     }
 
-    public int getIdVolume() {
+    public String getIdVolume() {
         return idVolume;
     }
 
-    public void setIdVolume(int idEmbalagem) {
-        this.idVolume = idEmbalagem;
+    public void setIdVolume(String idVolume) {
+        this.idVolume = idVolume;
+    }
+
+    public int getIdEncomenda() {
+        return idEncomenda;
+    }
+
+    public void setIdEncomenda(int idEncomenda) {
+        this.idEncomenda = idEncomenda;
     }
 
     public int getIdProduto() {

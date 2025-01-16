@@ -36,6 +36,12 @@ public class VolumeService {
         return Response.ok(DTOconverter.toDTO(volume)).build();
     }
 
+    @GET
+    @Path("/encomenda/{idEncomenda}")
+    public List<VolumeDTO> getVolumesByEncomenda(@PathParam("idEncomenda") int idEncomenda){
+        return DTOconverter.volumesToDTOs(volumeBean.getVolumesByEncomenda(idEncomenda));
+    }
+
     @POST
     @Path("/")
     public Response createVolume(VolumeDTO volumeDTO){

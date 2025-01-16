@@ -48,19 +48,23 @@ public class ConfigBean {
             userBean.create("user2", "password2", TipoUser.Cliente);
 
             // Encomendas
-            encomendaBean.create(10, 1, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(3600)), MetodoPagamento.Cartao, Status.EmEspera);
-            encomendaBean.create(20, 2, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(7200)), MetodoPagamento.ReferenciaMB, Status.EmEntrega);
-            encomendaBean.create(30,3, Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(10800)), MetodoPagamento.Paypal, Status.Entregue);
+            encomendaBean.create(10, "user1", Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(3600)), MetodoPagamento.Cartao, Status.Pendente);
+            encomendaBean.create(20, "user2", Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(7200)), MetodoPagamento.ReferenciaMB, Status.Enviada);
+            encomendaBean.create(30,"user1", Timestamp.from(Instant.now()), Timestamp.from(Instant.now().plusSeconds(10800)), MetodoPagamento.Paypal, Status.Entregue);
 
             // Volumes
-            volumeBean.create(1, 1);
-            volumeBean.create(2, 2);
-            volumeBean.create(3, 3);
+            volumeBean.create("10-1", 10);
+            volumeBean.create("10-2", 10);
+            volumeBean.create("10-3", 10);
+            volumeBean.create("20-1", 20);
+            volumeBean.create("30-1", 30);
 
             // Embalagens
-            embalagemBean.create(1, 1, 1, 10);
-            embalagemBean.create(2, 2, 2, 5);
-            embalagemBean.create(3, 3, 3, 15);
+            embalagemBean.create(1, "10-1", 10, 100, 2);
+            embalagemBean.create(2, "10-2", 10, 200, 2);
+            embalagemBean.create(3, "10-3", 10, 300, 2);
+            embalagemBean.create(4, "20-1", 20, 200, 1);
+            embalagemBean.create(5, "30-1", 30, 300, 4);
 
             // Produtos
             produtoBean.create(100,"Pasta de dentes", 2.0f, Categoria.HIGIENE);
