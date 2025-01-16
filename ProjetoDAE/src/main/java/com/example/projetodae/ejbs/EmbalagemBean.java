@@ -33,9 +33,9 @@ public class EmbalagemBean {
         return query.getResultList();
     }
 
-    public List<Embalagem> getEmbalagensByProduto(int idProduto) {
-        Query query = entityManager.createNamedQuery("getEmbalagensByProduto", Embalagem.class);
-        query.setParameter("idProduto", idProduto);
+    public List<Embalagem> getEmbalagensByVolume(String idVolume) {
+        Query query = entityManager.createNamedQuery("getEmbalagensByVolume", Embalagem.class);
+        query.setParameter("idVolume", idVolume);
         return query.getResultList();
     }
 

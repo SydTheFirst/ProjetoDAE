@@ -41,6 +41,12 @@ public class SensorBean {
         return entityManager.createNamedQuery("getAllSensors", Sensor.class).getResultList();
     }
 
+    public List<Sensor> getSensorsByEmbalagem(int idEmbalagem) {
+        Query query = entityManager.createNamedQuery("getSensorsByEmbalagem", Sensor.class);
+        query.setParameter("idEmbalagem", idEmbalagem);
+        return query.getResultList();
+    }
+
     public void updateSensor(int id, int idEmbalagem, TipoSensor tipoSensor, boolean ativo) {
         Sensor sensor = find(id);
         if (sensor != null) {

@@ -3,22 +3,22 @@ package com.example.projetodae.dtos;
 
 public class VolumeDTO {
 
-    private int id;
+    private String id;
     private int idEncomenda;
 
     public VolumeDTO() {
     }
 
-    public VolumeDTO(int id, int idEncomenda) {
+    public VolumeDTO(String id, int idEncomenda) {
         this.id = id;
         this.idEncomenda = idEncomenda;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

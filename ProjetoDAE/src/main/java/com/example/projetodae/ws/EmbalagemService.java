@@ -41,6 +41,12 @@ public class EmbalagemService {
         return DTOconverter.embalagensDTOs(embalagemBean.getEmbalagensByEncomenda(id));
     }
 
+    @GET
+    @Path("/volume/{id}")
+    public List<EmbalagemDTO> getEmbalagensByVolume(@PathParam("id") String id){
+        return DTOconverter.embalagensDTOs(embalagemBean.getEmbalagensByVolume(id));
+    }
+
     @POST
     @Path("/")
     public Response createEmbalagem(EmbalagemDTO embalagemDTO){

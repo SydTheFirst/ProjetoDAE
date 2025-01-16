@@ -13,7 +13,7 @@ public class VolumeBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(int id, int idEncomenda) {
+    public void create(String id, int idEncomenda) {
         Volume volume = new Volume();
         volume.setId(id);
         volume.setIdEncomenda(idEncomenda);
@@ -29,8 +29,7 @@ public class VolumeBean {
     }
 
     public List<Volume> getVolumesByEncomenda(int idEncomenda) {
-        TypedQuery<Volume> query = entityManager.createQuery(
-                "SELECT v FROM Volume v WHERE v.idEncomenda = :idEncomenda", Volume.class);
+        TypedQuery<Volume> query = entityManager.createNamedQuery("getVolumesByEncomenda", Volume.class);
         query.setParameter("idEncomenda", idEncomenda);
         return query.getResultList();
     }

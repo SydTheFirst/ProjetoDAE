@@ -16,11 +16,7 @@ import java.util.Objects;
         ),
         @NamedQuery(
                 name = "getEmbalagensByVolume",
-                query = "SELECT e FROM Embalagem e WHERE e.idVolume = :idVolume ORDER BY e.idProduto" // JPQL
-        ),
-        @NamedQuery(
-                name = "getEmbalagensByProduto",
-                query = "SELECT e FROM Embalagem e WHERE e.idProduto = :idProduto ORDER BY e.quantidade DESC" // JPQL
+                query = "SELECT e FROM Embalagem e WHERE e.idVolume = :idVolume" // JPQL
         ),
         @NamedQuery(
                 name = "getEmbalagensByEncomenda",

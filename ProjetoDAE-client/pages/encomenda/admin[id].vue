@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h1>Detalhes da Encomenda</h1>
+    <h1>Encomenda {{ encomenda.id }}</h1>
     <table>
       <thead>
       <tr>
-        <th>ID</th>
         <th>Cliente</th>
         <th>Data de Partida</th>
         <th>Data de Chegada</th>
@@ -15,7 +14,6 @@
 
       <tbody>
       <tr>
-        <td>{{ encomenda.id }}</td>
         <td>{{ encomenda.cliente }}</td>
         <td>{{ encomenda.dataPartida }}</td>
         <td>{{ encomenda.dataChegada }}</td>
@@ -26,25 +24,15 @@
     </table>
 
     <h2>Volumes</h2>
-    <table>
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Produto</th>
-        <th>Quantidade</th>
-      </tr>
-      </thead>
 
-      <tbody>
-      <tr v-for="embalagem in embalagens" :key="embalagem.id">
-        <td><nuxt-link :to="`/embalagem/${embalagem.id}`">
-          {{ embalagem.id }}
-        </nuxt-link></td>
-        <td>{{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}</td>
-        <td>{{ embalagem.quantidade }}</td>
-      </tr>
-      </tbody>
+    <table>
+    <tr v-for="volume in volumes" :key="volume.id">
+      <td><nuxt-link :to="`/volume/admin${volume.id}`">
+        {{ volume.id }}
+      </nuxt-link></td>
+    </tr>
     </table>
+
   </div>
 
 </template>
@@ -62,25 +50,8 @@ const config = useRuntimeConfig()
 const api = config.public.API_URL
 
 const { data: encomenda } = await useFetch(`${api}/encomendas/${id}`);
-const { data: embalagens } = await useFetch(`${api}/embalagens/encomenda/${id}`);
+const { data: volumes } = await useFetch(`${api}/volumes/encomenda/${id}`);
 
-const produtoNomes = reactive({});
-
-// Função para buscar detalhes do produto
-async function fetchProduto(idProduto) {
-  if (!produtoNomes[idProduto]) {
-    const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`);
-    if (produto.value) {
-      produtoNomes[idProduto] = produto.value.nome; // Armazena o nome do produto
-    }
-  }
-  return produtoNomes[idProduto];
-}
-
-// Busque os nomes dos produtos para todas as embalagens
-await Promise.all(
-    embalagens.value.map(embalagem => fetchProduto(embalagem.idProduto))
-);
 </script>
 
 <style scoped>

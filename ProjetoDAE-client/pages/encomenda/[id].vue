@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h1>Detalhes da Encomenda</h1>
+    <h1>Encomenda {{ encomenda.id }}</h1>
     <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Data de Partida</th>
           <th>Data de Chegada</th>
           <th>Método de Pagamento</th>
@@ -14,7 +13,6 @@
 
       <tbody>
         <tr>
-          <td>{{ encomenda.id }}</td>
           <td>{{ encomenda.dataPartida }}</td>
           <td>{{ encomenda.dataChegada }}</td>
           <td>{{ encomenda.metodoPagamento }}</td>

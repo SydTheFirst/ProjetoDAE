@@ -38,6 +38,12 @@ public class SensorService {
         return Response.ok(DTOconverter.toDTO(sensor)).build();
     }
 
+    @GET
+    @Path("/embalagem/{idEmbalagem}")
+    public List<SensorDTO> getSensorsByEmbalagem(@PathParam("idEmbalagem") int idEmbalagem) {
+        return DTOconverter.sensorsToDTOs(sensorBean.getSensorsByEmbalagem(idEmbalagem));
+    }
+
     @POST
     public Response createSensor(SensorDTO sensorDTO) {
         sensorBean.create(
