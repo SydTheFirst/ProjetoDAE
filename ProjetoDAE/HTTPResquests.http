@@ -198,7 +198,20 @@ Content-Type: application/json
 //
 GET http://localhost:8080/academics/api/registos
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA2ODU4NywiZXhwIjoxNzM3MDcyMTg3fQ.D0zZ5ZyIls9-ISMg8ZClmOuCvL7MlGnQe9J363V0OIJewwIKN3Tsx4He4LO9a4Cd
 
 ####
 GET http://localhost:8080/academics/api/registos/3
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA2ODU4NywiZXhwIjoxNzM3MDcyMTg3fQ.D0zZ5ZyIls9-ISMg8ZClmOuCvL7MlGnQe9J363V0OIJewwIKN3Tsx4He4LO9a4Cd
+
+
+### Request JWT TOKEN
+POST http://localhost:8080/academics/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
