@@ -2,6 +2,26 @@
   <div class="bg-gray-100 min-h-screen p-8">
     <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
     <h1 class="text-3xl font-bold mb-6">Embalagem {{ embalagem.id }}</h1>
+    <table>
+      <thead>
+      <tr>
+        <th>Encomenda</th>
+        <th>Produto</th>
+        <th>Quantidade</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{ embalagem.idEncomenda }}</td>
+        <td>
+          <nuxt-link :to="`/produto/${embalagem.idProduto}`">
+            {{ embalagem.idProduto}}
+          </nuxt-link>
+        </td>
+        <td>{{ embalagem.quantidade }}</td>
+      </tr>
+      </tbody>
+    </table>
 
     <Table
         :headers="['Encomenda', 'Produto', 'Quantidade']"

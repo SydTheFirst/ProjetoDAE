@@ -35,6 +35,40 @@
         </template>
       </Table>
     </div>
+      <tbody>
+        <tr>
+          <td>{{ encomenda.dataPartida }}</td>
+          <td>{{ encomenda.dataChegada }}</td>
+          <td>{{ encomenda.metodoPagamento }}</td>
+          <td>{{ encomenda.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Embalagens</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Produto</th>
+          <th>Quantidade</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="embalagem in embalagens" :key="embalagem.id">
+          <td><nuxt-link :to="`/embalagem/${embalagem.id}`">
+            {{ embalagem.id }}
+          </nuxt-link></td>
+          <td>
+            <nuxt-link :to="`/produto/${embalagem.idProduto}`">
+              {{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}
+            </nuxt-link>
+          </td>
+          <td>{{ embalagem.quantidade }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
