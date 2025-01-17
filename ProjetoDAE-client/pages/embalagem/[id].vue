@@ -31,7 +31,7 @@
     <h2 class="text-2xl font-bold mt-8 mb-4">Sensores</h2>
     <Table
         :headers="['ID', 'Tipo', 'Valor']"
-        :rows="sensores.map(sensor => [sensor.id, sensor.tipoSensor, registosRecentes[sensor.id] || 'Carregando...'])"
+        :rows="sensores.map(sensor => [sensor.id, sensor.tipoSensor, registosRecentes[sensor.id]])"
     >
       <template #col-0="{ value }">
         <nuxt-link :to="`/sensor/${value}`" class="text-blue-600 hover:underline">
