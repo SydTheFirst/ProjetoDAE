@@ -45,7 +45,7 @@ th {
 <script setup>
 const config = useRuntimeConfig()
 const api = config.public.API_URL
-const username = 'user1'; // Isto vai mudar conforme a sessão aberta
+const username = 'joaosilva'; // Isto vai mudar conforme a sessão aberta
 const { data: encomendas } = await useFetch(`${api}/encomendas/cliente/${username}`)
 
 </script>
