@@ -1,27 +1,23 @@
 <template>
   <div>
-    <h1>Volume {{ id }}</h1>
+    <h1>Sensor {{ id }}</h1>
 
-  <h2>Embalagens</h2>
-  <table>
-    <thead>
+    <h2>Historico</h2>
+    <table>
+      <thead>
       <tr>
-        <th>ID</th>
-        <th>Produto</th>
-        <th>Quantidade</th>
+        <th>Data</th>
+        <th>Valor</th>
       </tr>
-    </thead>
+      </thead>
 
-    <tbody>
-      <tr v-for="embalagem in embalagens" :key="embalagem.id">
-        <td><nuxt-link :to="`/embalagem/${embalagem.id}`">
-          {{ embalagem.id }}
-        </nuxt-link></td>
-        <td>{{ embalagem.idProduto }}</td>
-        <td>{{ embalagem.quantidade }}</td>
+      <tbody>
+      <tr v-for="registo in registos" :key="registo.id">
+        <td>{{ registo.timeStamp }}</td>
+        <td>{{ registo.valor }}</td>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -37,7 +33,7 @@ const id = route.params.id
 const config = useRuntimeConfig()
 const api = config.public.API_URL
 
-const { data: embalagens } = await useFetch(`${api}/embalagens/volume/${id}`);
+const { data: registos } = await useFetch(`${api}/registos/sensor/${id}`);
 </script>
 
 <style scoped>

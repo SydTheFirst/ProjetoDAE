@@ -18,27 +18,46 @@
       </tbody>
     </table>
 
-    <!--for Sensores-->
     <h2>Sensores</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tipo</th>
+        <th>Valor</th>
+      </tr>
+      </thead>
 
+      <tbody>
+      <tr v-for="sensor in sensores" :key="sensor.id">
+        <td><nuxt-link :to="`/sensor/${sensor.id}`">
+          {{ sensor.id }}
+        </nuxt-link></td>
+        <td>{{ sensor.tipoSensor }}</td>
+        <td>{{ registosRecentes[sensor.id] || 'Carregando...' }}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script setup>
 import { useRuntimeConfig } from 'nuxt/app'
 import { useFetch } from '#app'
+import { reactive, onMounted } from 'vue'
 
-// Obter o ID da embalagem pela rota dinâmica
 const route = useRoute()
 const id = route.params.id
 
-// Configurar a URL da API e buscar os detalhes
 const config = useRuntimeConfig()
 const api = config.public.API_URL
 
 // Dados reativos
 const { data: embalagem } = await useFetch(`${api}/embalagens/${id}`)
+const { data: sensores } = await useFetch(`${api}/sensors/embalagem/${id}`)
+
 const produtoNomes = reactive({})
+const registosRecentes = reactive({}) // Armazena os registos mais recentes para cada sensor
 
 // Função para buscar detalhes do produto
 async function fetchProduto(idProduto) {
@@ -51,10 +70,27 @@ async function fetchProduto(idProduto) {
   return produtoNomes[idProduto]
 }
 
-// Buscar o nome do produto da embalagem
-if (embalagem.value) {
-  await fetchProduto(embalagem.value.idProduto)
+async function fetchRegistoMaisRecente(idSensor) {
+  if (!registosRecentes[idSensor]) {
+    const { data: registo } = await useFetch(`${api}/registos/sensor/${idSensor}/mostRecent`)
+    if (registo.value) {
+      registosRecentes[idSensor] = registo.value.valor // Armazena o valor do registo
+    }
+  }
+  return registosRecentes[idSensor]
 }
+
+onMounted(async () => {
+  if (embalagem.value) {
+    await fetchProduto(embalagem.value.idProduto)
+  }
+
+  if (sensores.value) {
+    await Promise.all(
+        sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id))
+    )
+  }
+})
 </script>
 
 <style scoped>

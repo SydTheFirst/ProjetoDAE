@@ -25,12 +25,13 @@
 
     <h2>Volumes</h2>
 
+
     <table>
-    <tr v-for="volume in volumes" :key="volume.id">
-      <td><nuxt-link :to="`/volume/admin${volume.id}`">
-        {{ volume.id }}
-      </nuxt-link></td>
-    </tr>
+      <tr v-for="volume in volumes" :key="volume.id">
+        <td><nuxt-link :to="`/volume/admin${volume.id}`">
+          {{ volume.id }}
+        </nuxt-link></td>
+      </tr>
     </table>
 
   </div>
