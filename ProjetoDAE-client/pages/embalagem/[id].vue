@@ -1,62 +1,109 @@
 <template>
-  <div class="bg-gray-100 min-h-screen p-8">
-    <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
-    <h1 class="text-3xl font-bold mb-6">Embalagem {{ embalagem.id }}</h1>
+  <div>
+    <h1>Embalagem {{ embalagem.id }}</h1>
+    <table>
+      <thead>
+      <tr>
+        <th>Encomenda</th>
+        <th>Produto</th>
+        <th>Quantidade</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{ embalagem.idEncomenda }}</td>
+        <td>{{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}</td>
+        <td>{{ embalagem.quantidade }}</td>
+      </tr>
+      </tbody>
+    </table>
 
-    <Table
-        :headers="['Encomenda', 'Produto', 'Quantidade']"
-        :rows="[[embalagem.idEncomenda, produtoNomes[embalagem.idProduto] || 'Carregando...', embalagem.quantidade]]"
-    />
+    <h2>Sensores</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tipo</th>
+        <th>Valor</th>
+      </tr>
+      </thead>
 
-    <h2 class="text-2xl font-bold mt-8 mb-4">Sensores</h2>
-    <Table
-        :headers="['ID', 'Tipo', 'Valor']"
-        :rows="sensores.map(sensor => [sensor.id, sensor.tipoSensor, registosRecentes[sensor.id] || 'Carregando...'])"
-    >
-      <template #col-0="{ value }">
-        <nuxt-link :to="`/sensor/${value}`" class="text-blue-600 hover:underline">
-          {{ value }}
-        </nuxt-link>
-      </template>
-    </Table>
-  </div>
+      <tbody>
+      <tr v-for="sensor in sensores" :key="sensor.id">
+        <td><nuxt-link :to="`/sensor/${sensor.id}`">
+          {{ sensor.id }}
+        </nuxt-link></td>
+        <td>{{ sensor.tipoSensor }}</td>
+        <td>{{ registosRecentes[sensor.id] || 'Carregando...' }}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script setup>
-import Table from "@/components/Table.vue";
-import { useRuntimeConfig } from 'nuxt/app';
-import { useFetch } from '#app';
-import { reactive, onMounted } from 'vue';
+import { useRuntimeConfig } from 'nuxt/app'
+import { useFetch } from '#app'
+import { reactive, onMounted } from 'vue'
 
-const route = useRoute();
-const id = route.params.id;
+const route = useRoute()
+const id = route.params.id
 
-const config = useRuntimeConfig();
-const api = config.public.API_URL;
+const config = useRuntimeConfig()
+const api = config.public.API_URL
 
-const { data: embalagem } = await useFetch(`${api}/embalagens/${id}`);
-const { data: sensores } = await useFetch(`${api}/sensors/embalagem/${id}`);
+// Dados reativos
+const { data: embalagem } = await useFetch(`${api}/embalagens/${id}`)
+const { data: sensores } = await useFetch(`${api}/sensors/embalagem/${id}`)
 
-const produtoNomes = reactive({});
-const registosRecentes = reactive({});
+const produtoNomes = reactive({})
+const registosRecentes = reactive({}) // Armazena os registos mais recentes para cada sensor
 
+// Função para buscar detalhes do produto
 async function fetchProduto(idProduto) {
   if (!produtoNomes[idProduto]) {
-    const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`);
-    if (produto.value) produtoNomes[idProduto] = produto.value.nome;
+    const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`)
+    if (produto.value) {
+      produtoNomes[idProduto] = produto.value.nome
+    }
   }
+  return produtoNomes[idProduto]
 }
 
 async function fetchRegistoMaisRecente(idSensor) {
   if (!registosRecentes[idSensor]) {
-    const { data: registo } = await useFetch(`${api}/registos/sensor/${idSensor}/mostRecent`);
-    if (registo.value) registosRecentes[idSensor] = registo.value.valor;
+    const { data: registo } = await useFetch(`${api}/registos/sensor/${idSensor}/mostRecent`)
+    if (registo.value) {
+      registosRecentes[idSensor] = registo.value.valor // Armazena o valor do registo
+    }
   }
+  return registosRecentes[idSensor]
 }
 
 onMounted(async () => {
-  if (embalagem.value) await fetchProduto(embalagem.value.idProduto);
-  if (sensores.value) await Promise.all(sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id)));
-});
+  if (embalagem.value) {
+    await fetchProduto(embalagem.value.idProduto)
+  }
+
+  if (sensores.value) {
+    await Promise.all(
+        sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id))
+    )
+  }
+})
 </script>
+
+<style scoped>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+th {
+  background-color: #f4f4f4;
+}
+</style>
