@@ -29,8 +29,28 @@ public class RegistoSensorService {
 
     @GET
     @Path("/{id}")
-    public List<RegistoSensorDTO> getRegistosBySensorId(@PathParam("id") int id) {
-        return DTOconverter.registoSensorsToDTOs(registoSensorBean.getRegistosSensorByIdSensor(id));
+    public Response getRegistoDetails(@PathParam("id") int id) {
+        RegistoSensor registo = registoSensorBean.find(id);
+        if (registo != null) {
+            return Response.ok(DTOconverter.toDTO(registo)).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    @GET
+    @Path("/sensor/{idSensor}")
+    public List<RegistoSensorDTO> getRegistosByIdSensor(@PathParam("idSensor") int idSensor) {
+        return DTOconverter.registoSensorsToDTOs(registoSensorBean.getRegistosByIdSensor(idSensor));
+    }
+
+    @GET
+    @Path("/sensor/{idSensor}/mostRecent")
+    public Response getMostRecentRegistoSensor(@PathParam("idSensor") int idSensor) {
+        RegistoSensor registo = registoSensorBean.getMostRecentRegistoSensor(idSensor);
+        if (registo != null) {
+            return Response.ok(DTOconverter.toDTO(registo)).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @POST

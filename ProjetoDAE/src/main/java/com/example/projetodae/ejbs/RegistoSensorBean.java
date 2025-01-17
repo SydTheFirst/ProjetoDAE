@@ -40,18 +40,18 @@ public class RegistoSensorBean {
         return entityManager.createNamedQuery("getAllRegistosSensor", RegistoSensor.class).getResultList();
     }
 
-    public List<RegistoSensor> getRegistosSensorByIdSensor(int id) {
-        Query query = entityManager.createQuery(
-                "SELECT r FROM RegistoSensor r WHERE r.idSensor = :idSensor ORDER BY r.timeStamp DESC",
-                RegistoSensor.class
-        );
-        query.setParameter("idSensor", id);
+    public List<RegistoSensor> getRegistosByIdSensor(int idSensor) {
+        Query query = entityManager.createNamedQuery("getRegistosSensorByIdSensor", RegistoSensor.class);
+        query.setParameter("idSensor", idSensor);
         return query.getResultList();
-
-        //return entityManager.createNamedQuery("getAllRegistosSensor", RegistoSensor.class).getResultList();
     }
 
-
+    public RegistoSensor getMostRecentRegistoSensor(int idSensor) {
+        Query query = entityManager.createNamedQuery("getMostRecentRegistoSensor", RegistoSensor.class);
+        query.setParameter("idSensor", idSensor);
+        List<RegistoSensor> result = query.getResultList();
+        return result.isEmpty() ? null : result.get(0);
+    }
 
     public void updateRegisto(int id, int idSensor, Timestamp timeStamp, String valor) {
         RegistoSensor registoSensor = find(id);
