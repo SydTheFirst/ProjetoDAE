@@ -78,7 +78,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/academics/api/volumes/101
+DELETE http://localhost:8080/academics/api/volumes/V101-1
 Content-Type: application/json
 
 //

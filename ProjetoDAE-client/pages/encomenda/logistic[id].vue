@@ -25,17 +25,19 @@
 
     <h2>Volumes</h2>
 
-
     <table>
       <tr v-for="volume in volumes" :key="volume.id">
-        <td><nuxt-link :to="`/volume/admin${volume.id}`">
-          {{ volume.id }}
-        </nuxt-link></td>
+        <td>
+          <nuxt-link :to="`/volume/admin${volume.id}`">
+            {{ volume.id }}
+          </nuxt-link>
+        </td>
+        <td>
+          <button @click="eliminarVolume(volume.id)">Eliminar</button>
+        </td>
       </tr>
     </table>
-
   </div>
-
 </template>
 
 <script setup>
@@ -51,8 +53,32 @@ const config = useRuntimeConfig()
 const api = config.public.API_URL
 
 const { data: encomenda } = await useFetch(`${api}/encomendas/${id}`);
-const { data: volumes } = await useFetch(`${api}/volumes/encomenda/${id}`);
+const { data: volumes, refresh } = await useFetch(`${api}/volumes/encomenda/${id}`);
 
+// Função para eliminar volume
+async function eliminarVolume(volumeId) {
+  if (confirm(`Tem certeza de que deseja eliminar o volume ${volumeId}?`)) {
+    try {
+      const response = await fetch(`${api}/volumes/${volumeId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error('Erro ao eliminar volume.')
+      }
+
+      alert('Volume eliminado com sucesso!')
+      // Atualizar a lista de volumes após a exclusão
+      await refresh()
+    } catch (error) {
+      console.error(error)
+      alert('Erro ao tentar eliminar o volume.')
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -67,5 +93,16 @@ th, td {
 }
 th {
   background-color: #f4f4f4;
+}
+button {
+  padding: 6px 12px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #e53935;
 }
 </style>

@@ -20,7 +20,7 @@ public class VolumeBean {
         entityManager.persist(volume);
     }
 
-    public Volume find(int id) {
+    public Volume find(String id) {
         return entityManager.find(Volume.class, id);
     }
 
@@ -34,7 +34,7 @@ public class VolumeBean {
         return query.getResultList();
     }
 
-    public void updateVolume(int id, int idEncomenda) {
+    public void updateVolume(String id, int idEncomenda) {
         Volume volume = find(id);
         if (volume != null) {
             volume.setIdEncomenda(idEncomenda);
@@ -42,7 +42,7 @@ public class VolumeBean {
         }
     }
 
-    public void deleteVolume(int id) {
+    public void deleteVolume(String id) {
         Volume volume = find(id);
         if (volume != null) {
             entityManager.remove(volume);

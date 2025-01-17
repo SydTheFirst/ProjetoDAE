@@ -28,7 +28,7 @@ public class VolumeService {
 
     @GET
     @Path("/{id}")
-    public Response getVolume(@PathParam("id") int id){
+    public Response getVolume(@PathParam("id") String id){
         Volume volume = volumeBean.find(id);
         if (volume == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -58,7 +58,7 @@ public class VolumeService {
 
     @DELETE
     @Path("{volumeId}")
-    public Response deleteVolume(@PathParam("volumeId") int id){
+    public Response deleteVolume(@PathParam("volumeId") String id){
         Volume volume = volumeBean.find(id);
         if (volume == null){
             return Response.status(Response.Status.NOT_FOUND).build();
