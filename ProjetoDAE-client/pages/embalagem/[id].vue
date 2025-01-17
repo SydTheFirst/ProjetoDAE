@@ -38,7 +38,7 @@
           {{ sensor.id }}
         </nuxt-link></td>
         <td>{{ sensor.tipoSensor }}</td>
-        <td>{{ registosRecentes[sensor.id] }}</td>
+        <td>{{ registosRecentes[sensor.id] || "---" }}</td>
       </tr>
       </tbody>
     </table>

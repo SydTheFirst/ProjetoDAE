@@ -39,7 +39,8 @@
           </nuxt-link>
         </td>
         <td>{{ sensor.tipoSensor }}</td>
-        <td>{{ registosRecentes[sensor.id] }}</td>
+        <td>{{ registosRecentes[sensor.id] || "---" }}</td>
+
       </tr>
       </tbody>
     </table>
@@ -113,15 +114,13 @@ async function fetchRegistoMaisRecente(idSensor) {
   }
   return registosRecentes[idSensor]
 }
-
-// Função para criar um novo registro
 async function criarRegisto() {
   if (!novoRegisto.idSensor || !novoRegisto.valor) {
-    alert('Por favor, preencha todos os campos antes de enviar.')
-    return
+    alert('Por favor, preencha todos os campos antes de enviar.');
+    return;
   }
 
-  const timeStamp = new Date().toISOString()
+  const timeStamp = new Date().toISOString();
 
   try {
     const response = await fetch(`${api}/registos`, {
@@ -132,31 +131,38 @@ async function criarRegisto() {
         valor: novoRegisto.valor,
         idSensor: novoRegisto.idSensor,
       }),
-    })
+    });
 
     if (!response.ok) {
-      throw new Error('Erro ao criar o registro.')
+      throw new Error('Erro ao criar o registro.');
     }
 
-    alert('Registro criado com sucesso!')
-    novoRegisto.idSensor = ''
-    novoRegisto.valor = ''
+    alert('Registro criado com sucesso!');
+
+    registosRecentes[novoRegisto.idSensor] = novoRegisto.valor;
+
+    // Resetar os campos do formulário
+    novoRegisto.idSensor = '';
+    novoRegisto.valor = '';
+
+    // Atualizar a lista de registros recentes
+    await fetchRegistoMaisRecente(novoRegisto.idSensor);
   } catch (error) {
-    console.error(error)
-    alert('Houve um erro ao tentar criar o registro.')
+    console.error(error);
+    alert('Houve um erro ao tentar criar o registro.');
   }
 }
 
-// Buscar dados ao montar o componente
+// Buscar registros recentes ao montar o componente
 onMounted(async () => {
   if (embalagem.value) {
-    await fetchProduto(embalagem.value.idProduto)
+    await fetchProduto(embalagem.value.idProduto);
   }
 
   if (sensores.value) {
-    await Promise.all(sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id)))
+    await Promise.all(sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id)));
   }
-})
+});
 </script>
 
 <style scoped>
@@ -196,3 +202,5 @@ button:hover {
   background-color: #0056b3;
 }
 </style>
+
+
