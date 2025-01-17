@@ -215,3 +215,9 @@ Accept: application/json
   "username": "admin",
   "password": "admin123"
 }
+
+
+#### REGISTO 3
+GET http://localhost:8080/academics/api/auth/user
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEyODE3NCwiZXhwIjoxNzM3MTMxNzc0fQ.4Cd776c1vvzPJv-AQmynFT18ghzJqNt8hQgDs6EvT2pd5yZp6adXWdjMID-AERaK
