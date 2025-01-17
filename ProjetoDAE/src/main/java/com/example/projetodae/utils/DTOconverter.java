@@ -53,6 +53,7 @@ public final class DTOconverter {
     //SENSORS
     public static SensorDTO toDTO(Sensor sensor){
         return new SensorDTO(
+                sensor.getId(),
                 sensor.getIdEmbalagem(),
                 sensor.getTipoSensor(),
                 sensor.isAtivo()

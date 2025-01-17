@@ -7,10 +7,6 @@ GET http://localhost:8080/academics/api/users
 Accept: application/json
 
 ###
-GET http://localhost:8080/academics/api/users/
-Accept: application/json
-
-###
 POST http://localhost:8080/academics/api/users
 Content-Type: application/json
 
@@ -45,20 +41,16 @@ PUT http://localhost:8080/academics/api/encomendas/10
 Content-Type: application/json
 
 {
-"cliente" : "user3",
-"dataPartida": "2025-01-07 14:43:49.037748",
-"dataChegada": "2025-01-08 14:43:49.037748",
-"metodoPagamento": "MBWay",
-"status": "EmEntrega"
-
-
+  "cliente": "user1",
+  "dataPartida": "2025-01-07T14:43:49.037748Z",
+  "dataChegada": "2025-01-08T14:43:49.037748Z",
+  "metodoPagamento": "MBWay",
+  "status": "Cancelada"
 }
 
 ###
 DELETE http://localhost:8080/academics/api/encomendas/1
 Content-Type: application/json
-
-
 
 //
 // VOLUMES
@@ -73,7 +65,7 @@ GET http://localhost:8080/academics/api/volumes/1
 Accept: application/json
 
 ###
-GET http://localhost:8080/academics/api/volumes/encomenda/1
+GET http://localhost:8080/academics/api/volumes/encomenda/10
 Accept: application/json
 
 ###
@@ -163,7 +155,6 @@ Content-Type: application/json
 DELETE http://localhost:8080/academics/api/produtos/1
 Content-Type: application/json
 
-
 //
 // SENSORES
 //
@@ -177,7 +168,7 @@ GET http://localhost:8080/academics/api/sensors/1
 Accept: application/json
 
 ###
-GET http://localhost:8080/academics/api/sensors/embalagem/2
+GET http://localhost:8080/academics/api/sensors/embalagem/1
 Accept: application/json
 
 ###
@@ -221,3 +212,34 @@ Accept: application/json
 GET http://localhost:8080/academics/api/auth/user
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEyODE3NCwiZXhwIjoxNzM3MTMxNzc0fQ.4Cd776c1vvzPJv-AQmynFT18ghzJqNt8hQgDs6EvT2pd5yZp6adXWdjMID-AERaK
+
+####
+GET http://localhost:8080/academics/api/registos/sensor/1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEyODE3NCwiZXhwIjoxNzM3MTMxNzc0fQ.4Cd776c1vvzPJv-AQmynFT18ghzJqNt8hQgDs6EvT2pd5yZp6adXWdjMID-AERaK
+
+### Request JWT TOKEN
+POST http://localhost:8080/academics/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+
+#### REGISTO 3
+GET http://localhost:8080/academics/api/auth/user
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEyODE3NCwiZXhwIjoxNzM3MTMxNzc0fQ.4Cd776c1vvzPJv-AQmynFT18ghzJqNt8hQgDs6EvT2pd5yZp6adXWdjMID-AERaK
+
+
+
+####
+GET http://localhost:8080/academics/api/registos/sensor/1
+Accept: application/json
+
+####
+GET http://localhost:8080/academics/api/registos/sensor/1/mostRecent
+Accept: application/json
