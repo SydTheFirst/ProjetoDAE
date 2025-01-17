@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Embalagem {{ embalagem?.id || 'Carregando...' }}</h1>
+    <h1>Embalagem {{ embalagem.id }}</h1>
     <table>
       <thead>
       <tr>
@@ -10,21 +10,17 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-if="embalagem">
+      <tr>
         <td>{{ embalagem.idEncomenda }}</td>
         <td>
           <nuxt-link :to="`/produto/${embalagem.idProduto}`">
-            {{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}
+            {{ embalagem.idProduto }}
           </nuxt-link>
         </td>
         <td>{{ embalagem.quantidade }}</td>
       </tr>
       </tbody>
     </table>
-
-    <p>
-      <nuxt-link to="/registo">Criar registo</nuxt-link>
-    </p>
 
     <h2>Sensores</h2>
     <table>
@@ -37,30 +33,38 @@
       </thead>
       <tbody>
       <tr v-for="sensor in sensores" :key="sensor.id">
-        <td><nuxt-link :to="`/sensor/${sensor.id}`">{{ sensor.id }}</nuxt-link></td>
+        <td>
+          <nuxt-link :to="`/sensor/${sensor.id}`">
+            {{ sensor.id }}
+          </nuxt-link>
+        </td>
         <td>{{ sensor.tipoSensor }}</td>
-        <td>{{ registosRecentes[sensor.id] || 'Carregando...' }}</td>
+        <td>{{ registosRecentes[sensor.id] }}</td>
       </tr>
       </tbody>
     </table>
 
-    <!-- Seção para criação de registo -->
     <h2>Criar Registo</h2>
     <form @submit.prevent="criarRegisto">
-      <div>
-        <label for="sensor">Sensor</label>
-        <select v-model="selectedSensor" id="sensor" required>
-          <option value="" disabled selected>Selecione um sensor</option>
-          <option v-for="sensor in sensores" :key="sensor.id" :value="sensor.id">
-            {{ sensor.id }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <label for="valor">Valor</label>
-        <input v-model="valor" type="text" id="valor" required />
-      </div>
-      <button type="submit">OK</button>
+      <label for="sensor">Sensor:</label>
+      <select v-model="novoRegisto.idSensor" id="sensor" required>
+        <option v-for="sensor in sensores" :value="sensor.id" :key="sensor.id">
+          {{ sensor.id }}
+        </option>
+      </select>
+
+      <label for="valor">Valor:</label>
+      <input
+          type="text"
+          id="valor"
+          v-model="novoRegisto.valor"
+          placeholder="Insira o valor"
+          required
+      />
+
+      <p>
+        <button type="submit">OK</button>
+      </p>
     </form>
   </div>
 </template>
@@ -68,7 +72,8 @@
 <script setup>
 import { useRuntimeConfig } from 'nuxt/app'
 import { useFetch } from '#app'
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const id = route.params.id
@@ -82,10 +87,10 @@ const { data: sensores } = await useFetch(`${api}/sensors/embalagem/${id}`)
 
 const produtoNomes = reactive({})
 const registosRecentes = reactive({}) // Armazena os registos mais recentes para cada sensor
-
-// Variáveis para o formulário
-const selectedSensor = ref("")
-const valor = ref("")
+const novoRegisto = reactive({
+  idSensor: '',
+  valor: '',
+})
 
 // Função para buscar detalhes do produto
 async function fetchProduto(idProduto) {
@@ -98,65 +103,60 @@ async function fetchProduto(idProduto) {
   return produtoNomes[idProduto]
 }
 
+// Função para buscar o registro mais recente de um sensor
 async function fetchRegistoMaisRecente(idSensor) {
   if (!registosRecentes[idSensor]) {
     const { data: registo } = await useFetch(`${api}/registos/sensor/${idSensor}/mostRecent`)
     if (registo.value) {
-      registosRecentes[idSensor] = registo.value.valor // Armazena o valor do registo
+      registosRecentes[idSensor] = registo.value.valor
     }
   }
   return registosRecentes[idSensor]
 }
 
+// Função para criar um novo registro
+async function criarRegisto() {
+  if (!novoRegisto.idSensor || !novoRegisto.valor) {
+    alert('Por favor, preencha todos os campos antes de enviar.')
+    return
+  }
+
+  const timeStamp = new Date().toISOString()
+
+  try {
+    const response = await fetch(`${api}/registos`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        timeStamp,
+        valor: novoRegisto.valor,
+        idSensor: novoRegisto.idSensor,
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error('Erro ao criar o registro.')
+    }
+
+    alert('Registro criado com sucesso!')
+    novoRegisto.idSensor = ''
+    novoRegisto.valor = ''
+  } catch (error) {
+    console.error(error)
+    alert('Houve um erro ao tentar criar o registro.')
+  }
+}
+
+// Buscar dados ao montar o componente
 onMounted(async () => {
   if (embalagem.value) {
     await fetchProduto(embalagem.value.idProduto)
   }
 
   if (sensores.value) {
-    await Promise.all(
-        sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id))
-    )
+    await Promise.all(sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id)))
   }
 })
-
-// Função para criar o registo
-async function criarRegisto() {
-  if (!selectedSensor.value || !valor.value) {
-    alert('Por favor, preencha todos os campos.')
-    return
-  }
-
-  const timeStamp = new Date().toISOString() // Obtém o timestamp atual no formato ISO
-  const registoData = {
-    timeStamp,
-    valor: valor.value,
-    idSensor: selectedSensor.value
-  }
-
-  // Enviar dados para a API
-  try {
-    const res = await fetch(`http://localhost:8080/academics/api/registos`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(registoData)
-    })
-
-    if (res.ok) {
-      alert('Registo criado com sucesso!')
-      // Limpar o formulário após o envio
-      selectedSensor.value = ""
-      valor.value = ""
-    } else {
-      const error = await res.json()
-      alert(`Erro ao criar o registo: ${error.message || 'Erro desconhecido.'}`)
-    }
-  } catch (error) {
-    alert('Erro ao conectar com o servidor. Verifique sua conexão e tente novamente.')
-  }
-}
 </script>
 
 <style scoped>
@@ -172,35 +172,27 @@ th, td {
 th {
   background-color: #f4f4f4;
 }
-
 form {
   margin-top: 20px;
 }
-
-form div {
-  margin-bottom: 10px;
-}
-
 label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
 }
-
-input, select {
+input, select, button {
+  margin-bottom: 15px;
+  padding: 10px;
   width: 100%;
-  padding: 8px;
-  font-size: 14px;
+  max-width: 400px;
 }
-
 button {
-  background-color: #4CAF50;
+  background-color: #007BFF;
   color: white;
-  padding: 10px 20px;
   border: none;
   cursor: pointer;
 }
-
 button:hover {
-  background-color: #45a049;
+  background-color: #0056b3;
 }
 </style>
