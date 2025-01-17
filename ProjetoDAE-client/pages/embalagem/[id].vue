@@ -21,6 +21,8 @@
     <!--for Sensores-->
     <h2>Sensores</h2>
 
+
+
   </div>
 </template>
 

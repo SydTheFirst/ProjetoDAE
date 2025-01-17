@@ -25,12 +25,10 @@ public class SensorBean {
         return (Long) query.getSingleResult() > 0L;
     }
 
-    public void create(int idEmbalagem, TipoSensor tipoSensor, boolean ativo) {
-        var sensor = new Sensor();
-        sensor.setIdEmbalagem(idEmbalagem);
-        sensor.setTipoSensor(tipoSensor);
-        sensor.setAtivo(ativo);
+    public Sensor create(int idEmbalagem, TipoSensor tipoSensor, boolean ativo) {
+        Sensor sensor = new Sensor(idEmbalagem, tipoSensor, ativo);
         entityManager.persist(sensor);
+        return sensor;
     }
 
     public Sensor find(int id) {

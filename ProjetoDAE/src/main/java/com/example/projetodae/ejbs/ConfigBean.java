@@ -75,13 +75,15 @@ public class ConfigBean {
             sensorBean.create(1, TipoSensor.TEMPERATURA, true);
             sensorBean.create(2, TipoSensor.LOCALIZACAO, true);
             sensorBean.create(3, TipoSensor.PRESSAO_ATMOSFERICA, false);
+            sensorBean.create(3, TipoSensor.TEMPERATURA, true);
+            sensorBean.create(1, TipoSensor.LOCALIZACAO, true);
+            sensorBean.create(2, TipoSensor.PRESSAO_ATMOSFERICA, false);
 
             // Registos de Sensores
             registoSensorBean.create(1, Timestamp.from(Instant.now()), "20 Celsius");
             registoSensorBean.create(2, Timestamp.from(Instant.now()), "39ºN 8ºW");
             registoSensorBean.create(3, Timestamp.from(Instant.now()), "50% Humidity");
-            registoSensorBean.create(3, Timestamp.from(Instant.now()), "60% Humidity");
-            registoSensorBean.create(3, Timestamp.from(Instant.now()), "70% Humidity");
+            registoSensorBean.create(4, Timestamp.from(Instant.now()), "60% Humidity");
 
         } catch (Exception e) {
             logger.severe(e.getMessage());

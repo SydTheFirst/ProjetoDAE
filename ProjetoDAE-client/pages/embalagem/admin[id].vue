@@ -1,19 +1,16 @@
 <template>
   <div>
-    <h1>Detalhes da Embalagem</h1>
+    <h1>Embalagem {{ embalagem.id }}</h1>
     <table>
       <thead>
       <tr>
-        <th>ID</th>
         <th>Encomenda</th>
         <th>Produto</th>
         <th>Quantidade</th>
       </tr>
       </thead>
-
       <tbody>
       <tr>
-        <td>{{ embalagem.id }}</td>
         <td>{{ embalagem.idEncomenda }}</td>
         <td>{{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}</td>
         <td>{{ embalagem.quantidade }}</td>
@@ -21,6 +18,23 @@
       </tbody>
     </table>
 
+    <!--for Sensores-->
+    <h2>Sensores</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr v-for="sensor in sensores" :key="sensor.id">
+        <td><nuxt-link :to="`/registos/admin${sensor.id}`">
+          {{ sensor.id }}
+        </nuxt-link></td>
+      </tr>
+      </tbody>
+    </table>
 
   </div>
 </template>
@@ -28,21 +42,25 @@
 <script setup>
 import { useRuntimeConfig } from 'nuxt/app'
 import { useFetch } from '#app'
-import { reactive, onMounted } from 'vue'
 
+// Obter o ID da embalagem pela rota dinâmica
 const route = useRoute()
 const id = route.params.id
 
+// Configurar a URL da API e buscar os detalhes
 const config = useRuntimeConfig()
 const api = config.public.API_URL
 
-// Buscando os detalhes da embalagem
+// Dados reativos
 const { data: embalagem } = await useFetch(`${api}/embalagens/${id}`)
+const { data: sensores } = await useFetch(`${api}/sensores/embalagem/${id}`);
+
+console.log(sensores);
 
 const produtoNomes = reactive({})
 
-// Função para buscar o nome do produto baseado no ID
-async function fetchProdutoNome(idProduto) {
+// Função para buscar detalhes do produto
+async function fetchProduto(idProduto) {
   if (!produtoNomes[idProduto]) {
     const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`)
     if (produto.value) {
@@ -52,12 +70,10 @@ async function fetchProdutoNome(idProduto) {
   return produtoNomes[idProduto]
 }
 
-// Ao montar o componente, buscar o nome do produto correspondente
-onMounted(async () => {
-  if (embalagem.value) {
-    await fetchProdutoNome(embalagem.value.idProduto)
-  }
-})
+// Buscar o nome do produto da embalagem
+if (embalagem.value) {
+  await fetchProduto(embalagem.value.idProduto)
+}
 </script>
 
 <style scoped>
