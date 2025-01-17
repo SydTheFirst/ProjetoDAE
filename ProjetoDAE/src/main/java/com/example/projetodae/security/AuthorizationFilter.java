@@ -45,6 +45,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
         if (resource.isAnnotationPresent(PermitAll.class)){
             if (method.isAnnotationPresent(DenyAll.class)){
                 containerRequestContext.abortWith(ACCESS_DENIED);
+                System.out.println("ACCESS DENIED 1");
                 return;
             }
 
@@ -53,12 +54,15 @@ public class AuthorizationFilter implements ContainerRequestFilter {
                 RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
                 var roles = new HashSet<>(Arrays.asList(rolesAnnotation.value()));
 
+
                 //User valido
                 if (roles.stream().anyMatch(securityContext::isUserInRole)) {
+                    System.out.println("USER VALIDO, ALLOW ACCESS 1");
                     return;
                 }
             }
 
+            System.out.println("ACCESS FORBIDDEN 1");
             containerRequestContext.abortWith(ACCESS_FORBIDDEN);
             return;
         }
@@ -76,16 +80,19 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
                 //User valido
                 if (roles.stream().anyMatch(securityContext::isUserInRole)) {
+                    System.out.println("USER VALIDO, ALLOW ACCESS 2");
                     return;
                 }
             }
 
+            System.out.println("ACCESS DENIED 2");
             containerRequestContext.abortWith(ACCESS_DENIED);
             return;
         }
 
         if (resource.isAnnotationPresent(RolesAllowed.class)){
             if (method.isAnnotationPresent(DenyAll.class)){
+                System.out.println("ACCESS DENIED 3");
                 containerRequestContext.abortWith(ACCESS_DENIED);
                 return;
             }
@@ -95,6 +102,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             }
 
             RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
+            System.out.println(rolesAnnotation.value());
             var roles = new HashSet<>(Arrays.asList(rolesAnnotation.value()));
 
             if (method.isAnnotationPresent(RolesAllowed.class)){
@@ -104,14 +112,18 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
             //User valido
             if (roles.stream().anyMatch(securityContext::isUserInRole)) {
+                System.out.println("USER VALIDO, ALLOW ACCESS 3");
                 return;
             }
 
+            System.out.println("ACCESS FORBIDDEN 2");
             containerRequestContext.abortWith(ACCESS_FORBIDDEN);
             return;
         }
 
         if (method.isAnnotationPresent(DenyAll.class)){
+
+            System.out.println("ACCESS DENIED 4");
             containerRequestContext.abortWith(ACCESS_DENIED);
             return;
         }
@@ -129,7 +141,10 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             if (roles.stream().anyMatch(securityContext::isUserInRole)) {
                 return;
             }
+
+            System.out.println("ACCESS FORBIDDEN 3");
             containerRequestContext.abortWith(ACCESS_FORBIDDEN);
+
         }
 
 

@@ -192,19 +192,19 @@ Content-Type: application/json
 }
 
 
-####
+#### ALL REGUISTOS
 //
 // REGISTOS
 //
 GET http://localhost:8080/academics/api/registos
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA2ODU4NywiZXhwIjoxNzM3MDcyMTg3fQ.D0zZ5ZyIls9-ISMg8ZClmOuCvL7MlGnQe9J363V0OIJewwIKN3Tsx4He4LO9a4Cd
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEyODE3NCwiZXhwIjoxNzM3MTMxNzc0fQ.4Cd776c1vvzPJv-AQmynFT18ghzJqNt8hQgDs6EvT2pd5yZp6adXWdjMID-AERaK
 
-####
+
+#### REGISTO 3
 GET http://localhost:8080/academics/api/registos/3
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA2ODU4NywiZXhwIjoxNzM3MDcyMTg3fQ.D0zZ5ZyIls9-ISMg8ZClmOuCvL7MlGnQe9J363V0OIJewwIKN3Tsx4He4LO9a4Cd
-
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEyODE3NCwiZXhwIjoxNzM3MTMxNzc0fQ.4Cd776c1vvzPJv-AQmynFT18ghzJqNt8hQgDs6EvT2pd5yZp6adXWdjMID-AERaK
 
 ### Request JWT TOKEN
 POST http://localhost:8080/academics/api/auth/login

@@ -5,13 +5,17 @@ import com.example.projetodae.ejbs.RegistoSensorBean;
 import com.example.projetodae.entities.RegistoSensor;
 import com.example.projetodae.security.Authenticated;
 import com.example.projetodae.utils.DTOconverter;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,19 +25,16 @@ import java.util.stream.Collectors;
 @Consumes("application/json")
 @Authenticated
 public class RegistoSensorService {
-
     @EJB
     private RegistoSensorBean registoSensorBean;
 
     @GET
-    @RolesAllowed({"Admin"})
     public List<RegistoSensorDTO> getAllRegistos() {
         return DTOconverter.registoSensorsToDTOs(registoSensorBean.getAllRegistos());
     }
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"Logistica"})
     public List<RegistoSensorDTO> getRegistosBySensorId(@PathParam("id") int id) {
         return DTOconverter.registoSensorsToDTOs(registoSensorBean.getRegistosSensorByIdSensor(id));
     }

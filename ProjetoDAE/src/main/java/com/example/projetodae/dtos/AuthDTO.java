@@ -1,8 +1,14 @@
 package com.example.projetodae.dtos;
 
-public class AuthDTO {
+import java.io.Serializable;
+import jakarta.validation.constraints.NotBlank;
 
+public class AuthDTO implements Serializable{
+
+    @NotBlank
     private String username;
+
+    @NotBlank
     private String password;
 
     public AuthDTO() {
