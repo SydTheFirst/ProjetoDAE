@@ -206,8 +206,7 @@ POST http://localhost:8080/academics/api/registos
 Content-Type: application/json
 
 {
-    "id": "1",
-    "data": "2025-01-07T14:43:49.037748Z",
+    "timeStamp": "3025-01-07T14:43:49.037748Z",
     "valor": "20",
     "idSensor": "1"
 }

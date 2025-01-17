@@ -3,10 +3,6 @@
     <h1>Admin</h1>
   </div>
 
-  <p>
-    <nuxt-link to="/registo">Criar registo</nuxt-link>
-  </p>
-
   <h2>Encomendas</h2>
   <table>
     <thead>

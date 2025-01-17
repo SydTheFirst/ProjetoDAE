@@ -14,7 +14,7 @@
         <td>{{ embalagem.idEncomenda }}</td>
         <td>
           <nuxt-link :to="`/produto/${embalagem.idProduto}`">
-            {{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}
+            {{ embalagem.idProduto}}
           </nuxt-link>
         </td>
         <td>{{ embalagem.quantidade }}</td>

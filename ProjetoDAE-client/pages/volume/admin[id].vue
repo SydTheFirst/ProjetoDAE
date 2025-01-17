@@ -15,7 +15,7 @@
       <tbody>
       <tr v-for="embalagem in embalagens" :key="embalagem.id">
         <td>
-          <nuxt-link :to="`/embalagem/${embalagem.id}`">
+          <nuxt-link :to="`/embalagem/admin${embalagem.id}`">
             {{ embalagem.id }}
           </nuxt-link>
         </td>
@@ -36,20 +36,16 @@ import { useRoute } from 'vue-router'
 import { useFetch, useRuntimeConfig } from '#app'
 import { reactive } from 'vue'
 
-// Obtendo o parâmetro "id" da rota
 const route = useRoute()
 const id = route.params.id
 
-// Configurando a URL da API e buscando os dados das embalagens
 const config = useRuntimeConfig()
 const api = config.public.API_URL
 
 const { data: embalagens } = await useFetch(`${api}/embalagens/volume/${id}`)
 
-// Objeto reativo para armazenar os nomes dos produtos
 const produtoNomes = reactive({})
 
-// Função para buscar detalhes do produto
 async function fetchProduto(idProduto) {
   if (!produtoNomes[idProduto]) {
     const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`)
