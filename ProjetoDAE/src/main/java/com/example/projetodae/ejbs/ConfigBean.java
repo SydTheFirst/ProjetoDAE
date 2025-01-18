@@ -40,7 +40,7 @@ public class ConfigBean {
 
     private static final Logger logger = Logger.getLogger("ejbs.ConfigBean");
 
-    LocalDateTime fixedDateTime = LocalDateTime.of(2025, 1, 1, 12, 0, 0);
+    LocalDateTime fixedDateTime = LocalDateTime.of(0, 1, 1, 0, 0, 0);
     Timestamp fixedTimestamp = Timestamp.valueOf(fixedDateTime);
 
     @PostConstruct
@@ -58,20 +58,22 @@ public class ConfigBean {
             userBean.create("pedrotrindade", "pedro123", TipoUser.Logistica);
 
             // Encomendas
-            encomendaBean.create(101, "joaosilva", Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusDays(3)), MetodoPagamento.Cartao, Status.Pendente);
-            encomendaBean.create(102, "joaosilva", Timestamp.valueOf(LocalDateTime.now().minusDays(2)), Timestamp.valueOf(LocalDateTime.now().plusDays(1)), MetodoPagamento.Paypal, Status.Enviada);
+            encomendaBean.create(1, "joaosilva", fixedTimestamp, fixedTimestamp, MetodoPagamento.Cartao, Status.Pendente);
+
+            encomendaBean.create(101, "joaosilva", fixedTimestamp, fixedTimestamp, MetodoPagamento.Cartao, Status.Pendente);
+            encomendaBean.create(102, "joaosilva", Timestamp.valueOf(LocalDateTime.now().minusDays(2)), fixedTimestamp, MetodoPagamento.Paypal, Status.Enviada);
 
             encomendaBean.create(201, "mariaoliveira", Timestamp.valueOf(LocalDateTime.now().minusDays(3)), Timestamp.valueOf(LocalDateTime.now()), MetodoPagamento.ReferenciaMB, Status.Entregue);
-            encomendaBean.create(202, "mariaoliveira", Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusDays(2)), MetodoPagamento.Cartao, Status.Pendente);
+            encomendaBean.create(202, "mariaoliveira", fixedTimestamp, fixedTimestamp, MetodoPagamento.Cartao, Status.Pendente);
 
-            encomendaBean.create(301, "pedroribeiro", Timestamp.valueOf(LocalDateTime.now().minusDays(1)), Timestamp.valueOf(LocalDateTime.now().plusDays(4)), MetodoPagamento.Paypal, Status.Pendente);
+            encomendaBean.create(301, "pedroribeiro", fixedTimestamp, fixedTimestamp, MetodoPagamento.Paypal, Status.Pendente);
             encomendaBean.create(302, "pedroribeiro", Timestamp.valueOf(LocalDateTime.now().minusDays(4)), Timestamp.valueOf(LocalDateTime.now().minusDays(1)), MetodoPagamento.Cartao, Status.Entregue);
 
-            encomendaBean.create(401, "anacarvalho", Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusDays(5)), MetodoPagamento.Cartao, Status.Enviada);
+            encomendaBean.create(401, "anacarvalho", Timestamp.valueOf(LocalDateTime.now()), fixedTimestamp, MetodoPagamento.Cartao, Status.Enviada);
             encomendaBean.create(402, "anacarvalho", Timestamp.valueOf(LocalDateTime.now().minusDays(5)), Timestamp.valueOf(LocalDateTime.now()), MetodoPagamento.Paypal, Status.Entregue);
 
-            encomendaBean.create(501, "carlosalmeida", Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusDays(3)), MetodoPagamento.ReferenciaMB, Status.Pendente);
-            encomendaBean.create(502, "carlosalmeida", Timestamp.valueOf(LocalDateTime.now().minusDays(3)), Timestamp.valueOf(LocalDateTime.now().plusDays(1)), MetodoPagamento.Cartao, Status.Enviada);
+            encomendaBean.create(501, "carlosalmeida", fixedTimestamp, fixedTimestamp, MetodoPagamento.ReferenciaMB, Status.Pendente);
+            encomendaBean.create(502, "carlosalmeida", Timestamp.valueOf(LocalDateTime.now().minusDays(3)), fixedTimestamp, MetodoPagamento.Cartao, Status.Enviada);
 
             // Volumes
             volumeBean.create("V101-1", 101);
@@ -127,10 +129,7 @@ public class ConfigBean {
             sensorBean.create(NULL, TipoSensor.ACELERACAO, false);
 
             // Registros de Sensores
-            registoSensorBean.create(1, Timestamp.from(Instant.now()), "Temperature: 22°C");
-            registoSensorBean.create(1, fixedTimestamp, "Location updated");
-            registoSensorBean.create(2, Timestamp.from(Instant.now()), "Temperature: 20°C");
-            registoSensorBean.create(2, fixedTimestamp, "Location updated");
+            registoSensorBean.create(1, Timestamp.from(Instant.now()), "22°C");
 
         } catch (Exception e) {
             logger.severe(e.getMessage());

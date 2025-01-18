@@ -5,8 +5,8 @@
       <thead>
       <tr>
         <th>Cliente</th>
-        <th>Data de Partida</th>
-        <th>Data de Chegada</th>
+        <th v-if="encomenda.status === 'Entregue' || encomenda.status === 'Enviada'" >Data de Partida</th>
+        <th v-if="encomenda.status === 'Entregue'">Data de Chegada</th>
         <th>Método de Pagamento</th>
         <th>Status</th>
       </tr>
@@ -15,8 +15,8 @@
       <tbody>
       <tr>
         <td>{{ encomenda.cliente }}</td>
-        <td>{{ encomenda.dataPartida }}</td>
-        <td>{{ encomenda.dataChegada }}</td>
+        <td v-if="encomenda.status === 'Entregue' || encomenda.status === 'Enviada'" >{{ encomenda.dataPartida }}</td>
+        <td v-if="encomenda.status === 'Entregue'">{{ encomenda.dataChegada }}</td>
         <td>{{ encomenda.metodoPagamento }}</td>
         <td>{{ encomenda.status }}</td>
       </tr>
