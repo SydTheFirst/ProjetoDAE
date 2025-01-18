@@ -59,7 +59,6 @@ public class EmbalagemService {
                 embalagemDTO.getQuantidade()
         );
 
-        //Adicionar forma de confirmar que criou com sucesso
         return Response.status(Response.Status.CREATED).build();
     }
 

@@ -44,6 +44,12 @@ public class SensorService {
         return DTOconverter.sensorsToDTOs(sensorBean.getSensorsByEmbalagem(idEmbalagem));
     }
 
+    @GET
+    @Path("/nonactive")
+    public List<SensorDTO> getNonActiveSensors() {
+        return DTOconverter.sensorsToDTOs(sensorBean.getNonActiveSensors());
+    }
+
     @POST
     public Response createSensor(SensorDTO sensorDTO) {
         sensorBean.create(

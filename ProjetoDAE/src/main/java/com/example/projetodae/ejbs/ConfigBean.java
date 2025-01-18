@@ -11,6 +11,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
+import static java.sql.Types.NULL;
+
 @Startup
 @Singleton
 public class ConfigBean {
@@ -114,11 +116,14 @@ public class ConfigBean {
             sensorBean.create(1, TipoSensor.TEMPERATURA, true);
             sensorBean.create(1, TipoSensor.LOCALIZACAO, true);
             sensorBean.create(2, TipoSensor.TEMPERATURA, true);
-            sensorBean.create(2, TipoSensor.LOCALIZACAO, false);
+            sensorBean.create(2, TipoSensor.LOCALIZACAO, true);
             sensorBean.create(3, TipoSensor.TEMPERATURA, true);
             sensorBean.create(3, TipoSensor.LOCALIZACAO, true);
             sensorBean.create(4, TipoSensor.TEMPERATURA, true);
-            sensorBean.create(4, TipoSensor.LOCALIZACAO, false);
+            sensorBean.create(4, TipoSensor.LOCALIZACAO, true);
+            sensorBean.create(NULL, TipoSensor.LOCALIZACAO, false);
+            sensorBean.create(NULL, TipoSensor.TEMPERATURA, false);
+            sensorBean.create(NULL, TipoSensor.ACELERACAO, false);
 
             // Registros de Sensores
             registoSensorBean.create(1, Timestamp.from(Instant.now()), "Temperature: 22°C");

@@ -16,7 +16,11 @@ import jakarta.validation.constraints.NotNull;
         @NamedQuery(
                 name = "getSensorsByEmbalagem",
                 query = "SELECT s FROM Sensor s WHERE s.idEmbalagem = :idEmbalagem ORDER BY s.id" // JPQL
-        )
+        ),
+        @NamedQuery(
+                name = "getNonActiveSensors",
+                query = "SELECT s FROM Sensor s WHERE s.ativo = false ORDER BY s.id" // JPQL
+        ),
 })
 public class Sensor {
 

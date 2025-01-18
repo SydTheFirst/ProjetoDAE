@@ -106,11 +106,13 @@ POST http://localhost:8080/academics/api/embalagens
 Content-Type: application/json
 
 {
-  "id": "1",
+  "id": "20",
   "idVolume": "10",
-  "idProduto": "20",
-  "quantidade": "5"
+  "idEncomenda": "10",
+  "idProduto": "100",
+  "quantidade": "10"
 }
+
 
 ###
 DELETE http://localhost:8080/academics/api/embalagens/1
@@ -125,7 +127,7 @@ GET http://localhost:8080/academics/api/produtos
 Accept: application/json
 
 ###
-GET http://localhost:8080/academics/api/produtos/100
+GET http://localhost:8080/academics/api/produtos/10
 Accept: application/json
 
 ###
@@ -170,6 +172,22 @@ Accept: application/json
 ###
 GET http://localhost:8080/academics/api/sensors/embalagem/1
 Accept: application/json
+
+###
+GET http://localhost:8080/academics/api/sensors/nonactive
+Accept: application/json
+
+###
+PUT http://localhost:8080/academics/api/sensors/10
+Content-Type: application/json
+
+{
+    "id": "10",
+    "tipoSensor": "TEMPERATURA",
+    "valor": "20 C",
+    "idEmbalagem": "1",
+    "ativo": "true"
+}
 
 ###
 POST http://localhost:8080/academics/api/sensors
