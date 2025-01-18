@@ -39,6 +39,11 @@ public class EmbalagemBean {
         return query.getResultList();
     }
 
+    public int getLastEmbalagemId() {
+        Query query = entityManager.createNamedQuery("getLastEmbalagemId", Embalagem.class);
+        return (int) query.getSingleResult();
+    }
+
     public void updateEmbalagem(int id, int quantidade) {
         Embalagem embalagem = find(id);
         if (embalagem != null) {

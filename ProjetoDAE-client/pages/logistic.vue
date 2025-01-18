@@ -24,14 +24,32 @@
         {{ encomenda.cliente }}
       </td>
       <td>
-        <select v-model="encomenda.status">
-          <option v-for="status in statusOptions" :value="status" :key="status">
+        <select
+            v-model="encomenda.status"
+            :disabled="encomenda.status === 'Cancelada'"
+            :class="{ cancelada: encomenda.status === 'Cancelada' }"
+        >
+          <option
+              v-for="status in statusOptions"
+              :value="status"
+              :key="status"
+          >
             {{ status }}
+          </option>
+          <option
+              v-if="encomenda.status === 'Cancelada'"
+              value="Cancelada"
+          >
+            Cancelada
           </option>
         </select>
       </td>
       <td>
-        <button @click="atualizarEncomenda(encomenda.id)" :disabled="encomenda.status === originalStatus[encomenda.id]">
+        <button
+            v-if="encomenda.status !== 'Cancelada'"
+            @click="atualizarEncomenda(encomenda.id)"
+            :disabled="encomenda.status === originalStatus[encomenda.id]"
+        >
           Atualizar
         </button>
       </td>
@@ -47,7 +65,9 @@ import { useFetch } from '#app'
 const config = useRuntimeConfig()
 const api = config.public.API_URL
 
+// Opções de status sem incluir "Cancelada"
 const statusOptions = ["Pendente", "Enviada", "Entregue"]
+
 const { data: encomendas, refresh } = await useFetch(`${api}/encomendas`)
 
 // Armazena o status original para comparação
@@ -121,5 +141,9 @@ select {
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #fff;
+}
+select.cancelada {
+  color: red;
+  font-weight: bold;
 }
 </style>

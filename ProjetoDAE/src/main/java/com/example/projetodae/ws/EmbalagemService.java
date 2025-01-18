@@ -47,6 +47,12 @@ public class EmbalagemService {
         return DTOconverter.embalagensDTOs(embalagemBean.getEmbalagensByVolume(id));
     }
 
+    @GET
+    @Path("/lastId")
+    public Response getLastEmbalagemId(){
+        return Response.ok(embalagemBean.getLastEmbalagemId()).build();
+    }
+
     @POST
     @Path("/")
     public Response createEmbalagem(EmbalagemDTO embalagemDTO){

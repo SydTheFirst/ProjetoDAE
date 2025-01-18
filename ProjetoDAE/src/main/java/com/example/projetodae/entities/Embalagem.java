@@ -21,7 +21,11 @@ import java.util.Objects;
         @NamedQuery(
                 name = "getEmbalagensByEncomenda",
                 query = "SELECT e FROM Embalagem e WHERE e.idEncomenda = :idEncomenda ORDER BY e.idProduto" // JPQL
-        )
+        ),
+        @NamedQuery(
+                name = "getLastEmbalagemId",
+                query = "SELECT MAX(e.id) FROM Embalagem e" // JPQL
+        ),
 })
 
 @Entity
