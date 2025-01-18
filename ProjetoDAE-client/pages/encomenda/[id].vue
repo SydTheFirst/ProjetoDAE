@@ -3,50 +3,49 @@
     <h1>Encomenda {{ encomenda.id }}</h1>
     <table>
       <thead>
-        <tr>
-          <th>Data de Partida</th>
-          <th>Data de Chegada</th>
-          <th>Método de Pagamento</th>
-          <th>Status</th>
-        </tr>
+      <tr>
+        <th v-if="encomenda.status === 'Entregue' || encomenda.status === 'Enviada'" >Data de Partida</th>
+        <th v-if="encomenda.status === 'Entregue'">Data de Chegada</th>
+        <th>Método de Pagamento</th>
+        <th>Status</th>
+      </tr>
       </thead>
 
       <tbody>
-        <tr>
-          <td>{{ encomenda.dataPartida }}</td>
-          <td>{{ encomenda.dataChegada }}</td>
-          <td>{{ encomenda.metodoPagamento }}</td>
-          <td>{{ encomenda.status }}</td>
-        </tr>
+      <tr>
+        <td v-if="encomenda.status === 'Entregue' || encomenda.status === 'Enviada'" >{{ encomenda.dataPartida }}</td>
+        <td v-if="encomenda.status === 'Entregue'">{{ encomenda.dataChegada }}</td>
+        <td>{{ encomenda.metodoPagamento }}</td>
+        <td>{{ encomenda.status }}</td>
+      </tr>
       </tbody>
     </table>
 
     <h2>Embalagens</h2>
     <table>
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Produto</th>
-          <th>Quantidade</th>
-        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Produto</th>
+        <th>Quantidade</th>
+      </tr>
       </thead>
 
       <tbody>
-        <tr v-for="embalagem in embalagens" :key="embalagem.id">
-          <td><nuxt-link :to="`/embalagem/${embalagem.id}`">
-            {{ embalagem.id }}
-          </nuxt-link></td>
-          <td>
-            <nuxt-link :to="`/produto/${embalagem.idProduto}`">
-              {{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}
-            </nuxt-link>
-          </td>
-          <td>{{ embalagem.quantidade }}</td>
-        </tr>
+      <tr v-for="embalagem in embalagens" :key="embalagem.id">
+        <td><nuxt-link :to="`/embalagem/${embalagem.id}`">
+          {{ embalagem.id }}
+        </nuxt-link></td>
+        <td>
+          <nuxt-link :to="`/produto/${embalagem.idProduto}`">
+            {{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}
+          </nuxt-link>
+        </td>
+        <td>{{ embalagem.quantidade }}</td>
+      </tr>
       </tbody>
     </table>
   </div>
-
 </template>
 
 <script setup>

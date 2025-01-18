@@ -209,7 +209,6 @@ onMounted(async () => {
   }
 });
 </script>
-
 <style scoped>
 table {
   width: 100%;
@@ -247,13 +246,23 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Estilo do botão Desassociar igual ao botão Eliminar */
+/* Botão Desassociar */
 button.eliminar-button {
+  padding: 6px 12px;
   background-color: #f44336;
   color: white;
+  width: 100px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 button.eliminar-button:hover {
   background-color: #e53935;
+}
+
+button.eliminar-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 </style>

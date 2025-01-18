@@ -27,7 +27,7 @@
         {{ encomenda.status }}
       </td>
       <td>
-        <button @click="cancelarEncomenda(encomenda.id)" :disabled="encomenda.status === 'Cancelada'">
+        <button @click="cancelarEncomenda(encomenda.id)" :disabled="encomenda.status === 'Cancelada' || encomenda.status === 'Entregue'">
           Cancelar
         </button>
       </td>

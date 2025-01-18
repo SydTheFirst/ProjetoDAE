@@ -86,7 +86,21 @@ async function atualizarEncomenda(id) {
       return
     }
 
-    const payload = { ...encomenda }
+    const payload = { ...encomenda, dataChegada: new Date() }
+
+    console.log(payload + " " + encomenda.status)
+
+    switch (encomenda.status) {
+      case "Enviada":
+        // Atualiza a data de envio no formato 2025-01-16T16:34:29.623408Z[UTC]
+        payload.dataPartida = new Date().toISOString()
+          console.log(payload.dataPartida)
+        break
+      case "Entregue":
+        payload.dataChegada = new Date().toISOString()
+        console.log(payload.dataChegada)
+        break
+    }
 
     const response = await fetch(`${api}/encomendas/${id}`, {
       method: 'PUT',
