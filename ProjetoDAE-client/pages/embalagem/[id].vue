@@ -2,30 +2,10 @@
   <div class="bg-gray-100 min-h-screen p-8">
     <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
     <h1 class="text-3xl font-bold mb-6">Embalagem {{ embalagem.id }}</h1>
-    <table>
-      <thead>
-      <tr>
-        <th>Encomenda</th>
-        <th>Produto</th>
-        <th>Quantidade</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>{{ embalagem.idEncomenda }}</td>
-        <td>
-          <nuxt-link :to="`/produto/${embalagem.idProduto}`">
-            {{ embalagem.idProduto}}
-          </nuxt-link>
-        </td>
-        <td>{{ embalagem.quantidade }}</td>
-      </tr>
-      </tbody>
-    </table>
 
     <Table
         :headers="['Encomenda', 'Produto', 'Quantidade']"
-        :rows="[[embalagem.idEncomenda, produtoNomes[embalagem.idProduto] || 'Carregando...', embalagem.quantidade]]"
+        :rows="[[embalagem.idEncomenda, produtoNomes[embalagem.idProduto] || embalagem.idProduto, embalagem.quantidade]]"
     />
 
     <h2 class="text-2xl font-bold mt-8 mb-4">Sensores</h2>
@@ -63,9 +43,12 @@ const registosRecentes = reactive({});
 
 async function fetchProduto(idProduto) {
   if (!produtoNomes[idProduto]) {
-    const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`);
-    if (produto.value) produtoNomes[idProduto] = produto.value.nome;
+    const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`)
+    if (produto.value) {
+      produtoNomes[idProduto] = produto.value.nome // Armazena o nome do produto
+    }
   }
+  return produtoNomes[idProduto]
 }
 
 async function fetchRegistoMaisRecente(idSensor) {
@@ -76,7 +59,11 @@ async function fetchRegistoMaisRecente(idSensor) {
 }
 
 onMounted(async () => {
-  if (embalagem.value) await fetchProduto(embalagem.value.idProduto);
-  if (sensores.value) await Promise.all(sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id)));
+  if (embalagem.value) {
+    await fetchProduto(embalagem.value.idProduto);
+  }
+  if (sensores.value) {
+    await Promise.all(sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id)));
+  }
 });
 </script>

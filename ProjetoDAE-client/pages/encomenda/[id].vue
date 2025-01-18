@@ -35,40 +35,6 @@
         </template>
       </Table>
     </div>
-      <tbody>
-        <tr>
-          <td>{{ encomenda.dataPartida }}</td>
-          <td>{{ encomenda.dataChegada }}</td>
-          <td>{{ encomenda.metodoPagamento }}</td>
-          <td>{{ encomenda.status }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Embalagens</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Produto</th>
-          <th>Quantidade</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr v-for="embalagem in embalagens" :key="embalagem.id">
-          <td><nuxt-link :to="`/embalagem/${embalagem.id}`">
-            {{ embalagem.id }}
-          </nuxt-link></td>
-          <td>
-            <nuxt-link :to="`/produto/${embalagem.idProduto}`">
-              {{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}
-            </nuxt-link>
-          </td>
-          <td>{{ embalagem.quantidade }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
@@ -77,6 +43,7 @@ import Table from "@/components/Table.vue";
 
 import { useRuntimeConfig } from "nuxt/app";
 import { useFetch } from "#app";
+import {reactive} from "vue";
 
 const route = useRoute();
 const id = route.params.id;
@@ -89,16 +56,16 @@ const { data: embalagens } = await useFetch(
     `${api}/embalagens/encomenda/${id}`
 );
 
-const produtoNomes = reactive({});
+const produtoNomes = reactive({})
 
 async function fetchProduto(idProduto) {
   if (!produtoNomes[idProduto]) {
-    const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`);
+    const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`)
     if (produto.value) {
-      produtoNomes[idProduto] = produto.value.nome;
+      produtoNomes[idProduto] = produto.value.nome // Armazena o nome do produto
     }
   }
-  return produtoNomes[idProduto];
+  return produtoNomes[idProduto]
 }
 
 await Promise.all(

@@ -48,4 +48,8 @@ const api = config.public.API_URL
 const username = 'joaosilva'; // Isto vai mudar conforme a sessão aberta
 const { data: encomendas } = await useFetch(`${api}/encomendas/cliente/${username}`)
 
+definePageMeta({
+  layout: 'default' // Nome do layout (sem a extensão .vue)
+});
+
 </script>

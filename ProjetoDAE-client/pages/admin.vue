@@ -1,44 +1,45 @@
 <template>
-  <div>
-    <h1>Admin</h1>
-  </div>
+  <div class="bg-gray-100 min-h-screen p-8">
+    <h1 class="text-3xl font-bold text-blue-600 mb-6">Admin</h1>
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+      <h2 class="text-3xl font-bold mb-6">Encomendas</h2>
+      <Table
+          :headers="['ID', 'Cliente', 'Status', 'Ações']"
+          :rows="encomendas.map(encomenda => [encomenda.id,encomenda.cliente,encomenda.status,generateActionButton(encomenda)])"
+      >
+        <!-- Link Customizado na Primeira Coluna -->
+        <template #col-0="{ value }">
+          <nuxt-link
+              :to="`/encomenda/admin${value}`"
+              class="text-blue-600 hover:underline"
+          >
+            {{ value }}
+          </nuxt-link>
+        </template>
 
-  <h2>Encomendas</h2>
-  <table>
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Cliente</th>
-      <th>Status</th>
-      <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="encomenda in encomendas" :key="encomenda.id">
-      <td>
-        <nuxt-link :to="`encomenda/admin${encomenda.id}`">
-          {{ encomenda.id }}
-        </nuxt-link>
-      </td>
-      <td>
-        {{ encomenda.cliente }}
-      </td>
-      <td>
-        {{ encomenda.status }}
-      </td>
-      <td>
-        <button @click="cancelarEncomenda(encomenda.id)" :disabled="encomenda.status === 'Cancelada'">
-          Cancelar
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+        <template #col-3="{ value }">
+          <button
+              @click="value.onClick"
+              :disabled="value.disabled"
+              class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+          >
+            {{ value.label }}
+          </button>
+        </template>
+
+      </Table>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useFetch } from '#app'
+import Table from "~/components/Table.vue"
+
+definePageMeta({
+  layout: 'default' // Nome do layout (sem a extensão .vue)
+})
 
 const config = useRuntimeConfig()
 const api = config.public.API_URL
@@ -76,31 +77,14 @@ async function cancelarEncomenda(id) {
     alert("Erro ao tentar cancelar a encomenda")
   }
 }
-</script>
 
-<style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
+// Função para gerar o botão "Cancelar"
+function generateActionButton(encomenda) {
+  return {
+    type: 'button',
+    label: 'Cancelar',
+    disabled: encomenda.status === 'Cancelada',
+    onClick: () => cancelarEncomenda(encomenda.id)
+  }
 }
-th, td {
-  text-align: left;
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-}
-th {
-  background-color: #f4f4f4;
-}
-button {
-  padding: 6px 12px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-</style>
+</script>

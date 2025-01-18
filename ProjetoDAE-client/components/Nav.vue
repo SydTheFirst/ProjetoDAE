@@ -2,8 +2,7 @@
   <nav class="bg-white shadow-lg p-4 flex items-center justify-between">
     <!-- Logo/Ícone -->
     <div class="flex items-center space-x-2">
-      <img src="/logo.png" alt="Logo" class="h-8 w-8" />
-      <span class="text-xl font-bold text-gray-800">Minha App</span>
+      <span class="text-xl font-bold text-gray-800">Dashboard</span>
     </div>
 
     <!-- Botão de Logout -->

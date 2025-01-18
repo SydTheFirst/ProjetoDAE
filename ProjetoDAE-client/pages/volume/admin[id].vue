@@ -1,33 +1,28 @@
 <template>
-  <div>
-    <h1>Volume {{ id }}</h1>
+  <div class="bg-gray-100 min-h-screen p-8">
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+      <h1 class="text-3xl font-bold text-blue-600 mb-6">Volume {{ id }}</h1>
 
-    <h2>Embalagens</h2>
-    <table>
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Produto</th>
-        <th>Quantidade</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr v-for="embalagem in embalagens" :key="embalagem.id">
-        <td>
-          <nuxt-link :to="`/embalagem/admin${embalagem.id}`">
-            {{ embalagem.id }}
+    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Embalagens</h2>
+      <Table
+          :headers="['ID', 'Produto', 'Quantidade']"
+          :rows="embalagens.map((embalagem) => [
+          embalagem.id,
+          produtoNomes[embalagem.idProduto] || 'Carregando...',
+          embalagem.quantidade,
+        ])"
+      >
+        <!-- Link Customizado na Primeira Coluna -->
+        <template #col-0="{ value }">
+          <nuxt-link
+              :to="`/embalagem/${value}`"
+              class="text-blue-600 hover:underline"
+          >
+            {{ value }}
           </nuxt-link>
-        </td>
-        <td>
-          <nuxt-link :to="`/produto/${embalagem.idProduto}`">
-            {{ produtoNomes[embalagem.idProduto] || 'Carregando...' }}
-          </nuxt-link>
-        </td>
-        <td>{{ embalagem.quantidade }}</td>
-      </tr>
-      </tbody>
-    </table>
+        </template>
+      </Table>
+  </div>
   </div>
 </template>
 
@@ -62,17 +57,3 @@ await Promise.all(
 )
 </script>
 
-<style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  text-align: left;
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-}
-th {
-  background-color: #f4f4f4;
-}
-</style>
