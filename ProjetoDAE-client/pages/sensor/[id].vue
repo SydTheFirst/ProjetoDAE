@@ -13,7 +13,7 @@
 
       <tbody>
       <tr v-for="registo in registos" :key="registo.id">
-        <td>{{ registo.timeStamp }}</td>
+        <td>{{ formatDate(registo.timeStamp) }}</td>
         <td>{{ registo.valor }}</td>
       </tr>
       </tbody>
@@ -24,6 +24,7 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import {useFetch, useRuntimeConfig} from "#app";
+import { formatDate } from "@/utils/datautils.js";
 
 // Obtendo o parâmetro "id" da rota
 const route = useRoute()

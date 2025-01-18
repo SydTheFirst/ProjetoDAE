@@ -121,7 +121,7 @@ async function criarRegisto() {
   }
 
   const timeStamp = new Date().toISOString();
-
+  console.log  (timeStamp + 'tempo')
   try {
     const response = await fetch(`${api}/registos`, {
       method: 'POST',

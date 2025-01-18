@@ -14,8 +14,8 @@
       <tbody>
       <tr>
         <td>{{ encomenda.cliente }}</td>
-        <td v-if="encomenda.status === 'Entregue' || encomenda.status === 'Enviada'" >{{ encomenda.dataPartida }}</td>
-        <td v-if="encomenda.status === 'Entregue'">{{ encomenda.dataChegada }}</td>
+        <td v-if="encomenda.status === 'Entregue' || encomenda.status === 'Enviada'" >{{ formatDate(encomenda.dataPartida) }}</td>
+        <td v-if="encomenda.status === 'Entregue'">{{ formatDate(encomenda.dataChegada) }}</td>
         <td>{{ encomenda.metodoPagamento }}</td>
         <td>{{ encomenda.status }}</td>
       </tr>
@@ -56,6 +56,7 @@
 import { ref, computed } from 'vue'
 import { useRuntimeConfig } from 'nuxt/app'
 import { useFetch } from '#app'
+import { formatDate } from "@/utils/datautils.js";
 
 const route = useRoute()
 const id = route.params.id

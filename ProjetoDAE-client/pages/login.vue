@@ -10,7 +10,7 @@
       <input id="password" v-model="loginFormData.password" type="password" placeholder="Digite sua senha" />
     </div>
     <button @click="login">LOGIN</button>
-    <button @click="reset" class="reset-btn">RESET</button>
+    <button @click="reset" class="reset-btn">RESET TOKEN</button>
   </div>
 </template>
 
@@ -39,6 +39,7 @@ function reset() {
 }
 
 async function login() {
+  reset()
     try {
         await $fetch(`${api}/auth/login`, {
             method: 'POST',
