@@ -50,8 +50,6 @@ public class VolumeService {
                 volumeDTO.getId(),
                 volumeDTO.getIdEncomenda()
         );
-
-        //Adicionar forma de confirmar que criou com sucesso
         return Response.status(Response.Status.CREATED).build();
     }
 
