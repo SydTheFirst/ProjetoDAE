@@ -231,3 +231,21 @@ Content-Type: application/json
     "valor": "20",
     "idSensor": "1"
 }
+
+
+
+
+###
+POST http://localhost:8080/academics/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "joaosilva",
+  "password": "joao123"
+}
+
+
+###
+GET http://localhost:8080/academics/api/auth/user
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqb2Fvc2lsdmEiLCJpYXQiOjE3MzcyMjE2NjUsImV4cCI6MTczNzIyNTI2NX0.RCh3sOnNhxFatPOe0171R73iNCVI3QB2WYVUdqI0i4MpHLAKf6rFn0xFRdIn8bil

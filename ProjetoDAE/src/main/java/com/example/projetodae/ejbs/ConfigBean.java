@@ -55,6 +55,7 @@ public class ConfigBean {
             userBean.create("pedroribeiro", "pedro123", TipoUser.Cliente);
             userBean.create("anacarvalho", "ana123", TipoUser.Cliente);
             userBean.create("carlosalmeida", "carlos123", TipoUser.Cliente);
+            userBean.create("pedrotrindade", "pedro123", TipoUser.Logistica);
 
             // Encomendas
             encomendaBean.create(101, "joaosilva", Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now().plusDays(3)), MetodoPagamento.Cartao, Status.Pendente);
