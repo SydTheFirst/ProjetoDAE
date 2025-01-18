@@ -56,6 +56,7 @@
 import { ref, computed } from 'vue'
 import { useRuntimeConfig } from 'nuxt/app'
 import { useFetch } from '#app'
+import { getStatusClasses } from "@/utils/funcionsUtils.js";
 
 const route = useRoute()
 const id = route.params.id
@@ -156,6 +157,8 @@ async function criarVolume() {
     isCreatingVolume.value = false
   }
 }
+
+
 </script>
 
 <style scoped>

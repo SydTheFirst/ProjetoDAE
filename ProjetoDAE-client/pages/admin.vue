@@ -2,7 +2,7 @@
   <div class="bg-gray-100 min-h-screen p-8">
     <h1 class="text-3xl font-bold text-blue-600 mb-6">Admin</h1>
     <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
-      <h2 class="text-3xl font-bold mb-6">Encomendas</h2>
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">Encomendas</h2>
       <Table
           :headers="['ID', 'Cliente', 'Status', 'Ações']"
           :rows="encomendas.map(encomenda => [encomenda.id,encomenda.cliente,encomenda.status,generateActionButton(encomenda)])"
@@ -15,6 +15,10 @@
           >
             {{ value }}
           </nuxt-link>
+        </template>
+
+        <template #col-2="{ value }">
+          <span :class="getStatusClasses(value)">{{ value }}</span>
         </template>
 
         <template #col-3="{ value }">
@@ -36,6 +40,7 @@
 import { ref } from 'vue'
 import { useFetch } from '#app'
 import Table from "~/components/Table.vue"
+import { getStatusClasses } from "@/utils/funcionsUtils.js";
 
 definePageMeta({
   layout: 'default' // Nome do layout (sem a extensão .vue)

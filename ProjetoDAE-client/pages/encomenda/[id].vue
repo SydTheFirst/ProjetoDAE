@@ -6,7 +6,7 @@
       </h1>
       <Table
           :headers="['Data de Partida', 'Data de Chegada', 'Método de Pagamento', 'Status']"
-          :rows="[[encomenda.dataPartida, encomenda.dataChegada, encomenda.metodoPagamento, encomenda.status]]"
+          :rows="[[formatDate(encomenda.dataPartida), formatDate(encomenda.dataChegada), encomenda.metodoPagamento, encomenda.status]]"
       >
         <template #col-3="{ value }">
           <span :class="getStatusClasses(value)">{{ value }}</span>
@@ -38,8 +38,11 @@
   </div>
 </template>
 
+
 <script setup>
 import Table from "@/components/Table.vue";
+import { formatDate } from "@/utils/funcionsUtils.js";
+import { getStatusClasses } from "@/utils/funcionsUtils.js";
 
 import { useRuntimeConfig } from "nuxt/app";
 import { useFetch } from "#app";
@@ -72,18 +75,6 @@ await Promise.all(
     embalagens.value.map((embalagem) => fetchProduto(embalagem.idProduto))
 );
 
-function getStatusClasses(status) {
-  switch (status) {
-    case "Pendente":
-      return "text-yellow-600 bg-yellow-100 px-2 py-1 rounded";
-    case "Concluído":
-      return "text-green-600 bg-green-100 px-2 py-1 rounded";
-    case "Cancelado":
-      return "text-red-600 bg-red-100 px-2 py-1 rounded";
-    default:
-      return "text-blue-600 bg-blue-100 px-2 py-1 rounded";
-  }
-}
 </script>
 
 

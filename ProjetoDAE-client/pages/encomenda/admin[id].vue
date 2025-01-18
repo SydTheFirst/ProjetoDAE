@@ -5,9 +5,15 @@
 
     <Table
         :headers="['Cliente', 'Data de Partida', 'Data de Chegada', 'Método de Pagamento', 'Status']"
-        :rows="[[encomenda.cliente, encomenda.dataPartida, encomenda.dataChegada, encomenda.metodoPagamento, encomenda.status]]"
-    >
+        :rows="[[encomenda.cliente, formatDate(encomenda.dataPartida), formatDate(encomenda.dataChegada), encomenda.metodoPagamento, encomenda.status]]">
+
+      <template #col-4="{ value }">
+        <span :class="getStatusClasses(value)">{{ value }}</span>
+      </template>
+
     </Table>
+
+
 
     <h2 class="text-2xl font-bold mt-8 mb-4">Volumes</h2>
     <Table
@@ -26,6 +32,8 @@
 
 <script setup>
 import Table from "@/components/Table.vue";
+import { formatDate } from "@/utils/funcionsUtils.js";
+import { getStatusClasses } from "@/utils/funcionsUtils.js";
 import { useRuntimeConfig } from 'nuxt/app';
 import { useFetch } from '#app';
 
@@ -38,16 +46,4 @@ const api = config.public.API_URL;
 const { data: encomenda } = await useFetch(`${api}/encomendas/${id}`);
 const { data: volumes } = await useFetch(`${api}/volumes/encomenda/${id}`);
 
-function getStatusClasses(status) {
-  switch (status) {
-    case "Pendente":
-      return "text-yellow-600 bg-yellow-100 px-2 py-1 rounded";
-    case "Concluído":
-      return "text-green-600 bg-green-100 px-2 py-1 rounded";
-    case "Cancelado":
-      return "text-red-600 bg-red-100 px-2 py-1 rounded";
-    default:
-      return "text-blue-600 bg-blue-100 px-2 py-1 rounded";
-  }
-}
 </script>
