@@ -50,7 +50,8 @@ async function login() {
                 })
                 if (response.status == 200) {
                     token.value = response._data
-                        console.log(authStore.user.tipouser)
+                    getUserInfo()    
+                    //console.log(authStore.user.tipouser)
                     
                         if(authStore.user.tipouser == "Admin"){
                             navigateTo('/admin');
