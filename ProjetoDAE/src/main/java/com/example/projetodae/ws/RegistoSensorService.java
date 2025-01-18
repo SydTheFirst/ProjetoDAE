@@ -3,13 +3,19 @@ package com.example.projetodae.ws;
 import com.example.projetodae.dtos.RegistoSensorDTO;
 import com.example.projetodae.ejbs.RegistoSensorBean;
 import com.example.projetodae.entities.RegistoSensor;
+import com.example.projetodae.security.Authenticated;
 import com.example.projetodae.utils.DTOconverter;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,8 +23,8 @@ import java.util.stream.Collectors;
 @Path("/registos")
 @Produces("application/json")
 @Consumes("application/json")
+@Authenticated
 public class RegistoSensorService {
-
     @EJB
     private RegistoSensorBean registoSensorBean;
 

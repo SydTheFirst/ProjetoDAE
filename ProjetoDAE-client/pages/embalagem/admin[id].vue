@@ -1,51 +1,31 @@
 <template>
-  <div>
-    <h1>Embalagem {{ embalagem.id }}</h1>
-    <table>
-      <thead>
-      <tr>
-        <th>Encomenda</th>
-        <th>Produto</th>
-        <th>Quantidade</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>{{ embalagem.idEncomenda }}</td>
-        <td>
-          <nuxt-link :to="`/produto/${embalagem.idProduto}`">
-            {{ embalagem.idProduto }}
-          </nuxt-link>
-        </td>
-        <td>{{ embalagem.quantidade }}</td>
-      </tr>
-      </tbody>
-    </table>
-
-    <h2>Sensores</h2>
-    <table>
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Tipo</th>
-        <th>Valor</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="sensor in sensores" :key="sensor.id">
-        <td>
-          <nuxt-link :to="`/sensor/${sensor.id}`">
-            {{ sensor.id }}
-          </nuxt-link>
-        </td>
-        <td>{{ sensor.tipoSensor }}</td>
-        <td>{{ registosRecentes[sensor.id] || "---" }}</td>
-
-      </tr>
-      </tbody>
-    </table>
-
-    <h2>Criar Registo</h2>
+  <div class="bg-gray-100 min-h-screen p-8">
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+      <h1 class="text-3xl font-bold mb-6">Embalagem {{ embalagem.id }}</h1>
+    <Table
+        :headers="['Encomenda', 'Produto', 'Quantidade']"
+        :rows="[[embalagem.idEncomenda, produtoNomes[embalagem.idProduto] || embalagem.idProduto, embalagem.quantidade]]"
+    >
+      <template #col-1="{ value }">
+        <nuxt-link :to="`/produto/${embalagem.idProduto}`" class="text-blue-600 hover:underline">
+          {{ value }}
+        </nuxt-link>
+      </template>
+    </Table>
+      <br>
+      <h2 class="text-3xl font-bold mb-6">Sensores</h2>
+    <Table
+        :headers="['ID', 'Tipo', 'Valor']"
+        :rows="sensores.map(sensor => [sensor.id, sensor.tipoSensor, registosRecentes[sensor.id]])"
+    >
+      <template #col-0="{ value }">
+        <nuxt-link :to="`/sensor/${value}`" class="text-blue-600 hover:underline">
+          {{ value }}
+        </nuxt-link>
+      </template>
+    </Table>
+      <br>
+      <h2 class="text-3xl font-bold mb-6">Criar Registo</h2>
     <form @submit.prevent="criarRegisto">
       <label for="sensor">Sensor:</label>
       <select v-model="novoRegisto.idSensor" id="sensor" required>
@@ -68,7 +48,9 @@
       </p>
     </form>
   </div>
+  </div>>
 </template>
+
 
 <script setup>
 import { useRuntimeConfig } from 'nuxt/app'
@@ -93,12 +75,11 @@ const novoRegisto = reactive({
   valor: '',
 })
 
-// Função para buscar detalhes do produto
 async function fetchProduto(idProduto) {
   if (!produtoNomes[idProduto]) {
     const { data: produto } = await useFetch(`${api}/produtos/${idProduto}`)
     if (produto.value) {
-      produtoNomes[idProduto] = produto.value.nome
+      produtoNomes[idProduto] = produto.value.nome // Armazena o nome do produto
     }
   }
   return produtoNomes[idProduto]
@@ -166,18 +147,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  text-align: left;
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-}
-th {
-  background-color: #f4f4f4;
-}
 form {
   margin-top: 20px;
 }
