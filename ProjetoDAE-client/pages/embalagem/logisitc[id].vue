@@ -29,6 +29,7 @@
         <th>ID</th>
         <th>Tipo</th>
         <th>Valor</th>
+        <th>Ações</th>
       </tr>
       </thead>
       <tbody>
@@ -40,21 +41,24 @@
         </td>
         <td>{{ sensor.tipoSensor }}</td>
         <td>{{ registosRecentes[sensor.id] || "---" }}</td>
+        <td>
+          <button @click="desassociarSensor(sensor.id)" class="eliminar-button">Desassociar</button>
+        </td>
       </tr>
       </tbody>
     </table>
 
-    <h2>Ativar Sensor</h2>
-    <form @submit.prevent="ativarSensor">
-      <label for="sensor">Selecionar Sensor:</label>
-      <select v-model="novoRegisto.idSensor" id="sensor" required>
+    <h2>Associar Sensor</h2>
+    <form @submit.prevent="associarSensor">
+      <label for="sensor">Sensor:</label>
+      <select v-model="novoSensorId" id="sensor" required @focus="fetchSensoresNaoAtivos">
         <option v-for="sensor in sensoresNaoAtivos" :value="sensor.id" :key="sensor.id">
           {{ sensor.id }} - {{ sensor.tipoSensor }}
         </option>
       </select>
 
       <p>
-        <button type="submit">Ativar Sensor</button>
+        <button type="submit">Associar</button>
       </p>
     </form>
   </div>
@@ -74,14 +78,26 @@ const api = config.public.API_URL
 
 // Dados reativos
 const { data: embalagem } = await useFetch(`${api}/embalagens/${id}`)
-const { data: sensoresNaoAtivos } = await useFetch(`${api}/sensors/nonactive`)
+const { data: sensores } = await useFetch(`${api}/sensors/embalagem/${id}`)
 
 const produtoNomes = reactive({})
 const registosRecentes = reactive({}) // Armazena os registos mais recentes para cada sensor
-const novoRegisto = reactive({
-  idSensor: '',
-})
-const sensores = ref([])
+const novoSensorId = ref('') // ID do sensor selecionado para associação
+
+const sensoresNaoAtivos = ref([]) // Sensores não ativos
+
+// Buscar sensores não ativos apenas quando o dropdown é ativado
+async function fetchSensoresNaoAtivos() {
+  try {
+    const { data } = await useFetch(`${api}/sensors/nonactive`)
+    if (data.value) {
+      sensoresNaoAtivos.value = data.value
+      console.log('Sensores não ativos:', sensoresNaoAtivos.value)
+    }
+  } catch (error) {
+    console.error('Erro ao buscar sensores não ativos:', error)
+  }
+}
 
 // Função para buscar detalhes do produto
 async function fetchProduto(idProduto) {
@@ -105,51 +121,92 @@ async function fetchRegistoMaisRecente(idSensor) {
   return registosRecentes[idSensor]
 }
 
-// Função para ativar o sensor e associá-lo à embalagem
-async function ativarSensor() {
-  const sensorId = novoRegisto.idSensor
+// Função para associar sensor à embalagem
+async function associarSensor() {
+  if (!novoSensorId.value) {
+    alert('Por favor, selecione um sensor para associar.')
+    return
+  }
 
   try {
-    const response = await fetch(`${api}/sensors/ativar`, {
-      method: 'POST',
+    // Buscar detalhes do sensor
+    const { data: sensorAtual } = await useFetch(`${api}/sensors/${novoSensorId.value}`)
+    if (!sensorAtual.value) {
+      throw new Error('Sensor não encontrado.')
+    }
+
+    // Atualizar sensor com o ID da embalagem e definir como ativo
+    const response = await fetch(`${api}/sensors/${novoSensorId.value}`, {
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        idSensor: sensorId,
-        idEmbalagem: id,
+        ...sensorAtual.value,
+        idEmbalagem: embalagem.value.id,
+        ativo: true,
       }),
     })
 
     if (!response.ok) {
-      throw new Error('Erro ao ativar o sensor.')
+      throw new Error('Erro ao associar sensor.')
     }
 
-    alert('Sensor ativado com sucesso!');
+    alert('Sensor associado com sucesso!')
 
-    // Atualizar a lista de sensores (agora com o sensor ativado)
-    await buscarSensores()
-
-    // Limpar campos do formulário
-    novoRegisto.idSensor = ''
+    // Atualizar listas de sensores
+    await fetchSensoresNaoAtivos()
+    const { data: sensoresAtualizados } = await useFetch(`${api}/sensors/embalagem/${id}`)
+    sensores.value = sensoresAtualizados.value || []
   } catch (error) {
     console.error(error)
-    alert('Houve um erro ao tentar ativar o sensor.')
+    alert('Houve um erro ao tentar associar o sensor.')
   }
 }
 
-// Função para buscar e atualizar a lista de sensores ativos
-async function buscarSensores() {
-  const { data: sensoresAtivos } = await useFetch(`${api}/sensors/embalagem/${id}`)
-  sensores.value = sensoresAtivos.value
+// Função para desassociar sensor da embalagem
+async function desassociarSensor(sensorId) {
+  try {
+    // Buscar detalhes do sensor
+    const { data: sensorAtual } = await useFetch(`${api}/sensors/${sensorId}`)
+    if (!sensorAtual.value) {
+      throw new Error('Sensor não encontrado.')
+    }
+
+    // Atualizar sensor para remover a embalagem e definir como não ativo
+    const response = await fetch(`${api}/sensors/${sensorId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...sensorAtual.value,
+        idEmbalagem: 0,
+        ativo: false,
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error('Erro ao desassociar sensor.')
+    }
+
+    alert('Sensor desassociado com sucesso!')
+
+    // Atualizar listas de sensores
+    await fetchSensoresNaoAtivos()
+    const { data: sensoresAtualizados } = await useFetch(`${api}/sensors/embalagem/${id}`)
+    sensores.value = sensoresAtualizados.value || []
+  } catch (error) {
+    console.error(error)
+    alert('Houve um erro ao tentar desassociar o sensor.')
+  }
 }
 
-// Buscar registros recentes e sensores ativos ao montar o componente
+// Buscar registros recentes ao montar o componente
 onMounted(async () => {
   if (embalagem.value) {
     await fetchProduto(embalagem.value.idProduto);
   }
 
-  // Buscar sensores ativos para a embalagem
-  await buscarSensores()
+  if (sensores.value) {
+    await Promise.all(sensores.value.map(sensor => fetchRegistoMaisRecente(sensor.id)));
+  }
 });
 </script>
 
@@ -174,7 +231,7 @@ label {
   margin-bottom: 5px;
   font-weight: bold;
 }
-input, select, button {
+select, button {
   margin-bottom: 15px;
   padding: 10px;
   width: 100%;
@@ -188,5 +245,15 @@ button {
 }
 button:hover {
   background-color: #0056b3;
+}
+
+/* Estilo do botão Desassociar igual ao botão Eliminar */
+button.eliminar-button {
+  background-color: #f44336;
+  color: white;
+}
+
+button.eliminar-button:hover {
+  background-color: #e53935;
 }
 </style>

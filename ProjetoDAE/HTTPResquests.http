@@ -188,9 +188,8 @@ Content-Type: application/json
 {
     "id": "10",
     "tipoSensor": "TEMPERATURA",
-    "valor": "20 C",
-    "idEmbalagem": "1",
-    "ativo": "true"
+    "idEmbalagem": "0",
+    "ativo": "false"
 }
 
 ###
