@@ -1,10 +1,17 @@
 <template>
-    <h1>Login Form</h1>
-    <div>Username: <input v-model="loginFormData.username"></div>
-    <div>Password: <input v-model="loginFormData.password"></div>
+  <div class="login-container">
+    <h1>Login</h1>
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input id="username" v-model="loginFormData.username" type="text" placeholder="Digite seu username" />
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input id="password" v-model="loginFormData.password" type="password" placeholder="Digite sua senha" />
+    </div>
     <button @click="login">LOGIN</button>
-    <button @click="reset">RESET</button>
-
+    <button @click="reset" class="reset-btn">RESET</button>
+  </div>
 </template>
 
 <script setup>
@@ -99,3 +106,63 @@ async function getUserInfo() {
     }
 }
 </script>
+
+<style scoped>
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 300px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.reset-btn {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+button:not(.reset-btn) {
+  background-color: #007bff;
+  color: #fff;
+}
+</style>
