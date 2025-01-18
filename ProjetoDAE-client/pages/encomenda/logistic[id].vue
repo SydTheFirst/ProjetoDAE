@@ -43,9 +43,11 @@
         type="text"
         id="novoVolumeId"
         v-model="novoVolumeId"
+        @input="verificarVolumeExistente"
     />
+    <span v-if="volumeExiste" style="color: red;">O ID do volume já existe!</span>
     <p>
-      <button @click="criarVolume" :disabled="isCreatingVolume">Criar Volume</button>
+      <button @click="criarVolume" :disabled="volumeExiste || isCreatingVolume">Criar Volume</button>
     </p>
   </div>
 </template>
@@ -65,7 +67,31 @@ const { data: encomenda } = await useFetch(`${api}/encomendas/${id}`)
 const { data: volumes, refresh } = await useFetch(`${api}/volumes/encomenda/${id}`)
 
 const novoVolumeId = ref('')
+const volumeExiste = ref(false)
 const isCreatingVolume = ref(false)
+
+// Função para verificar se o volume já existe
+async function verificarVolumeExistente() {
+  if (!novoVolumeId.value) {
+    volumeExiste.value = false
+    return
+  }
+
+  const novoVolumeIdCompleto = `V${encomenda.value.id}-${novoVolumeId.value}`
+  try {
+    const response = await fetch(`${api}/volumes/${novoVolumeIdCompleto}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+
+    volumeExiste.value = response.ok // Se o status for 200, o volume existe
+  } catch (error) {
+    console.error('Erro ao verificar volume:', error)
+    volumeExiste.value = false
+  }
+}
 
 // Função para eliminar volume
 async function eliminarVolume(volumeId) {
@@ -100,10 +126,7 @@ async function criarVolume() {
 
   const novoVolumeIdCompleto = `V${encomenda.value.id}-${novoVolumeId.value}`
 
-  // Verificar se o ID já existe
-  const volumeExiste = volumes.value.some(volume => volume.id === novoVolumeIdCompleto)
-
-  if (volumeExiste) {
+  if (volumeExiste.value) {
     alert(`O volume com o ID ${novoVolumeIdCompleto} já existe!`)
     return
   }
